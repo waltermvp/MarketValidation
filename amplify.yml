@@ -3,10 +3,8 @@ backend:
   phases:
     preBuild:
       commands:
-        - 'npm install -g pnpm'
-        # - 'nvm install 20'
-        # - 'nvm use 20'
-        - 'pnpm install'
+        - npm install -g pnpm
+        - pnpm install
     build:
       commands:
         # - npm ci #--cache .npm --prefer-offline
@@ -16,11 +14,6 @@ frontend:
   phases:
     preBuild:
       commands:
-        - 'npm install -g pnpm'
-        - 'nvm install 20'
-        - 'nvm use 20'
-        - 'pnpm install'
-
         - npm install -g pnpm
         - pnpm install
         # - npm install --silent --global expo-cli
