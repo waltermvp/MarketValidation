@@ -1,26 +1,37 @@
 import { a, type ClientSchema, defineData } from '@aws-amplify/backend';
 
+import { signUpNewsletter } from '../functions/signUp-newsletter/resource';
+
 /*== STEP 1 ===============================================================
 The section below creates a Todo database table with a "content" field. Try
 adding a new "isDone" field as a boolean. The authorization rule below
 specifies that any unauthenticated user can "create", "read", "update", 
 and "delete" any "Todo" records.
 =========================================================================*/
-const schema = a.schema({
-  Todo: a
-    .model({
-      content: a.string(),
-    })
-    .authorization((allow) => [allow.guest()]),
+const schema = a
+  .schema({
+    User: a
+      .model({
+        email: a.email().required(),
+        name: a.string(),
+        // content: a.string(),
+      })
+      .identifier(['email'])
+      .authorization((allow) => [allow.guest()]),
 
-  User: a
-    .model({
-      email: a.email(),
-      name: a.string(),
-      // content: a.string(),
-    })
-    .authorization((allow) => [allow.guest()]),
-});
+    signUpNewsletter: a
+      .query()
+      .arguments({
+        email: a.string(),
+        callbackURL: a.string(),
+      })
+      .returns(a.customType({ success: a.boolean() }))
+      .handler(a.handler.function(signUpNewsletter))
+      .authorization((allow) => [allow.guest()]),
+  })
+  .authorization((allow) => [
+    allow.resource(signUpNewsletter).to(['query', 'listen', 'mutate']),
+  ]);
 
 export type Schema = ClientSchema<typeof schema>;
 

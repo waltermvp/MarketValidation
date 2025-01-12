@@ -1,3 +1,6 @@
+import { type Schema } from 'amplify/data/resource';
+import { Amplify } from 'aws-amplify';
+import { generateClient } from 'aws-amplify/api'; // import { EnvEnv } from 'env';
 import React from 'react';
 import {
   Button,
@@ -9,10 +12,15 @@ import {
   View,
 } from 'react-native';
 
+import { Newsletter } from '@/components/newsletter';
 import { colors } from '@/components/ui';
-import { ZipInput } from '@/components/zip-input';
 
+import outputs from '../../amplify_outputs.json';
+
+Amplify.configure(outputs);
+// eslint-disable-next-line max-lines-per-function
 const Home = () => {
+  const client = generateClient<Schema>();
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <ImageBackground
@@ -22,17 +30,40 @@ const Home = () => {
         style={styles.headerBackground}
         resizeMode="cover"
       >
+        <View style={styles.overlay} />
         <View style={styles.header}>
-          <Text style={styles.title}>
+          <Text className="text-4xl text-white">
             Unlimited movies, TV shows, and more.
           </Text>
-          <Text style={styles.subtitle}>Watch anywhere. Cancel anytime.</Text>
-          <TextInput
+          <Text style={styles.subtitle} className="text-3xl text-white">
+            Watch anywhere. Cancel anytime.
+          </Text>
+          {/* <TextInput
             style={styles.input}
             placeholder="Email address"
             placeholderTextColor="#999"
+          /> */}
+          <Newsletter
+            title="Sign Up"
+            subtitle='"Register for updates'
+            callBack={async (email) => {
+              console.log(email);
+
+              try {
+                const result = await client.queries.signUpNewsletter({
+                  email,
+                  // callbackURL: Env.API_URL,
+                });
+                console.log('email', email, result);
+              } catch (error) {
+                console.log(error);
+              }
+            }}
+            placeholder="Enter your email"
+            buttonText="Sign Up"
+            successMessage="Thank you for singing up"
+            errorMessage="Whoops"
           />
-          <ZipInput />
           <Button title="GET STARTED" onPress={() => {}} color="#e50914" />
         </View>
       </ImageBackground>
@@ -87,10 +118,9 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     backgroundColor: '#000',
-    padding: 20,
+    // padding: 20,
   },
   headerBackground: {
-    padding: 20,
     marginBottom: 40,
   },
   header: {
@@ -148,6 +178,14 @@ const styles = StyleSheet.create({
   },
   footer: {
     alignItems: 'center',
+  },
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
 });
 

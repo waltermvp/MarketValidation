@@ -38,10 +38,12 @@
     "test:ci": "pnpm run test --coverage",
     "test:watch": "pnpm run test --watch",
     "install-maestro": "curl -Ls 'https://get.maestro.mobile.dev' | bash",
-    "e2e-test": "maestro test .maestro/ -e APP_ID=com.obytes.development"
+    "e2e-test": "maestro test .maestro/ -e APP_ID=com.obytes.development",
+    "generate:graphql": "npx ampx generate graphql-client-code --out amplify/functions/signUp-newsletter/graphql"
   },
   "dependencies": {
     "@aws-amplify/react-native": "^1.1.6",
+    "@aws-sdk/client-ses": "^3.726.1",
     "@expo/metro-runtime": "^4.0.0",
     "@gorhom/bottom-sheet": "^5.0.5",
     "@hookform/resolvers": "^3.9.0",

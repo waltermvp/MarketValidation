@@ -51,6 +51,7 @@ export interface NInputProps extends TextInputProps {
   label?: string;
   disabled?: boolean;
   error?: string;
+  errorClassName?: string;
 }
 
 type TRule<T extends FieldValues> =
