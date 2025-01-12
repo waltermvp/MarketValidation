@@ -1,4 +1,27 @@
+
+
+# Market Validation
+
+This repo is a simple project that quickly allows you to customize and deploy a simple landing page that helps you sample the interest in your product.
+
+
+## Configuration
+
+Replace the values in `en.json` for the corresponding keys.
+
+Replace the values in `color.js` with your theme.
+
+Replace the background image in `assets/background.png`
+
+
+TODO:
+
+[ ]Allow easy configuration of email being sent 
+[ ] Document backend being amplify
+
+
 <h1 align="center">
+
   <img alt="logo" src="./assets/icon.png" width="124px" style="border-radius:10px"/><br/>
 Mobile App </h1>
 

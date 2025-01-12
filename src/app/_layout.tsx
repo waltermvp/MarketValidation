@@ -34,7 +34,7 @@ SplashScreen.setOptions({
 export default function RootLayout() {
   return (
     <Providers>
-      <Stack>
+      <Stack initialRouteName="home">
         <Stack.Screen name="home" options={{ headerShown: false }} />
         {/* <Stack.Screen name="(app)" options={{ headerShown: false }} />
         <Stack.Screen name="onboarding" options={{ headerShown: false }} />

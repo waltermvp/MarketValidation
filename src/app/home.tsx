@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import { colors } from '@/components/ui';
+import { ZipInput } from '@/components/zip-input';
 
 const Home = () => {
   return (
@@ -31,6 +32,7 @@ const Home = () => {
             placeholder="Email address"
             placeholderTextColor="#999"
           />
+          <ZipInput />
           <Button title="GET STARTED" onPress={() => {}} color="#e50914" />
         </View>
       </ImageBackground>
