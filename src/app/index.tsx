@@ -1,8 +1,7 @@
 import { type Schema } from 'amplify/data/resource';
 import { Amplify } from 'aws-amplify';
 import { generateClient } from 'aws-amplify/api'; // import { EnvEnv } from 'env';
-import { t } from 'i18next';
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Button,
   ImageBackground,
@@ -12,14 +11,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { Easing } from 'react-native';
-import {
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from 'react-native-reanimated';
 
-import { MenuBar } from '@/components/menu-bar';
 import { Newsletter } from '@/components/newsletter';
 import { colors } from '@/components/ui';
 
@@ -28,44 +20,40 @@ import outputs from '../../amplify_outputs.json';
 Amplify.configure(outputs);
 // eslint-disable-next-line max-lines-per-function
 const Home = () => {
-  const offset = useSharedValue<number>(1);
+  // const offset = useSharedValue<number>(1);
 
-  // const animationValue = useSharedValue(0);
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [
-      {
-        scale: withTiming(offset.value, {
-          duration: 300,
-          easing: Easing.inOut(Easing.ease),
-        }),
-      },
-    ],
-  }));
+  // // const animationValue = useSharedValue(0);
+  // const animatedStyle = useAnimatedStyle(() => ({
+  //   transform: [
+  //     {
+  //       scale: withTiming(offset.value, {
+  //         duration: 300,
+  //         easing: Easing.inOut(Easing.ease),
+  //       }),
+  //     },
+  //   ],
+  // }));
   const client = generateClient<Schema>();
-  const [lang, setLang] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('preferredLanguage') || 'en';
-    }
-    return 'en';
-  });
-  const handleLanguageChange = (newLang: string) => {
-    setLang(newLang);
-    localStorage.setItem('preferredLanguage', newLang);
-  };
+  // const [lang, setLang] = useState(() => {
+  //   if (typeof window !== 'undefined') {
+  //     return localStorage.getItem('preferredLanguage') || 'en';
+  //   }
+  //   return 'en';
+  // });
+  // const handleLanguageChange = (newLang: string) => {
+  //   setLang(newLang);
+  //   localStorage.setItem('preferredLanguage', newLang);
+  // };
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <MenuBar
+      {/* <MenuBar
         lang={lang}
         onLanguageChange={handleLanguageChange}
-        // onCartPress={() => setIsCartOpen(true)}
-        // isAuthenticated={isAuthenticated}
         animatedStyle={animatedStyle}
         t={t}
-      />{' '}
+      /> */}
       <ImageBackground
-        source={{
-          uri: 'https://images.unsplash.com/photo-1515386474292-47555758ef2e?auto=format&fit=crop&w=800&q=80',
-        }}
+        source={require('../../assets/background.jpeg')}
         style={styles.headerBackground}
         resizeMode="cover"
       >
@@ -155,9 +143,12 @@ const styles = StyleSheet.create({
     // padding: 20,
   },
   headerBackground: {
-    marginBottom: 40,
+    height: 500,
+    width: '100%',
+    // marginBottom: 40,
   },
   header: {
+    paddingTop: 20,
     alignItems: 'center',
   },
   title: {
