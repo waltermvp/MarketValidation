@@ -39,7 +39,8 @@
     "test:watch": "pnpm run test --watch",
     "install-maestro": "curl -Ls 'https://get.maestro.mobile.dev' | bash",
     "e2e-test": "maestro test .maestro/ -e APP_ID=com.obytes.development",
-    "generate:graphql": "npx ampx generate graphql-client-code --out amplify/functions/signUp-newsletter/graphql"
+    "generate:graphql": "npx ampx generate graphql-client-code --out amplify/functions/signUp-newsletter/graphql",
+    "amp-sand": "npx ampx sandbox --stream-function-logs"
   },
   "dependencies": {
     "@aws-amplify/react-native": "^1.1.6",
