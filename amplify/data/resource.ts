@@ -16,7 +16,7 @@ const schema = a
         name: a.string(),
         // content: a.string(),
       })
-      .identifier(['email'])
+      // .identifier(['email'])
       .authorization((allow) => [allow.guest()]),
 
     signUpNewsletter: a
