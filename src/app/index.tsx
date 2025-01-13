@@ -8,7 +8,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from 'react-native';
 
@@ -94,43 +93,46 @@ const Home = () => {
           <Button title="GET STARTED" onPress={() => {}} color="#e50914" />
         </View>
       </ImageBackground>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Enjoy on your TV.</Text>
-        <Text style={styles.sectionText}>
-          Watch on Smart TVs, Playstation, Xbox, Chromecast, Apple TV, Blu-ray
-          players, and more.
-        </Text>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>
-          Download your shows to watch offline.
-        </Text>
-        <Text style={styles.sectionText}>
-          Save your favorites easily and always have something to watch.
-        </Text>
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Watch everywhere.</Text>
-        <Text style={styles.sectionText}>
-          Stream unlimited movies and TV shows on your phone, tablet, laptop,
-          and TV without paying more.
-        </Text>
-      </View>
-      <View style={styles.faq}>
-        <Text style={styles.faqTitle}>Frequently Asked Questions</Text>
-        <Text style={styles.faqItem}>What is Netflix?</Text>
-        <Text style={styles.faqItem}>How much does Netflix cost?</Text>
-        <Text style={styles.faqItem}>Where can I watch?</Text>
-        <Text style={styles.faqItem}>How do I cancel?</Text>
-        <Text style={styles.faqItem}>What can I watch on Netflix?</Text>
-      </View>
-      <View style={styles.footer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Email address"
-          placeholderTextColor="#999"
-        />
-        <Button title="GET STARTED" onPress={() => {}} color="#e50914" />
+
+      <View className="p-4">
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Enjoy on your TV.</Text>
+          <Text style={styles.sectionText}>
+            Watch on Smart TVs, Playstation, Xbox, Chromecast, Apple TV, Blu-ray
+            players, and more.
+          </Text>
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>
+            Download your shows to watch offline.
+          </Text>
+          <Text style={styles.sectionText}>
+            Save your favorites easily and always have something to watch.
+          </Text>
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Watch everywhere.</Text>
+          <Text style={styles.sectionText}>
+            Stream unlimited movies and TV shows on your phone, tablet, laptop,
+            and TV without paying more.
+          </Text>
+        </View>
+        <View style={styles.faq}>
+          <Text style={styles.faqTitle}>Frequently Asked Questions</Text>
+          <Text style={styles.faqItem}>What is Netflix?</Text>
+          <Text style={styles.faqItem}>How much does Netflix cost?</Text>
+          <Text style={styles.faqItem}>Where can I watch?</Text>
+          <Text style={styles.faqItem}>How do I cancel?</Text>
+          <Text style={styles.faqItem}>What can I watch on Netflix?</Text>
+        </View>
+        <View style={styles.footer}>
+          {/* <TextInput
+            style={styles.input}
+            placeholder="Email address"
+            placeholderTextColor="#999"
+          />
+          <Button title="GET STARTED" onPress={() => {}} color="#e50914" /> */}
+        </View>
       </View>
     </ScrollView>
   );
