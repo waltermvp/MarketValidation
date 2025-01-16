@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import { Picker } from '@react-native-picker/picker';
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
@@ -32,6 +33,9 @@ export const Newsletter = ({
     }
     return false;
   });
+  const [country, setCountry] = useState('');
+  const [zipCode, setZipCode] = useState('');
+  const countries = ['USA', 'Canada', 'UK', 'Australia'];
 
   const handleSubmit = async () => {
     setLoading(true);
@@ -64,19 +68,42 @@ export const Newsletter = ({
             </Animated.View>
           ) : (
             <>
-              <Input
-                error={errorMessage}
-                errorClassName="text-neutral-200 dark:text-neutral-200"
-                className="flex-1 rounded-md border border-neutral-700 bg-neutral-800 p-3 text-white"
-                placeholder={placeholder}
-                autoComplete="email"
-                keyboardType="email-address"
-                placeholderTextColor="#9CA3AF"
-                value={email}
-                onChangeText={setEmail}
-                autoCapitalize="none"
-                onSubmitEditing={handleSubmit}
-              />
+              <View className="flex flex-row space-x-2">
+                <Input
+                  error={errorMessage}
+                  errorClassName="text-neutral-200 dark:text-neutral-200"
+                  className="flex-1 rounded-md border border-neutral-700 bg-neutral-800 p-3 text-white"
+                  placeholder={placeholder}
+                  autoComplete="email"
+                  keyboardType="email-address"
+                  placeholderTextColor="#9CA3AF"
+                  value={email}
+                  onChangeText={setEmail}
+                  autoCapitalize="none"
+                  onSubmitEditing={handleSubmit}
+                />
+                <Picker
+                  selectedValue={country}
+                  onValueChange={(itemValue) => setCountry(itemValue)}
+                  className="flex-1 rounded-md border border-neutral-700 bg-neutral-800 text-white"
+                >
+                  <Picker.Item label="Select Country" value="" />
+                  {countries.map((country) => (
+                    <Picker.Item
+                      key={country}
+                      label={country}
+                      value={country}
+                    />
+                  ))}
+                </Picker>
+                <Input
+                  className="flex-1 rounded-md border border-neutral-700 bg-neutral-800 p-3 text-white"
+                  placeholder="Zip Code"
+                  value={zipCode}
+                  onChangeText={setZipCode}
+                  keyboardType="numeric"
+                />
+              </View>
               <Button
                 label={buttonText}
                 loading={loading}
