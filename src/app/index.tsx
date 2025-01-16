@@ -1,7 +1,7 @@
 import { type Schema } from 'amplify/data/resource';
 import { Amplify } from 'aws-amplify';
 import { generateClient } from 'aws-amplify/api'; // import { EnvEnv } from 'env';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   ImageBackground,
@@ -11,6 +11,7 @@ import {
   View,
 } from 'react-native';
 
+import { MenuBar } from '@/components/menu-bar';
 import { Newsletter } from '@/components/newsletter';
 import { colors } from '@/components/ui';
 
@@ -33,29 +34,29 @@ const Home = () => {
   //   ],
   // }));
   const client = generateClient<Schema>();
-  // const [lang, setLang] = useState(() => {
-  //   if (typeof window !== 'undefined') {
-  //     return localStorage.getItem('preferredLanguage') || 'en';
-  //   }
-  //   return 'en';
-  // });
-  // const handleLanguageChange = (newLang: string) => {
-  //   setLang(newLang);
-  //   localStorage.setItem('preferredLanguage', newLang);
-  // };
+  const [lang, setLang] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('preferredLanguage') || 'en';
+    }
+    return 'en';
+  });
+  const handleLanguageChange = (newLang: string) => {
+    setLang(newLang);
+    localStorage.setItem('preferredLanguage', newLang);
+  };
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {/* <MenuBar
-        lang={lang}
-        onLanguageChange={handleLanguageChange}
-        animatedStyle={animatedStyle}
-        t={t}
-      /> */}
       <ImageBackground
         source={require('../../assets/background.jpeg')}
         style={styles.headerBackground}
         resizeMode="cover"
       >
+        <MenuBar
+          lang={lang}
+          onLanguageChange={handleLanguageChange}
+          // animatedStyle={animatedStyle}
+          // t={t}
+        />
         <View style={styles.overlay} />
         <View style={styles.header}>
           <Text className="text-4xl text-white">
