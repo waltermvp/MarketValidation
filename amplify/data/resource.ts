@@ -14,15 +14,19 @@ const schema = a
       .model({
         email: a.email().required(),
         name: a.string(),
-        // content: a.string(),
+        source: a.string().default('landingPage'),
+        country: a.string(),
+        zip: a.string(),
       })
-      // .identifier(['email'])
+      .identifier(['email'])
       .authorization((allow) => [allow.guest()]),
 
     signUpNewsletter: a
       .query()
       .arguments({
-        email: a.string(),
+        email: a.string().required(),
+        country: a.string(),
+        zip: a.string(),
         callbackURL: a.string(),
       })
       .returns(a.customType({ success: a.boolean() }))

@@ -5,8 +5,6 @@ import Animated from 'react-native-reanimated';
 import { LanguageSelector } from '@/components/language-selector';
 import { View } from '@/components/ui';
 
-import Icon from './icon';
-
 type MenuBarProps = {
   lang: string;
   onLanguageChange: (newLang: string) => void;
@@ -28,7 +26,7 @@ export function MenuBar({
   return (
     <View className="align-center w-full flex-row justify-between px-6">
       <Animated.View style={animatedStyle} className={'left-4 top-4'}>
-        <Icon />
+        {/* <Icon /> */}
         {/* <Image
           className=" left-4 top-4 size-48"
           // style={{ width: 150, height: 75 }}
@@ -39,7 +37,7 @@ export function MenuBar({
         /> */}
       </Animated.View>
       <Animated.View style={animatedStyle} className={'h-full '}>
-        <LanguageSelector currentLang={lang} onChangeLang={onLanguageChange} />x{' '}
+        <LanguageSelector currentLang={lang} onChangeLang={onLanguageChange} />
       </Animated.View>
     </View>
   );

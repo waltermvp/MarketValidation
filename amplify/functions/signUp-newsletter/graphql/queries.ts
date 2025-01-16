@@ -8,44 +8,17 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
-export const getTodo = /* GraphQL */ `query GetTodo($id: ID!) {
-  getTodo(id: $id) {
-    content
-    createdAt
-    id
-    updatedAt
-    __typename
-  }
-}
-` as GeneratedQuery<APITypes.GetTodoQueryVariables, APITypes.GetTodoQuery>;
 export const getUser = /* GraphQL */ `query GetUser($email: AWSEmail!) {
   getUser(email: $email) {
     createdAt
     email
     name
+    source
     updatedAt
     __typename
   }
 }
 ` as GeneratedQuery<APITypes.GetUserQueryVariables, APITypes.GetUserQuery>;
-export const listTodos = /* GraphQL */ `query ListTodos(
-  $filter: ModelTodoFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listTodos(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      content
-      createdAt
-      id
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<APITypes.ListTodosQueryVariables, APITypes.ListTodosQuery>;
 export const listUsers = /* GraphQL */ `query ListUsers(
   $email: AWSEmail
   $filter: ModelUserFilterInput
@@ -64,6 +37,7 @@ export const listUsers = /* GraphQL */ `query ListUsers(
       createdAt
       email
       name
+      source
       updatedAt
       __typename
     }
@@ -72,3 +46,23 @@ export const listUsers = /* GraphQL */ `query ListUsers(
   }
 }
 ` as GeneratedQuery<APITypes.ListUsersQueryVariables, APITypes.ListUsersQuery>;
+export const signUpNewsletter = /* GraphQL */ `query SignUpNewsletter(
+  $callbackURL: String
+  $country: String
+  $email: String!
+  $zip: String
+) {
+  signUpNewsletter(
+    callbackURL: $callbackURL
+    country: $country
+    email: $email
+    zip: $zip
+  ) {
+    success
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.SignUpNewsletterQueryVariables,
+  APITypes.SignUpNewsletterQuery
+>;

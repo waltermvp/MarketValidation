@@ -22,7 +22,7 @@ export const Newsletter = ({
   buttonText: string;
   successMessage: string;
   errorMessage: string;
-  callBack: (email: string) => Promise<void>;
+  callBack: (email: string, country?: string, zip?: string) => Promise<void>;
 }) => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
@@ -38,6 +38,7 @@ export const Newsletter = ({
   const countries = ['USA', 'Canada', 'UK', 'Australia'];
 
   const handleSubmit = async () => {
+    console.log('hanle submit in newsletter');
     setLoading(true);
     try {
       await callBack(email);

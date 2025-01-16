@@ -42,14 +42,13 @@ Amplify.configure(
 const dataClient = generateClient<Schema>();
 const ses = new SESClient({ region: env.AWS_REGION });
 const htmlOutput = welcomeHTML;
-console.log(htmlOutput, 'output');
 
 // eslint-disable-next-line max-lines-per-function
 export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
   event,
   _context
 ) => {
-  const { email, callbackURL } = event.arguments;
+  const { email, callbackURL, country, zip } = event.arguments;
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return { success: false, message: 'Invalid email format' };
@@ -66,6 +65,8 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
           // newsletterToken: newsletterToken,
           name: 'My first todo',
           email: email,
+          country: country ? country : undefined,
+          zip: zip ? zip : undefined,
           // newsletterConfirmed: false,
           // newsletterSubscribed: true,
         },

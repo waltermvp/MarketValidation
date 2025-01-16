@@ -73,12 +73,14 @@ const Home = () => {
           <Newsletter
             title="Sign Up"
             subtitle='"Register for updates'
-            callBack={async (email) => {
+            callBack={async (email, country, zip) => {
               console.log(email);
 
               try {
                 const result = await client.queries.signUpNewsletter({
                   email,
+                  country: country ? country : undefined,
+                  zip: zip ? zip : undefined,
                   // callbackURL: Env.API_URL,
                 });
                 console.log('email', email, result);
