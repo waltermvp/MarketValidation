@@ -13,11 +13,13 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
   $input: CreateUserInput!
 ) {
   createUser(condition: $condition, input: $input) {
+    country
     createdAt
     email
     name
     source
     updatedAt
+    zip
     __typename
   }
 }
@@ -30,11 +32,13 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
   $input: DeleteUserInput!
 ) {
   deleteUser(condition: $condition, input: $input) {
+    country
     createdAt
     email
     name
     source
     updatedAt
+    zip
     __typename
   }
 }
@@ -47,11 +51,13 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
   $input: UpdateUserInput!
 ) {
   updateUser(condition: $condition, input: $input) {
+    country
     createdAt
     email
     name
     source
     updatedAt
+    zip
     __typename
   }
 }

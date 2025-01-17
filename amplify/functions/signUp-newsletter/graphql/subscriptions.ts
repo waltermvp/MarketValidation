@@ -10,11 +10,13 @@ type GeneratedSubscription<InputType, OutputType> = string & {
 
 export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
   onCreateUser(filter: $filter) {
+    country
     createdAt
     email
     name
     source
     updatedAt
+    zip
     __typename
   }
 }
@@ -24,11 +26,13 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
 >;
 export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
   onDeleteUser(filter: $filter) {
+    country
     createdAt
     email
     name
     source
     updatedAt
+    zip
     __typename
   }
 }
@@ -38,11 +42,13 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
 >;
 export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
   onUpdateUser(filter: $filter) {
+    country
     createdAt
     email
     name
     source
     updatedAt
+    zip
     __typename
   }
 }

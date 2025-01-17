@@ -4,15 +4,18 @@
 
 export type User = {
   __typename: "User",
+  country?: string | null,
   createdAt: string,
   email: string,
   name?: string | null,
   source?: string | null,
   updatedAt: string,
+  zip?: string | null,
 };
 
 export type ModelUserFilterInput = {
   and?: Array< ModelUserFilterInput | null > | null,
+  country?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   email?: ModelStringInput | null,
   id?: ModelIDInput | null,
@@ -21,6 +24,7 @@ export type ModelUserFilterInput = {
   or?: Array< ModelUserFilterInput | null > | null,
   source?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
+  zip?: ModelStringInput | null,
 };
 
 export type ModelStringInput = {
@@ -98,18 +102,22 @@ export type SignUpNewsletterReturnType = {
 
 export type ModelUserConditionInput = {
   and?: Array< ModelUserConditionInput | null > | null,
+  country?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   name?: ModelStringInput | null,
   not?: ModelUserConditionInput | null,
   or?: Array< ModelUserConditionInput | null > | null,
   source?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
+  zip?: ModelStringInput | null,
 };
 
 export type CreateUserInput = {
+  country?: string | null,
   email: string,
   name?: string | null,
   source?: string | null,
+  zip?: string | null,
 };
 
 export type DeleteUserInput = {
@@ -117,13 +125,16 @@ export type DeleteUserInput = {
 };
 
 export type UpdateUserInput = {
+  country?: string | null,
   email: string,
   name?: string | null,
   source?: string | null,
+  zip?: string | null,
 };
 
 export type ModelSubscriptionUserFilterInput = {
   and?: Array< ModelSubscriptionUserFilterInput | null > | null,
+  country?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   email?: ModelSubscriptionStringInput | null,
   id?: ModelSubscriptionIDInput | null,
@@ -131,6 +142,7 @@ export type ModelSubscriptionUserFilterInput = {
   or?: Array< ModelSubscriptionUserFilterInput | null > | null,
   source?: ModelSubscriptionStringInput | null,
   updatedAt?: ModelSubscriptionStringInput | null,
+  zip?: ModelSubscriptionStringInput | null,
 };
 
 export type ModelSubscriptionStringInput = {
@@ -170,11 +182,13 @@ export type GetUserQueryVariables = {
 export type GetUserQuery = {
   getUser?:  {
     __typename: "User",
+    country?: string | null,
     createdAt: string,
     email: string,
     name?: string | null,
     source?: string | null,
     updatedAt: string,
+    zip?: string | null,
   } | null,
 };
 
@@ -191,11 +205,13 @@ export type ListUsersQuery = {
     __typename: "ModelUserConnection",
     items:  Array< {
       __typename: "User",
+      country?: string | null,
       createdAt: string,
       email: string,
       name?: string | null,
       source?: string | null,
       updatedAt: string,
+      zip?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -223,11 +239,13 @@ export type CreateUserMutationVariables = {
 export type CreateUserMutation = {
   createUser?:  {
     __typename: "User",
+    country?: string | null,
     createdAt: string,
     email: string,
     name?: string | null,
     source?: string | null,
     updatedAt: string,
+    zip?: string | null,
   } | null,
 };
 
@@ -239,11 +257,13 @@ export type DeleteUserMutationVariables = {
 export type DeleteUserMutation = {
   deleteUser?:  {
     __typename: "User",
+    country?: string | null,
     createdAt: string,
     email: string,
     name?: string | null,
     source?: string | null,
     updatedAt: string,
+    zip?: string | null,
   } | null,
 };
 
@@ -255,11 +275,13 @@ export type UpdateUserMutationVariables = {
 export type UpdateUserMutation = {
   updateUser?:  {
     __typename: "User",
+    country?: string | null,
     createdAt: string,
     email: string,
     name?: string | null,
     source?: string | null,
     updatedAt: string,
+    zip?: string | null,
   } | null,
 };
 
@@ -270,11 +292,13 @@ export type OnCreateUserSubscriptionVariables = {
 export type OnCreateUserSubscription = {
   onCreateUser?:  {
     __typename: "User",
+    country?: string | null,
     createdAt: string,
     email: string,
     name?: string | null,
     source?: string | null,
     updatedAt: string,
+    zip?: string | null,
   } | null,
 };
 
@@ -285,11 +309,13 @@ export type OnDeleteUserSubscriptionVariables = {
 export type OnDeleteUserSubscription = {
   onDeleteUser?:  {
     __typename: "User",
+    country?: string | null,
     createdAt: string,
     email: string,
     name?: string | null,
     source?: string | null,
     updatedAt: string,
+    zip?: string | null,
   } | null,
 };
 
@@ -300,10 +326,12 @@ export type OnUpdateUserSubscriptionVariables = {
 export type OnUpdateUserSubscription = {
   onUpdateUser?:  {
     __typename: "User",
+    country?: string | null,
     createdAt: string,
     email: string,
     name?: string | null,
     source?: string | null,
     updatedAt: string,
+    zip?: string | null,
   } | null,
 };

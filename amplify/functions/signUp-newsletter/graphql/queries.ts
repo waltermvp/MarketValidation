@@ -10,11 +10,13 @@ type GeneratedQuery<InputType, OutputType> = string & {
 
 export const getUser = /* GraphQL */ `query GetUser($email: AWSEmail!) {
   getUser(email: $email) {
+    country
     createdAt
     email
     name
     source
     updatedAt
+    zip
     __typename
   }
 }
@@ -34,11 +36,13 @@ export const listUsers = /* GraphQL */ `query ListUsers(
     sortDirection: $sortDirection
   ) {
     items {
+      country
       createdAt
       email
       name
       source
       updatedAt
+      zip
       __typename
     }
     nextToken
