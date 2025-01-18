@@ -129,7 +129,14 @@ export const Newsletter = ({
                     alignSelf: 'center',
                   }}
                   className=" bg-danger-999  !text-white"
-                />
+                >
+                  <Text className="font-bold text-white">{buttonText}</Text>
+                  <Ionicons
+                    size={28}
+                    name="chevron-forward-sharp"
+                    color={'white'}
+                  />
+                </Button>
               </View>
             </>
           )}

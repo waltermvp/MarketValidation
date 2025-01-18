@@ -115,7 +115,7 @@ const Home = () => {
               }
             }}
             placeholder="Enter your email"
-            buttonText="SIGN UP"
+            buttonText="Sign Up"
             successMessage="Thank you for singing up"
             errorMessage="Whoops"
           />
