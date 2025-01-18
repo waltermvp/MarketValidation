@@ -1,5 +1,6 @@
 import { type Schema } from 'amplify/data/resource';
 import { Amplify } from 'aws-amplify';
+import { configureAutoTrack } from 'aws-amplify/analytics';
 import { generateClient } from 'aws-amplify/api'; // import { EnvEnv } from 'env';
 import React, { useState } from 'react';
 import {
@@ -18,6 +19,34 @@ import { colors } from '@/components/ui';
 import outputs from '../../amplify_outputs.json';
 
 Amplify.configure(outputs);
+
+configureAutoTrack({
+  // REQUIRED, turn on/off the auto tracking
+  enable: true,
+  // REQUIRED, the event type, it's one of 'event', 'pageView' or 'session'
+  type: 'pageView',
+  // OPTIONAL, additional options for the tracked event.
+  options: {
+    // OPTIONAL, the attributes of the event
+    attributes: {
+      customizableField: 'attr',
+    },
+
+    // OPTIONAL, the event name. By default, this is 'pageView'
+    eventName: 'pageView',
+
+    // OPTIONAL, the type of app under tracking. By default, this is 'multiPageApp'.
+    // You will need to change it to 'singlePage' if your app is a single-page app like React
+    appType: 'singlePage',
+
+    // OPTIONAL, provide the URL for the event.
+    urlProvider: () => {
+      // the default function
+      return window.location.origin + window.location.pathname;
+    },
+  },
+});
+
 // eslint-disable-next-line max-lines-per-function
 const Home = () => {
   // const offset = useSharedValue<number>(1);
