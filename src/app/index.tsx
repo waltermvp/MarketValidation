@@ -2,9 +2,8 @@ import { type Schema } from 'amplify/data/resource';
 import { Amplify } from 'aws-amplify';
 import { configureAutoTrack } from 'aws-amplify/analytics';
 import { generateClient } from 'aws-amplify/api'; // import { EnvEnv } from 'env';
-import React, { useState } from 'react';
+import React from 'react';
 import {
-  Button,
   ImageBackground,
   ScrollView,
   StyleSheet,
@@ -12,13 +11,13 @@ import {
   View,
 } from 'react-native';
 
-import { MenuBar } from '@/components/menu-bar';
 import { Newsletter } from '@/components/newsletter';
 import { colors } from '@/components/ui';
 
 import outputs from '../../amplify_outputs.json';
 
 Amplify.configure(outputs);
+localStorage.clear(); //TODO: remove
 
 configureAutoTrack({
   // REQUIRED, turn on/off the auto tracking
@@ -63,16 +62,16 @@ const Home = () => {
   //   ],
   // }));
   const client = generateClient<Schema>();
-  const [lang, setLang] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('preferredLanguage') || 'en';
-    }
-    return 'en';
-  });
-  const handleLanguageChange = (newLang: string) => {
-    setLang(newLang);
-    localStorage.setItem('preferredLanguage', newLang);
-  };
+  // const [lang, setLang] = useState(() => {
+  //   if (typeof window !== 'undefined') {
+  //     return localStorage.getItem('preferredLanguage') || 'en';
+  //   }
+  //   return 'en';
+  // });
+  // const handleLanguageChange = (newLang: string) => {
+  //   setLang(newLang);
+  //   localStorage.setItem('preferredLanguage', newLang);
+  // };
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <ImageBackground
@@ -80,28 +79,26 @@ const Home = () => {
         style={styles.headerBackground}
         resizeMode="cover"
       >
-        <MenuBar
+        {/* <MenuBar
           lang={lang}
           onLanguageChange={handleLanguageChange}
           // animatedStyle={animatedStyle}
           // t={t}
-        />
+        /> */}
         <View style={styles.overlay} />
         <View style={styles.header}>
-          <Text className="text-4xl text-white">
+          {/* <Text className="text-center text-4xl font-bold text-white">
             Unlimited movies, TV shows, and more.
           </Text>
-          <Text style={styles.subtitle} className="text-3xl text-white">
+          <Text
+            style={styles.subtitle}
+            className="text-center text-3xl font-medium text-white"
+          >
             Watch anywhere. Cancel anytime.
-          </Text>
-          {/* <TextInput
-            style={styles.input}
-            placeholder="Email address"
-            placeholderTextColor="#999"
-          /> */}
+          </Text> */}
           <Newsletter
-            title="Sign Up"
-            subtitle='"Register for updates'
+            title="Unlimited movies, TV shows, and more."
+            subtitle="Ready to watch? Enter your email to create or restart your membership."
             callBack={async (email, country, zip) => {
               console.log(email);
 
@@ -118,11 +115,10 @@ const Home = () => {
               }
             }}
             placeholder="Enter your email"
-            buttonText="Sign Up"
+            buttonText="SIGN UP"
             successMessage="Thank you for singing up"
             errorMessage="Whoops"
           />
-          <Button title="GET STARTED" onPress={() => {}} color="#e50914" />
         </View>
       </ImageBackground>
 
@@ -183,6 +179,7 @@ const styles = StyleSheet.create({
   },
   header: {
     paddingTop: 20,
+    paddingHorizontal: 10,
     alignItems: 'center',
   },
   title: {
