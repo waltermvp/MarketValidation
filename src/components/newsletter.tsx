@@ -39,10 +39,9 @@ export const Newsletter = ({
   const countries = ['USA', 'Canada', 'UK', 'Australia'];
 
   const handleSubmit = async () => {
-    console.log('hanle submit in newsletter');
     setLoading(true);
     try {
-      await callBack(email);
+      await callBack(email, country, zipCode);
       setSuccess(true);
       localStorage.setItem('newsletterSubscribed', 'true');
     } catch (error) {
@@ -66,9 +65,9 @@ export const Newsletter = ({
         >
           {success ? (
             <Animated.View
-              entering={FadeIn.duration(400)}
+              entering={FadeIn.duration(1000)}
               // className="flex-1 flex-row items-center justify-center space-x-2"
-              className={`flex ${window.innerWidth < 640 ? 'mt-5 flex-col' : 'flex-row'} items-center justify-center space-x-2`}
+              className={`flex ${window.innerWidth < 640 ? 'mt-5 flex-col' : 'flex-row'} space-x-2, w-full items-center justify-center self-center`}
             >
               <Ionicons name="checkmark-circle" size={48} color="#22c55e" />
               <Text className="font-semibold text-white">{successMessage}</Text>
@@ -76,7 +75,8 @@ export const Newsletter = ({
           ) : (
             <>
               <View
-                className={`flex-1 ${window.innerWidth < 640 ? 'flex-col' : 'flex-row'} space-x-2`}
+                // className={`flex-1 ${window.innerWidth < 640 ? 'flex-col' : 'flex-row'} space-x-2`}
+                className={`flex-1 flex-col space-x-2`}
               >
                 <Input
                   error={errorMessage}
@@ -93,10 +93,10 @@ export const Newsletter = ({
                   style={{ height }} // Set a fixed height
                 />
                 <Picker
-                  // style={{ height: 44 }}
                   style={{
-                    height: window.innerWidth >= 640 ? height : undefined,
-                  }} // Apply height only if not on mobile
+                    // height: window.innerWidth >= 640 ? height : undefined,
+                    height: 88,
+                  }}
                   selectedValue={country}
                   onValueChange={(itemValue) => setCountry(itemValue)}
                   className="flex-1 rounded-md border border-neutral-700 bg-neutral-800 text-white"
@@ -111,7 +111,8 @@ export const Newsletter = ({
                   ))}
                 </Picker>
                 <Input
-                  className={`rounded-md border border-neutral-700 bg-neutral-800 p-3 text-white ${window.innerWidth < 640 ? 'mt-4' : ''}`}
+                  // className={`rounded-md border border-neutral-700 bg-neutral-800 p-3 text-white ${window.innerWidth < 640 ? 'mt-4' : ''}`}
+                  className={`mt-4 rounded-md border border-neutral-700 bg-neutral-800 p-3 text-white`}
                   placeholder="Zip Code"
                   value={zipCode}
                   onChangeText={setZipCode}
@@ -128,7 +129,7 @@ export const Newsletter = ({
                     width: '50%',
                     alignSelf: 'center',
                   }}
-                  className=" bg-danger-999  !text-white"
+                  className=" !bg-danger-999"
                 >
                   <Text className="font-bold text-white">{buttonText}</Text>
                   <Ionicons

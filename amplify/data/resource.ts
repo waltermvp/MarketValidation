@@ -29,7 +29,9 @@ const schema = a
         zip: a.string(),
         callbackURL: a.string(),
       })
-      .returns(a.customType({ success: a.boolean() }))
+      .returns(
+        a.customType({ success: a.boolean().required(), message: a.string() })
+      )
       .handler(a.handler.function(signUpNewsletter))
       .authorization((allow) => [allow.guest()]),
   })

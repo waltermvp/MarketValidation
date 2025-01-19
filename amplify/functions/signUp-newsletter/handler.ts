@@ -49,6 +49,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
   _context
 ) => {
   const { email, callbackURL, country, zip } = event.arguments;
+  console.log('arguments in handler', JSON.stringify(event.arguments, null, 2));
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return { success: false, message: 'Invalid email format' };
@@ -129,7 +130,24 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
     await ses.send(sendEmailCommand);
     return { success: true };
   } catch (error) {
-    console.error('Error:', error);
+    // Ensure the error is properly typed or checked
+    if (error && typeof error === 'object' && 'errors' in error) {
+      const errorArray = (error as { errors: { errorType: string }[] }).errors;
+      if (errorArray && errorArray.length > 0) {
+        const errorTypeString = errorArray[0].errorType;
+
+        if (
+          errorTypeString.includes('DynamoDB:ConditionalCheckFailedException')
+        ) {
+          return {
+            success: false,
+            message:
+              'A user with your email address has already been subscribed for updates.',
+          };
+        }
+      }
+    }
+
     return { success: false, message: 'Failed to process subscription' };
   }
 };

@@ -2,7 +2,7 @@ import { type Schema } from 'amplify/data/resource';
 import { Amplify } from 'aws-amplify';
 import { configureAutoTrack } from 'aws-amplify/analytics';
 import { generateClient } from 'aws-amplify/api'; // import { EnvEnv } from 'env';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ImageBackground,
   ScrollView,
@@ -17,7 +17,7 @@ import { colors } from '@/components/ui';
 import outputs from '../../amplify_outputs.json';
 
 Amplify.configure(outputs);
-localStorage.clear(); //TODO: remove
+localStorage.clear();
 
 configureAutoTrack({
   // REQUIRED, turn on/off the auto tracking
@@ -61,7 +61,32 @@ const Home = () => {
   //     },
   //   ],
   // }));
+  const [successMessage, setSuccessMessage] = useState(
+    'Thank you for Signing up!'
+  );
   const client = generateClient<Schema>();
+  const handleNewsletterCallback = async (
+    email: string,
+    country?: string,
+    zip?: string
+  ) => {
+    try {
+      const result = await client.queries.signUpNewsletter({
+        email,
+        country: country ? country : undefined,
+        zip: zip ? zip : undefined,
+        // callbackURL: Env.API_URL,
+      });
+      if (!result.data?.success) {
+        console.log(result.data?.message);
+        setSuccessMessage('User Already Registered!');
+      } else {
+        setSuccessMessage('Thank you for Signing up!');
+      }
+    } catch (error) {
+      console.log(error, null, 2);
+    }
+  };
   // const [lang, setLang] = useState(() => {
   //   if (typeof window !== 'undefined') {
   //     return localStorage.getItem('preferredLanguage') || 'en';
@@ -99,24 +124,10 @@ const Home = () => {
           <Newsletter
             title="Unlimited movies, TV shows, and more."
             subtitle="Ready to watch? Enter your email to create or restart your membership."
-            callBack={async (email, country, zip) => {
-              console.log(email);
-
-              try {
-                const result = await client.queries.signUpNewsletter({
-                  email,
-                  country: country ? country : undefined,
-                  zip: zip ? zip : undefined,
-                  // callbackURL: Env.API_URL,
-                });
-                console.log('email', email, result);
-              } catch (error) {
-                console.log(error);
-              }
-            }}
+            callBack={handleNewsletterCallback}
             placeholder="Enter your email"
             buttonText="Sign Up"
-            successMessage="Thank you for singing up"
+            successMessage={successMessage}
             errorMessage="Whoops"
           />
         </View>

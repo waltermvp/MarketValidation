@@ -121,7 +121,16 @@ export const Button = React.forwardRef<View, Props>(
         testID={testID}
       >
         {props.children ? (
-          props.children
+          loading ? (
+            <ActivityIndicator
+              size="small"
+              className={styles.indicator()}
+              testID={testID ? `${testID}-activity-indicator` : undefined}
+              color={'white'}
+            />
+          ) : (
+            props.children
+          )
         ) : (
           <>
             {loading ? (
