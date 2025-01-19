@@ -2,7 +2,7 @@ import { type Schema } from 'amplify/data/resource';
 import { Amplify } from 'aws-amplify';
 import { configureAutoTrack } from 'aws-amplify/analytics';
 import { generateClient } from 'aws-amplify/api'; // import { EnvEnv } from 'env';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ImageBackground,
   ScrollView,
@@ -11,13 +11,14 @@ import {
   View,
 } from 'react-native';
 
+import { MenuBar } from '@/components/menu-bar';
 import { Newsletter } from '@/components/newsletter';
-import { colors } from '@/components/ui';
+import { translate, useSelectedLanguage } from '@/lib';
 
 import outputs from '../../amplify_outputs.json';
 
 Amplify.configure(outputs);
-localStorage.clear();
+// localStorage.clear(); //TODO: remove
 
 configureAutoTrack({
   // REQUIRED, turn on/off the auto tracking
@@ -48,22 +49,7 @@ configureAutoTrack({
 
 // eslint-disable-next-line max-lines-per-function
 const Home = () => {
-  // const offset = useSharedValue<number>(1);
-
-  // // const animationValue = useSharedValue(0);
-  // const animatedStyle = useAnimatedStyle(() => ({
-  //   transform: [
-  //     {
-  //       scale: withTiming(offset.value, {
-  //         duration: 300,
-  //         easing: Easing.inOut(Easing.ease),
-  //       }),
-  //     },
-  //   ],
-  // }));
-  const [successMessage, setSuccessMessage] = useState(
-    'Thank you for Signing up!'
-  );
+  const [successMessage, setSuccessMessage] = useState('');
   const client = generateClient<Schema>();
   const handleNewsletterCallback = async (
     email: string,
@@ -79,24 +65,43 @@ const Home = () => {
       });
       if (!result.data?.success) {
         console.log(result.data?.message);
-        setSuccessMessage('User Already Registered!');
+        setSuccessMessage(translate('home.successAlreadyRegistered'));
       } else {
-        setSuccessMessage('Thank you for Signing up!');
+        setSuccessMessage(translate('home.success'));
       }
     } catch (error) {
       console.log(error, null, 2);
     }
   };
-  // const [lang, setLang] = useState(() => {
-  //   if (typeof window !== 'undefined') {
-  //     return localStorage.getItem('preferredLanguage') || 'en';
-  //   }
-  //   return 'en';
-  // });
-  // const handleLanguageChange = (newLang: string) => {
-  //   setLang(newLang);
-  //   localStorage.setItem('preferredLanguage', newLang);
-  // };
+
+  //Localization
+
+  const { language, setLanguage } = useSelectedLanguage();
+  const [newsletterProps, setNewsletterProps] = useState({
+    title: translate('home.title'),
+    subtitle: translate('home.subtitle'),
+    placeholder: translate('home.enterEmail'),
+    buttonText: translate('home.signUp'),
+    successMessage: successMessage,
+    errorMessage: translate('home.errorMessage'),
+    zipPlaceholder: translate('home.zipCode'),
+  });
+
+  // Add useEffect to refresh translations when language changes
+  useEffect(() => {
+    // lets repopulate newsletterProps here
+    console.log('repopualte');
+    setNewsletterProps({
+      title: translate('home.title'),
+      subtitle: translate('home.subtitle'),
+      placeholder: translate('home.enterEmail'),
+      buttonText: translate('home.signUp'),
+      successMessage: successMessage,
+      errorMessage: translate('home.errorMessage'),
+      zipPlaceholder: translate('home.zipCode'),
+    });
+  }, [language, setNewsletterProps, successMessage]); // Dependency array includes language
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <ImageBackground
@@ -104,31 +109,17 @@ const Home = () => {
         style={styles.headerBackground}
         resizeMode="cover"
       >
-        {/* <MenuBar
-          lang={lang}
-          onLanguageChange={handleLanguageChange}
-          // animatedStyle={animatedStyle}
-          // t={t}
-        /> */}
+        <MenuBar
+          lang={language}
+          onLanguageChange={(lang) => {
+            setLanguage(lang);
+          }}
+        />
         <View style={styles.overlay} />
         <View style={styles.header}>
-          {/* <Text className="text-center text-4xl font-bold text-white">
-            Unlimited movies, TV shows, and more.
-          </Text>
-          <Text
-            style={styles.subtitle}
-            className="text-center text-3xl font-medium text-white"
-          >
-            Watch anywhere. Cancel anytime.
-          </Text> */}
           <Newsletter
-            title="Unlimited movies, TV shows, and more."
-            subtitle="Ready to watch? Enter your email to create or restart your membership."
             callBack={handleNewsletterCallback}
-            placeholder="Enter your email"
-            buttonText="Sign Up"
-            successMessage={successMessage}
-            errorMessage="Whoops"
+            {...newsletterProps}
           />
         </View>
       </ImageBackground>
@@ -180,6 +171,7 @@ const Home = () => {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
+    // flex: 1,
     backgroundColor: '#000',
     // padding: 20,
   },
@@ -189,32 +181,9 @@ const styles = StyleSheet.create({
     // marginBottom: 40,
   },
   header: {
-    paddingTop: 20,
+    // paddingTop: 20,
     paddingHorizontal: 10,
-    alignItems: 'center',
-  },
-  title: {
-    color: '#fff',
-    fontSize: 32,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  subtitle: {
-    color: '#fff',
-    fontSize: 18,
-    marginVertical: 10,
-    textAlign: 'center',
-  },
-  input: {
-    height: 50,
-    borderColor: '#999',
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    width: '100%',
-    marginBottom: 20,
-    color: '#fff',
-    backgroundColor: colors.neutral[100],
+    // alignItems: 'center',
   },
   section: {
     marginBottom: 30,

@@ -5,6 +5,7 @@ import { View } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 
 import { Button, Input, Text } from '@/components/ui';
+import { translate } from '@/lib';
 
 const height = 44;
 // eslint-disable-next-line max-lines-per-function
@@ -13,6 +14,7 @@ export const Newsletter = ({
   subtitle,
   callBack,
   placeholder,
+  zipPlaceholder,
   buttonText,
   successMessage,
   errorMessage,
@@ -20,6 +22,7 @@ export const Newsletter = ({
   title: string;
   subtitle: string;
   placeholder: string;
+  zipPlaceholder: string;
   buttonText: string;
   successMessage: string;
   errorMessage: string;
@@ -93,15 +96,20 @@ export const Newsletter = ({
                   style={{ height }} // Set a fixed height
                 />
                 <Picker
-                  style={{
-                    // height: window.innerWidth >= 640 ? height : undefined,
-                    height: 88,
-                  }}
+                  style={
+                    {
+                      // height: window.innerWidth >= 640 ? height : undefined,
+                      // height: 44,
+                    }
+                  }
                   selectedValue={country}
                   onValueChange={(itemValue) => setCountry(itemValue)}
                   className="flex-1 rounded-md border border-neutral-700 bg-neutral-800 text-white"
                 >
-                  <Picker.Item label="Select Country" value="" />
+                  <Picker.Item
+                    label={translate('home.selectCountry')}
+                    value=""
+                  />
                   {countries.map((country) => (
                     <Picker.Item
                       key={country}
@@ -113,7 +121,7 @@ export const Newsletter = ({
                 <Input
                   // className={`rounded-md border border-neutral-700 bg-neutral-800 p-3 text-white ${window.innerWidth < 640 ? 'mt-4' : ''}`}
                   className={`mt-4 rounded-md border border-neutral-700 bg-neutral-800 p-3 text-white`}
-                  placeholder="Zip Code"
+                  placeholder={zipPlaceholder}
                   value={zipCode}
                   onChangeText={setZipCode}
                   style={{ height }} // Set a fixed height

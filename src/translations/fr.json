@@ -1,14 +1,14 @@
 {
   "home": {
-    "enterEmail": "Enter your email",
-    "errorMessage": "Whoops enter a correct email.",
-    "selectCountry": "Select your country",
-    "signUp": "Sign Up",
-    "subtitle": "This is a quick app to sample market validation from users.",
-    "success": "Thank you for signing up",
-    "successAlreadyRegistered": "This email has already been registered",
-    "title": "Market Validation",
-    "zipCode": "Zip Code"
+    "enterEmail": "Entrez votre email",
+    "errorMessage": "Oups, entrez un email correct.",
+    "selectCountry": "Sélectionnez votre pays",
+    "signUp": "S'inscrire",
+    "subtitle": "Ceci est une application rapide pour échantillonner la validation du marché auprès des utilisateurs.",
+    "success": "Merci de vous être inscrit",
+    "successAlreadyRegistered": "Cet email a déjà été enregistré",
+    "title": "Validation du marché",
+    "zipCode": "Code postal"
   },
   "onboarding": {
     "message": "Welcome to obytes app site"

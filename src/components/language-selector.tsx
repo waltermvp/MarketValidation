@@ -2,10 +2,11 @@ import React from 'react';
 import { Pressable } from 'react-native';
 
 import { Text, View } from '@/components/ui';
+import { type Language } from '@/lib/i18n/resources';
 
 interface LanguageSelectorProps {
-  currentLang: string;
-  onChangeLang: (lang: string) => void;
+  currentLang: Language;
+  onChangeLang: (lang: Language) => void;
 }
 
 export const LanguageSelector = ({
@@ -25,9 +26,9 @@ export const LanguageSelector = ({
         <Text className="text-lg">🇺🇸</Text>
       </Pressable>
       <Pressable
-        onPress={() => onChangeLang('es')}
+        onPress={() => onChangeLang('fr')}
         className={`rounded-full p-2 transition-all ${
-          currentLang === 'es'
+          currentLang === 'fr'
             ? 'bg-primary-main/10 shadow-sm'
             : 'opacity-50 hover:opacity-75'
         }`}
