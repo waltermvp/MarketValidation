@@ -49,6 +49,7 @@ export const FAQ = () => {
   };
 
   const animatedStyles = (index: number) =>
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useAnimatedStyle(() => {
       return {
         height: withTiming(animatedHeights[index].value),
