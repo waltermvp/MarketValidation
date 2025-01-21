@@ -1,10 +1,11 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
-import Animated, {
+import {
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 
 import { Text, TouchableOpacity, View } from '@/components/ui';
 
@@ -27,22 +28,32 @@ const faqData: FAQItem[] = [
 
 export const FAQ = () => {
   const [collapsedIndex, setCollapsedIndex] = useState<null | number>(null);
-  const isCollapsed = useSharedValue(true);
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<null | number>(null);
 
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      flex: 1,
-      height: withTiming(isCollapsed.value ? 0 : 100),
-      marginBottom: 20,
-      // overflow: 'hidden',
-    };
-  });
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const animatedHeights = faqData.map(() => useSharedValue(0));
 
   const toggleCollapse = (index: number) => {
-    setCollapsedIndex(collapsedIndex === index ? null : index);
-    isCollapsed.value = collapsedIndex === index ? !isCollapsed.value : true;
+    if (collapsedIndex === index) {
+      setCollapsedIndex(null);
+      animatedHeights[index].value = 0;
+    } else {
+      if (collapsedIndex !== null) {
+        animatedHeights[collapsedIndex].value = 0;
+      }
+      setCollapsedIndex(index);
+      animatedHeights[index].value = 100;
+    }
+    setIsCollapsed(collapsedIndex === index ? !isCollapsed : true);
   };
+
+  const animatedStyles = (index: number) =>
+    useAnimatedStyle(() => {
+      return {
+        height: withTiming(animatedHeights[index].value),
+      };
+    });
 
   return (
     <View>
@@ -54,6 +65,7 @@ export const FAQ = () => {
           <TouchableOpacity
             className={`flex-row justify-between p-2 ${hoveredIndex === index ? 'bg-gray-700' : ''}`}
             onPress={() => toggleCollapse(index)}
+            //@ts-ignore
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
           >
@@ -64,11 +76,9 @@ export const FAQ = () => {
               name={collapsedIndex !== index ? 'add' : 'close'}
             />
           </TouchableOpacity>
-          {collapsedIndex === index && (
-            <Animated.View style={[animatedStyle]}>
-              <Text className=" p-2 text-lg text-white">{item.answer}</Text>
-            </Animated.View>
-          )}
+          <Animated.View style={[animatedStyles(index)]}>
+            <Text className="p-2 text-lg text-white">{item.answer}</Text>
+          </Animated.View>
         </View>
       ))}
     </View>
