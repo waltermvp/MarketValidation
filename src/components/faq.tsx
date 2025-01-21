@@ -32,8 +32,9 @@ export const FAQ = () => {
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
+      flex: 1,
       height: withTiming(isCollapsed.value ? 0 : 100),
-      marginBottom: 40,
+      marginBottom: 20,
       // overflow: 'hidden',
     };
   });
