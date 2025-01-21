@@ -28,6 +28,7 @@ const faqData: FAQItem[] = [
 export const FAQ = () => {
   const [collapsedIndex, setCollapsedIndex] = useState<null | number>(null);
   const isCollapsed = useSharedValue(true);
+  const [hoveredIndex, setHoveredIndex] = useState<null | number>(null);
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
@@ -50,8 +51,10 @@ export const FAQ = () => {
       {faqData.map((item, index) => (
         <View className="border-b-2 bg-charcoal-850" key={index}>
           <TouchableOpacity
-            className="flex-row justify-between p-2"
+            className={`flex-row justify-between p-2 ${hoveredIndex === index ? 'bg-gray-700' : ''}`}
             onPress={toggleCollapse}
+            onMouseEnter={() => setHoveredIndex(index)}
+            onMouseLeave={() => setHoveredIndex(null)}
           >
             <Text className="text-2xl text-white">{item.question}</Text>
             <Ionicons
