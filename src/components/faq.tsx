@@ -1,5 +1,10 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
 
 import { Text, TouchableOpacity, View } from '@/components/ui';
 
@@ -22,6 +27,20 @@ const faqData: FAQItem[] = [
 
 export const FAQ = () => {
   const [collapsedIndex, setCollapsedIndex] = useState<null | number>(null);
+  const isCollapsed = useSharedValue(true);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      height: withTiming(isCollapsed.value ? 0 : 100),
+      marginBottom: 40,
+      // overflow: 'hidden',
+    };
+  });
+
+  const toggleCollapse = () => {
+    setCollapsedIndex(collapsedIndex === null ? 0 : null);
+    isCollapsed.value = !isCollapsed.value;
+  };
 
   return (
     <View>
@@ -30,28 +49,19 @@ export const FAQ = () => {
         <View className="border-b-2 bg-charcoal-850" key={index}>
           <TouchableOpacity
             className="flex-row justify-between p-2"
-            onPress={() => {
-              // Collapse the item if it's already expanded, otherwise expand it
-              setCollapsedIndex(collapsedIndex === index ? null : index);
-            }}
+            onPress={toggleCollapse}
           >
             <Text className="text-2xl text-white">{item.question}</Text>
             <Ionicons
               color="white"
               size={32}
-              name={index !== collapsedIndex ? 'add' : 'close'}
-              onPress={() => {
-                if (collapsedIndex === index) {
-                  setCollapsedIndex(null);
-                } else {
-                  setCollapsedIndex(index);
-                }
-                console.log('@@@');
-              }}
+              name={collapsedIndex !== index ? 'add' : 'close'}
             />
           </TouchableOpacity>
           {collapsedIndex === index && (
-            <Text className="p-2 text-lg text-white">{item.answer}</Text>
+            <Animated.View style={[animatedStyle]}>
+              <Text className=" p-2 text-lg text-white">{item.answer}</Text>
+            </Animated.View>
           )}
         </View>
       ))}
