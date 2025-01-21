@@ -44,7 +44,9 @@ export const FAQ = () => {
 
   return (
     <View>
-      <Text className="p-3 text-3xl">Frequently Asked Questions</Text>
+      <Text className="p-3 text-3xl !text-white">
+        Frequently Asked Questions
+      </Text>
       {faqData.map((item, index) => (
         <View className="border-b-2 bg-charcoal-850" key={index}>
           <TouchableOpacity
