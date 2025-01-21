@@ -38,9 +38,9 @@ export const FAQ = () => {
     };
   });
 
-  const toggleCollapse = () => {
-    setCollapsedIndex(collapsedIndex === null ? 0 : null);
-    isCollapsed.value = !isCollapsed.value;
+  const toggleCollapse = (index: number) => {
+    setCollapsedIndex(collapsedIndex === index ? null : index);
+    isCollapsed.value = collapsedIndex === index ? !isCollapsed.value : true;
   };
 
   return (
@@ -52,7 +52,7 @@ export const FAQ = () => {
         <View className="border-b-2 bg-charcoal-850" key={index}>
           <TouchableOpacity
             className={`flex-row justify-between p-2 ${hoveredIndex === index ? 'bg-gray-700' : ''}`}
-            onPress={toggleCollapse}
+            onPress={() => toggleCollapse(index)}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
           >
