@@ -25,7 +25,7 @@ export const Newsletter = ({
   zipPlaceholder: string;
   buttonText: string;
   successMessage: string;
-  errorMessage: string;
+  errorMessage: string | null;
   callBack: (email: string, country?: string, zip?: string) => Promise<void>;
 }) => {
   const [email, setEmail] = useState('');

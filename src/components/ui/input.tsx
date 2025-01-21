@@ -50,7 +50,7 @@ const inputTv = tv({
 export interface NInputProps extends TextInputProps {
   label?: string;
   disabled?: boolean;
-  error?: string;
+  error?: string | null;
   errorClassName?: string;
 }
 

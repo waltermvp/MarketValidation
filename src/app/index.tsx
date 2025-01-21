@@ -52,31 +52,6 @@ configureAutoTrack({
 const Home = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const client = generateClient<Schema>();
-  const handleNewsletterCallback = async (
-    email: string,
-    country?: string,
-    zip?: string
-  ) => {
-    try {
-      const result = await client.queries.signUpNewsletter({
-        email,
-        country: country ? country : undefined,
-        zip: zip ? zip : undefined,
-        // callbackURL: Env.API_URL,
-      });
-      if (!result.data?.success) {
-        console.log(result.data?.message);
-        setSuccessMessage(translate('home.successAlreadyRegistered'));
-      } else {
-        setSuccessMessage(translate('home.success'));
-      }
-    } catch (error) {
-      console.log(error, null, 2);
-    }
-  };
-
-  //Localization
-
   const { language, setLanguage } = useSelectedLanguage();
   const [newsletterProps, setNewsletterProps] = useState({
     title: translate('home.title'),
@@ -84,7 +59,7 @@ const Home = () => {
     placeholder: translate('home.enterEmail'),
     buttonText: translate('home.signUp'),
     successMessage: successMessage,
-    errorMessage: translate('home.errorMessage'),
+    errorMessage: null,
     zipPlaceholder: translate('home.zipCode'),
   });
 
@@ -97,10 +72,45 @@ const Home = () => {
       placeholder: translate('home.enterEmail'),
       buttonText: translate('home.signUp'),
       successMessage: successMessage,
-      errorMessage: translate('home.errorMessage'),
+      errorMessage: null,
       zipPlaceholder: translate('home.zipCode'),
     });
-  }, [language, setNewsletterProps, successMessage]); // Dependency array includes language
+  }, [language, setNewsletterProps, successMessage]);
+
+  const handleNewsletterCallback = async (
+    email: string,
+    country?: string,
+    zip?: string
+  ) => {
+    try {
+      const result = await client.queries.signUpNewsletter({
+        email,
+        country: country ? country : undefined,
+        zip: zip ? zip : undefined,
+      });
+      if (!result.data?.success) {
+        console.log(result.data?.message);
+        setSuccessMessage(translate('home.successAlreadyRegistered'));
+        //@ts-ignore
+        setNewsletterProps((prevProps) => ({
+          ...prevProps,
+          errorMessage: translate('home.errorMessage'),
+        }));
+      } else {
+        setSuccessMessage(translate('home.success'));
+        setNewsletterProps((prevProps) => ({
+          ...prevProps,
+          errorMessage: null,
+        }));
+      }
+    } catch (error) {
+      //@ts-ignore
+      setNewsletterProps((prevProps) => ({
+        ...prevProps,
+        errorMessage: translate('home.errorMessage'),
+      }));
+    }
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
