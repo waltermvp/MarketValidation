@@ -3,20 +3,40 @@ import { Amplify } from 'aws-amplify';
 import { configureAutoTrack } from 'aws-amplify/analytics';
 import { generateClient } from 'aws-amplify/api'; // import { EnvEnv } from 'env';
 import React, { useEffect, useState } from 'react';
-import {
-  ImageBackground,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { ImageBackground, ScrollView, StyleSheet, View } from 'react-native';
 
+import CardComponent from '@/components/card-component';
 import { FAQ } from '@/components/faq';
 import { MenuBar } from '@/components/menu-bar';
 import { Newsletter } from '@/components/newsletter';
 import { translate, useSelectedLanguage } from '@/lib';
 
 import outputs from '../../amplify_outputs.json';
+const items = [
+  {
+    title: 'Enjoy on your TV',
+    content:
+      'Watch on Smart TVs, Playstation, Xbox, Chromecast, Apple TV, Blu-ray players, and more.',
+    image: 'path/to/image1.jpg',
+  },
+  {
+    title: 'Download your shows to watch offline',
+    content: 'Save your favorites easily and always have something to watch.',
+    image: 'path/to/image2.jpg',
+  },
+  {
+    title: 'Watch everywhere',
+    content:
+      'Stream unlimited movies and TV shows on your phone, tablet, laptop, and TV.',
+    image: 'path/to/image3.jpg',
+  },
+  {
+    title: 'Create profiles for kids',
+    content:
+      'Send kids on adventures with their favorite characters in a space made just for them — free with your membership.',
+    image: 'path/to/image4.jpg',
+  },
+];
 
 Amplify.configure(outputs);
 // localStorage.clear(); //TODO: remove
@@ -135,7 +155,8 @@ const Home = () => {
       </ImageBackground>
 
       <View className="p-4">
-        <View style={styles.section}>
+        <CardComponent items={items} />
+        {/* <View style={styles.section}>
           <Text style={styles.sectionTitle}>Enjoy on your TV.</Text>
           <Text style={styles.sectionText}>
             Watch on Smart TVs, Playstation, Xbox, Chromecast, Apple TV, Blu-ray
@@ -156,7 +177,7 @@ const Home = () => {
             Stream unlimited movies and TV shows on your phone, tablet, laptop,
             and TV without paying more.
           </Text>
-        </View>
+        </View> */}
         <FAQ />
         {/* <View style={styles.footer}></View> */}
       </View>

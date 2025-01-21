@@ -58,7 +58,7 @@ export const FAQ = () => {
 
   return (
     <View>
-      <Text className="p-3 text-3xl !text-white">
+      <Text className="p-3 text-2xl !text-white">
         Frequently Asked Questions
       </Text>
       {faqData.map((item, index) => (
