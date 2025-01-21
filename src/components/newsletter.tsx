@@ -136,10 +136,13 @@ export const Newsletter = ({
                     marginTop: 0,
                     width: '50%',
                     alignSelf: 'center',
+                    paddingVertical: 32,
                   }}
                   className=" !bg-danger-999"
                 >
-                  <Text className="font-bold text-white">{buttonText}</Text>
+                  <Text className="text-lg font-bold text-white">
+                    {buttonText}
+                  </Text>
                   <Ionicons
                     size={28}
                     name="chevron-forward-sharp"
