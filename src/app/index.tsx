@@ -11,6 +11,7 @@ import {
   View,
 } from 'react-native';
 
+import { FAQ } from '@/components/faq';
 import { MenuBar } from '@/components/menu-bar';
 import { Newsletter } from '@/components/newsletter';
 import { translate, useSelectedLanguage } from '@/lib';
@@ -90,7 +91,6 @@ const Home = () => {
   // Add useEffect to refresh translations when language changes
   useEffect(() => {
     // lets repopulate newsletterProps here
-    console.log('repopualte');
     setNewsletterProps({
       title: translate('home.title'),
       subtitle: translate('home.subtitle'),
@@ -147,22 +147,8 @@ const Home = () => {
             and TV without paying more.
           </Text>
         </View>
-        <View style={styles.faq}>
-          <Text style={styles.faqTitle}>Frequently Asked Questions</Text>
-          <Text style={styles.faqItem}>What is Netflix?</Text>
-          <Text style={styles.faqItem}>How much does Netflix cost?</Text>
-          <Text style={styles.faqItem}>Where can I watch?</Text>
-          <Text style={styles.faqItem}>How do I cancel?</Text>
-          <Text style={styles.faqItem}>What can I watch on Netflix?</Text>
-        </View>
-        <View style={styles.footer}>
-          {/* <TextInput
-            style={styles.input}
-            placeholder="Email address"
-            placeholderTextColor="#999"
-          />
-          <Button title="GET STARTED" onPress={() => {}} color="#e50914" /> */}
-        </View>
+        <FAQ />
+        {/* <View style={styles.footer}></View> */}
       </View>
     </ScrollView>
   );
