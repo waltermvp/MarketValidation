@@ -27,8 +27,12 @@ const CardComponent = ({ items }) => {
 
   const renderItem = ({ item }) => (
     <View style={[styles.card, numColumns === 1 ? styles.fullWidth : {}]}>
-      <Text style={styles.cardTitle}>{item.title}</Text>
-      <Text style={styles.cardContent}>{item.content}</Text>
+      <Text style={styles.cardTitle} className="text-3xl">
+        {item.title}
+      </Text>
+      <Text style={styles.cardContent} className="text-lg">
+        {item.content}
+      </Text>
       <Image source={{ uri: item.image }} style={styles.cardImage} />
     </View>
   );

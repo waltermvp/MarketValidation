@@ -154,7 +154,7 @@ const Home = () => {
         </View>
       </ImageBackground>
 
-      <View className="p-4">
+      <View className="justify-center p-4 align-middle">
         <CardComponent items={items} />
         {/* <View style={styles.section}>
           <Text style={styles.sectionTitle}>Enjoy on your TV.</Text>
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     // padding: 20,
   },
   headerBackground: {
-    height: 500,
+    height: 555,
     width: '100%',
     // marginBottom: 40,
   },
