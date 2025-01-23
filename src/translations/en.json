@@ -8,7 +8,8 @@
     "success": "Thank you for signing up",
     "successAlreadyRegistered": "This email has already been registered",
     "title": "Market Validation",
-    "zipCode": "Zip Code"
+    "zipCode": "Zip Code",
+    "invalidEmail": "Please enter a valid email address."
   },
   "onboarding": {
     "message": "Welcome to obytes app site"
