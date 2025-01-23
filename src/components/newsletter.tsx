@@ -17,7 +17,7 @@ export const Newsletter = ({
   zipPlaceholder,
   buttonText,
   successMessage,
-  errorMessage,
+  errorMessage: initialErrorMessage,
 }: {
   title: string;
   subtitle: string;
@@ -39,10 +39,22 @@ export const Newsletter = ({
   });
   const [country, setCountry] = useState('');
   const [zipCode, setZipCode] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string | null>(
+    initialErrorMessage
+  );
   const countries = ['USA', 'Canada', 'UK', 'Australia'];
 
   const handleSubmit = async () => {
     setLoading(true);
+    setErrorMessage(null);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+      setErrorMessage(translate('home.invalidEmail'));
+      setLoading(false);
+      return;
+    }
+
     try {
       await callBack(email, country, zipCode);
       setSuccess(true);
