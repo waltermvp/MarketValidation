@@ -43,7 +43,7 @@ export const FAQ = () => {
         animatedHeights[collapsedIndex].value = 0;
       }
       setCollapsedIndex(index);
-      animatedHeights[index].value = 100;
+      animatedHeights[index].value = 150;
     }
     setIsCollapsed(collapsedIndex === index ? !isCollapsed : true);
   };
@@ -64,7 +64,7 @@ export const FAQ = () => {
       {faqData.map((item, index) => (
         <View className="border-b-2 bg-charcoal-850" key={index}>
           <TouchableOpacity
-            className={`flex-row justify-between p-2 ${hoveredIndex === index ? 'bg-gray-700' : ''}`}
+            className={`flex-row justify-between p-2 ${hoveredIndex === index ? 'bg-gray-700' : 'bg-gray-800'}`}
             onPress={() => toggleCollapse(index)}
             //@ts-ignore
             onMouseEnter={() => setHoveredIndex(index)}
