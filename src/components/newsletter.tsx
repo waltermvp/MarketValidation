@@ -96,12 +96,9 @@ export const Newsletter = ({
                   style={{ height }} // Set a fixed height
                 />
                 <Picker
-                  style={
-                    {
-                      // height: window.innerWidth >= 640 ? height : undefined,
-                      // height: 44,
-                    }
-                  }
+                  style={{
+                    padding: window.innerWidth >= 640 ? 10 : undefined,
+                  }}
                   selectedValue={country}
                   onValueChange={(itemValue) => setCountry(itemValue)}
                   className="flex-1 rounded-md border border-neutral-700 bg-neutral-800 text-white"
