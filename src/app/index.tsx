@@ -12,54 +12,6 @@ import { Newsletter } from '@/components/newsletter';
 import { translate, useSelectedLanguage } from '@/lib';
 
 import outputs from '../../amplify_outputs.json';
-const items = [
-  {
-    title: translate('home.benefits.title1'),
-    content: translate('home.benefits.content1'),
-    image: 'path/to/image1.jpg',
-  },
-  {
-    title: translate('home.benefits.title2'),
-    content: translate('home.benefits.content2'),
-    image: 'path/to/image2.jpg',
-  },
-  {
-    title: translate('home.benefits.title3'),
-    content: translate('home.benefits.content3'),
-    image: 'path/to/image3.jpg',
-  },
-  {
-    title: translate('home.benefits.title4'),
-    content: translate('home.benefits.content4'),
-    image: 'path/to/image4.jpg',
-  },
-];
-const faqData: FAQItem[] = [
-  {
-    question: translate('home.faq.question1'),
-    answer: translate('home.faq.answer1'),
-  },
-  {
-    question: translate('home.faq.question2'),
-    answer: translate('home.faq.answer2'),
-  },
-  {
-    question: translate('home.faq.question3'),
-    answer: translate('home.faq.answer3'),
-  },
-  {
-    question: translate('home.faq.question4'),
-    answer: translate('home.faq.answer4'),
-  },
-  {
-    question: translate('home.faq.question5'),
-    answer: translate('home.faq.answer5'),
-  },
-  {
-    question: translate('home.faq.question6'),
-    answer: translate('home.faq.answer6'),
-  },
-];
 
 Amplify.configure(outputs);
 // localStorage.clear(); //TODO: remove
@@ -106,7 +58,68 @@ const Home = () => {
     zipPlaceholder: translate('home.zipCode'),
   });
 
-  // Add useEffect to refresh translations when language changes
+  // Move items and faqData inside the component
+  const items = [
+    {
+      title: translate('home.benefits.title1'),
+      content: translate('home.benefits.content1'),
+      image: 'path/to/image1.jpg',
+    },
+    {
+      title: translate('home.benefits.title2'),
+      content: translate('home.benefits.content2'),
+      image: 'path/to/image2.jpg',
+    },
+    {
+      title: translate('home.benefits.title3'),
+      content: translate('home.benefits.content3'),
+      image: 'path/to/image3.jpg',
+    },
+    {
+      title: translate('home.benefits.title4'),
+      content: translate('home.benefits.content4'),
+      image: 'path/to/image4.jpg',
+    },
+  ];
+
+  const faqData: FAQItem[] = [
+    {
+      question: translate('home.faq.question1'),
+      answer: translate('home.faq.answer1'),
+    },
+    {
+      question: translate('home.faq.question2'),
+      answer: translate('home.faq.answer2'),
+    },
+    {
+      question: translate('home.faq.question3'),
+      answer: translate('home.faq.answer3'),
+    },
+    {
+      question: translate('home.faq.question4'),
+      answer: translate('home.faq.answer4'),
+    },
+    {
+      question: translate('home.faq.question5'),
+      answer: translate('home.faq.answer5'),
+    },
+    {
+      question: translate('home.faq.question6'),
+      answer: translate('home.faq.answer6'),
+    },
+  ];
+
+  const [cardProps, setCardProps] = useState({
+    title: translate('home.benefitsTitle'),
+    items: items,
+  });
+
+  const [faqProps, setFaqProps] = useState({
+    faqItems: faqData,
+    title: translate('home.faqTitle'),
+  });
+
+  // Update cardProps and faqProps when language changes
   useEffect(() => {
     // lets repopulate newsletterProps here
     setNewsletterProps({
@@ -118,7 +131,26 @@ const Home = () => {
       errorMessage: null,
       zipPlaceholder: translate('home.zipCode'),
     });
-  }, [language, setNewsletterProps, successMessage]);
+
+    // Update cardProps and faqProps when language changes
+    setCardProps({
+      title: translate('home.benefitsTitle'),
+      items: items,
+    });
+
+    setFaqProps({
+      faqItems: faqData,
+      title: translate('home.faqTitle'),
+    });
+  }, [
+    language,
+    setNewsletterProps,
+    successMessage,
+    setCardProps,
+    setFaqProps,
+    items,
+    faqData,
+  ]);
 
   const handleNewsletterCallback = async (
     email: string,
@@ -178,8 +210,8 @@ const Home = () => {
       </ImageBackground>
 
       <View className="justify-center p-4 align-middle">
-        <CardComponent title={translate('home.benefitsTitle')} items={items} />
-        <FAQ faqItems={faqData} title={translate('home.faqTitle')} />
+        <CardComponent title={cardProps.title} items={cardProps.items} />
+        <FAQ faqItems={faqProps.faqItems} title={faqProps.title} />
         {/* <View style={styles.footer}></View> */}
       </View>
     </ScrollView>
