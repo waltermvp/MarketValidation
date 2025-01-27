@@ -41,7 +41,7 @@ const CardComponent = ({ title, items }) => {
     <FlatList
       // contentContainerClassName="justify-center"
       ListHeaderComponent={
-        <Text className="px-3 text-2xl text-white">{title}</Text>
+        <Text className="px-3 text-3xl text-white">{title}</Text>
       }
       key={numColumns}
       data={items}
