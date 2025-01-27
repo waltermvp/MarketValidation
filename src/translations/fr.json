@@ -1,13 +1,13 @@
 {
   "home": {
+    "title": "La pollution toxique environnementale est votre nouveau voisin",
+    "subtitle": "Elle contamine chaque respiration que vous prenez, chaque verre d'eau que vous buvez et chaque repas que vous mangez, causant une sensibilité chimique, le cancer, des maladies cardiaques, des empoisonnements et plus encore. \n\n C'est une menace invisible et mortelle pour vous et votre famille.\n\n Protégez votre santé maintenant. Inscrivez-vous à MapYourHealth et apprenez tous les dangers pour la santé dans votre environnement.",
     "enterEmail": "Entrez votre email",
     "errorMessage": "Oups, entrez un email correct.",
     "selectCountry": "Sélectionnez votre pays",
     "signUp": "S'inscrire",
-    "subtitle": "Ceci est une application rapide pour échantillonner la validation du marché auprès des utilisateurs.",
     "success": "Merci de vous être inscrit",
     "successAlreadyRegistered": "Cet email a déjà été enregistré",
-    "title": "Validation du marché",
     "zipCode": "Code postal",
     "invalidEmail": "Veuillez entrer une adresse e-mail valide.",
     "description": "Il contamine chaque respiration que vous prenez, chaque verre d'eau que vous buvez et chaque repas que vous mangez, causant une sensibilité chimique, le cancer, des maladies cardiaques, des empoisonnements et plus encore.",
