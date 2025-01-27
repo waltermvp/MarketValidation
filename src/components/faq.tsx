@@ -54,6 +54,7 @@ export const FAQ = () => {
       setCollapsedIndex(index);
       UIManager.measure(
         answerRefs.current[index] as any,
+        // eslint-disable-next-line max-params
         (x, y, width, height) => {
           animatedHeights[index].value = height;
         }
