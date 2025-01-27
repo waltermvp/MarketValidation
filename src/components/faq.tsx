@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { useState } from 'react';
+import React, { forwardRef, useRef, useState } from 'react';
+import { Text, UIManager } from 'react-native';
 import {
   useAnimatedStyle,
   useSharedValue,
@@ -7,7 +8,7 @@ import {
 } from 'react-native-reanimated';
 import Animated from 'react-native-reanimated';
 
-import { Text, TouchableOpacity, View } from '@/components/ui';
+import { TouchableOpacity, View } from '@/components/ui';
 
 type FAQItem = {
   question: string;
@@ -26,6 +27,12 @@ const faqData: FAQItem[] = [
   { question: 'Is Netflix good for kids?', answer: '...' },
 ];
 
+// Create a Text component that can accept refs
+const ForwardedText = forwardRef((props, ref) => {
+  return <Text ref={ref} {...props} />;
+});
+
+// eslint-disable-next-line max-lines-per-function
 export const FAQ = () => {
   const [collapsedIndex, setCollapsedIndex] = useState<null | number>(null);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -33,6 +40,8 @@ export const FAQ = () => {
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const animatedHeights = faqData.map(() => useSharedValue(0));
+
+  const answerRefs = useRef<(Text | null)[]>([]);
 
   const toggleCollapse = (index: number) => {
     if (collapsedIndex === index) {
@@ -43,7 +52,12 @@ export const FAQ = () => {
         animatedHeights[collapsedIndex].value = 0;
       }
       setCollapsedIndex(index);
-      animatedHeights[index].value = 150;
+      UIManager.measure(
+        answerRefs.current[index] as any,
+        (x, y, width, height) => {
+          animatedHeights[index].value = height;
+        }
+      );
     }
     setIsCollapsed(collapsedIndex === index ? !isCollapsed : true);
   };
@@ -78,7 +92,12 @@ export const FAQ = () => {
             />
           </TouchableOpacity>
           <Animated.View style={[animatedStyles(index)]}>
-            <Text className="p-2 text-lg text-white">{item.answer}</Text>
+            <Text
+              className="p-2 text-lg text-white"
+              ref={(ref) => (answerRefs.current[index] = ref)}
+            >
+              {item.answer}
+            </Text>
           </Animated.View>
         </View>
       ))}
