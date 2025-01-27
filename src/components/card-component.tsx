@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 
-const CardComponent = ({ items }) => {
+const CardComponent = ({ title, items }) => {
   const [numColumns, setNumColumns] = useState(1);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const CardComponent = ({ items }) => {
     <FlatList
       // contentContainerClassName="justify-center"
       ListHeaderComponent={
-        <Text className="px-3 text-2xl text-white">More reasons to join</Text>
+        <Text className="px-3 text-2xl text-white">{title}</Text>
       }
       key={numColumns}
       data={items}

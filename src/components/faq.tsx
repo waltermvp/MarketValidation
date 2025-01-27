@@ -15,31 +15,25 @@ type FAQItem = {
   answer: string;
 };
 
-const faqData: FAQItem[] = [
-  {
-    question: 'What is Netflix?',
-    answer: `Netflix is a streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more on thousands of internet-connected devices. You can watch as much as you want, whenever you want without a single commercial – all for one low monthly price. There's always something new to discover and new TV shows and movies are added every week!`,
-  },
-  { question: 'How much does Netflix cost?', answer: '...' },
-  { question: 'Where can I watch?', answer: '...' },
-  { question: 'How do I cancel?', answer: '...' },
-  { question: 'What can I watch on Netflix?', answer: '...' },
-  { question: 'Is Netflix good for kids?', answer: '...' },
-];
-
 // Create a Text component that can accept refs
 const ForwardedText = forwardRef((props, ref) => {
   return <Text ref={ref} {...props} />;
 });
 
 // eslint-disable-next-line max-lines-per-function
-export const FAQ = () => {
+export const FAQ = ({
+  faqItems,
+  title,
+}: {
+  faqItems: FAQItem[];
+  title: string;
+}) => {
   const [collapsedIndex, setCollapsedIndex] = useState<null | number>(null);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<null | number>(null);
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const animatedHeights = faqData.map(() => useSharedValue(0));
+  const animatedHeights = faqItems.map(() => useSharedValue(0));
 
   const answerRefs = useRef<(Text | null)[]>([]);
 
@@ -73,11 +67,12 @@ export const FAQ = () => {
 
   return (
     <View>
-      <Text className="p-3 text-2xl !text-white">
-        Frequently Asked Questions
-      </Text>
-      {faqData.map((item, index) => (
-        <View className="border-b-2 bg-charcoal-850" key={index}>
+      <Text className="p-3 pl-2 text-3xl !text-white">{title}</Text>
+      {faqItems.map((item, index) => (
+        <View
+          className="overflow-hidden border-b-2 bg-charcoal-850"
+          key={index}
+        >
           <TouchableOpacity
             className={`flex-row justify-between p-2 ${hoveredIndex === index ? 'bg-gray-700' : 'bg-gray-800'}`}
             onPress={() => toggleCollapse(index)}

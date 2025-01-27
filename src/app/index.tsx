@@ -14,27 +14,50 @@ import { translate, useSelectedLanguage } from '@/lib';
 import outputs from '../../amplify_outputs.json';
 const items = [
   {
-    title: 'Enjoy on your TV',
-    content:
-      'Watch on Smart TVs, Playstation, Xbox, Chromecast, Apple TV, Blu-ray players, and more.',
+    title: translate('home.benefits.title1'),
+    content: translate('home.benefits.content1'),
     image: 'path/to/image1.jpg',
   },
   {
-    title: 'Download your shows to watch offline',
-    content: 'Save your favorites easily and always have something to watch.',
+    title: translate('home.benefits.title2'),
+    content: translate('home.benefits.content2'),
     image: 'path/to/image2.jpg',
   },
   {
-    title: 'Watch everywhere',
-    content:
-      'Stream unlimited movies and TV shows on your phone, tablet, laptop, and TV.',
+    title: translate('home.benefits.title3'),
+    content: translate('home.benefits.content3'),
     image: 'path/to/image3.jpg',
   },
   {
-    title: 'Create profiles for kids',
-    content:
-      'Send kids on adventures with their favorite characters in a space made just for them — free with your membership.',
+    title: translate('home.benefits.title4'),
+    content: translate('home.benefits.content4'),
     image: 'path/to/image4.jpg',
+  },
+];
+const faqData: FAQItem[] = [
+  {
+    question: translate('home.faq.question1'),
+    answer: translate('home.faq.answer1'),
+  },
+  {
+    question: translate('home.faq.question2'),
+    answer: translate('home.faq.answer2'),
+  },
+  {
+    question: translate('home.faq.question3'),
+    answer: translate('home.faq.answer3'),
+  },
+  {
+    question: translate('home.faq.question4'),
+    answer: translate('home.faq.answer4'),
+  },
+  {
+    question: translate('home.faq.question5'),
+    answer: translate('home.faq.answer5'),
+  },
+  {
+    question: translate('home.faq.question6'),
+    answer: translate('home.faq.answer6'),
   },
 ];
 
@@ -155,30 +178,8 @@ const Home = () => {
       </ImageBackground>
 
       <View className="justify-center p-4 align-middle">
-        <CardComponent items={items} />
-        {/* <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Enjoy on your TV.</Text>
-          <Text style={styles.sectionText}>
-            Watch on Smart TVs, Playstation, Xbox, Chromecast, Apple TV, Blu-ray
-            players, and more.
-          </Text>
-        </View>
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>
-            Download your shows to watch offline.
-          </Text>
-          <Text style={styles.sectionText}>
-            Save your favorites easily and always have something to watch.
-          </Text>
-        </View>
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Watch everywhere.</Text>
-          <Text style={styles.sectionText}>
-            Stream unlimited movies and TV shows on your phone, tablet, laptop,
-            and TV without paying more.
-          </Text>
-        </View> */}
-        <FAQ />
+        <CardComponent title={translate('home.benefitsTitle')} items={items} />
+        <FAQ faqItems={faqData} title={translate('home.faqTitle')} />
         {/* <View style={styles.footer}></View> */}
       </View>
     </ScrollView>
