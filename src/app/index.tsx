@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     // padding: 20,
   },
   headerBackground: {
-    height: 555,
+    height: 950,
     width: '100%',
     // marginBottom: 40,
   },
