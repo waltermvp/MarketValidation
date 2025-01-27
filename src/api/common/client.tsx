@@ -1,5 +1,3 @@
-import { Env } from '@env';
-import axios from 'axios';
-export const client = axios.create({
-  baseURL: Env.API_URL,
-});
+import { type Schema } from 'amplify/data/resource';
+import { generateClient } from 'aws-amplify/api';
+export const client = generateClient<Schema>();
