@@ -2,7 +2,7 @@ import { type Schema } from 'amplify/data/resource';
 import { Amplify } from 'aws-amplify';
 import { configureAutoTrack } from 'aws-amplify/analytics';
 import { generateClient } from 'aws-amplify/api'; // import { EnvEnv } from 'env';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { ImageBackground, ScrollView, StyleSheet, View } from 'react-native';
 
 import CardComponent from '@/components/card-component';
@@ -58,56 +58,62 @@ const Home = () => {
     zipPlaceholder: translate('home.zipCode'),
   });
 
-  // Move items and faqData inside the component
-  const items = [
-    {
-      title: translate('home.benefits.title1'),
-      content: translate('home.benefits.content1'),
-      image: 'path/to/image1.jpg',
-    },
-    {
-      title: translate('home.benefits.title2'),
-      content: translate('home.benefits.content2'),
-      image: 'path/to/image2.jpg',
-    },
-    {
-      title: translate('home.benefits.title3'),
-      content: translate('home.benefits.content3'),
-      image: 'path/to/image3.jpg',
-    },
-    {
-      title: translate('home.benefits.title4'),
-      content: translate('home.benefits.content4'),
-      image: 'path/to/image4.jpg',
-    },
-  ];
+  // Replace the direct items and faqData declarations with memoized versions
+  const items = useMemo(
+    () => [
+      {
+        title: translate('home.benefits.title1'),
+        content: translate('home.benefits.content1'),
+        image: 'path/to/image1.jpg',
+      },
+      {
+        title: translate('home.benefits.title2'),
+        content: translate('home.benefits.content2'),
+        image: 'path/to/image2.jpg',
+      },
+      {
+        title: translate('home.benefits.title3'),
+        content: translate('home.benefits.content3'),
+        image: 'path/to/image3.jpg',
+      },
+      {
+        title: translate('home.benefits.title4'),
+        content: translate('home.benefits.content4'),
+        image: 'path/to/image4.jpg',
+      },
+    ],
+    []
+  );
 
-  const faqData: FAQItem[] = [
-    {
-      question: translate('home.faq.question1'),
-      answer: translate('home.faq.answer1'),
-    },
-    {
-      question: translate('home.faq.question2'),
-      answer: translate('home.faq.answer2'),
-    },
-    {
-      question: translate('home.faq.question3'),
-      answer: translate('home.faq.answer3'),
-    },
-    {
-      question: translate('home.faq.question4'),
-      answer: translate('home.faq.answer4'),
-    },
-    {
-      question: translate('home.faq.question5'),
-      answer: translate('home.faq.answer5'),
-    },
-    {
-      question: translate('home.faq.question6'),
-      answer: translate('home.faq.answer6'),
-    },
-  ];
+  const faqData = useMemo(
+    () => [
+      {
+        question: translate('home.faq.question1'),
+        answer: translate('home.faq.answer1'),
+      },
+      {
+        question: translate('home.faq.question2'),
+        answer: translate('home.faq.answer2'),
+      },
+      {
+        question: translate('home.faq.question3'),
+        answer: translate('home.faq.answer3'),
+      },
+      {
+        question: translate('home.faq.question4'),
+        answer: translate('home.faq.answer4'),
+      },
+      {
+        question: translate('home.faq.question5'),
+        answer: translate('home.faq.answer5'),
+      },
+      {
+        question: translate('home.faq.question6'),
+        answer: translate('home.faq.answer6'),
+      },
+    ],
+    []
+  );
 
   const [cardProps, setCardProps] = useState({
     title: translate('home.benefitsTitle'),

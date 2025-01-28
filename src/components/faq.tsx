@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { forwardRef, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Text, UIManager } from 'react-native';
 import {
   useAnimatedStyle,
@@ -10,15 +10,10 @@ import Animated from 'react-native-reanimated';
 
 import { TouchableOpacity, View } from '@/components/ui';
 
-type FAQItem = {
+export type FAQItem = {
   question: string;
   answer: string;
 };
-
-// Create a Text component that can accept refs
-const ForwardedText = forwardRef((props, ref) => {
-  return <Text ref={ref} {...props} />;
-});
 
 // eslint-disable-next-line max-lines-per-function
 export const FAQ = ({

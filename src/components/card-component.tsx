@@ -8,7 +8,19 @@ import {
   View,
 } from 'react-native';
 
-const CardComponent = ({ title, items }) => {
+type CardItem = {
+  title: string;
+  content: string;
+  image: string;
+};
+
+const CardComponent = ({
+  title,
+  items,
+}: {
+  title: string;
+  items: CardItem[];
+}) => {
   const [numColumns, setNumColumns] = useState(1);
 
   useEffect(() => {
@@ -25,7 +37,7 @@ const CardComponent = ({ title, items }) => {
     };
   }, []);
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item }: { item: CardItem }) => (
     <View style={[styles.card, numColumns === 1 ? styles.fullWidth : {}]}>
       <Text style={styles.cardTitle} className="text-3xl">
         {item.title}
