@@ -2,15 +2,10 @@ import { type Schema } from 'amplify/data/resource';
 import { Amplify } from 'aws-amplify';
 import { configureAutoTrack } from 'aws-amplify/analytics';
 import { generateClient } from 'aws-amplify/api'; // import { EnvEnv } from 'env';
-import React, { useEffect, useState } from 'react';
-import {
-  ImageBackground,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import React, { useEffect, useMemo, useState } from 'react';
+import { ImageBackground, ScrollView, StyleSheet, View } from 'react-native';
 
+import CardComponent from '@/components/card-component';
 import { FAQ } from '@/components/faq';
 import { MenuBar } from '@/components/menu-bar';
 import { Newsletter } from '@/components/newsletter';
@@ -63,7 +58,74 @@ const Home = () => {
     zipPlaceholder: translate('home.zipCode'),
   });
 
-  // Add useEffect to refresh translations when language changes
+  // Replace the direct items and faqData declarations with memoized versions
+  const items = useMemo(
+    () => [
+      {
+        title: translate('home.benefits.title1'),
+        content: translate('home.benefits.content1'),
+        image: 'path/to/image1.jpg',
+      },
+      {
+        title: translate('home.benefits.title2'),
+        content: translate('home.benefits.content2'),
+        image: 'path/to/image2.jpg',
+      },
+      {
+        title: translate('home.benefits.title3'),
+        content: translate('home.benefits.content3'),
+        image: 'path/to/image3.jpg',
+      },
+      {
+        title: translate('home.benefits.title4'),
+        content: translate('home.benefits.content4'),
+        image: 'path/to/image4.jpg',
+      },
+    ],
+    []
+  );
+
+  const faqData = useMemo(
+    () => [
+      {
+        question: translate('home.faq.question1'),
+        answer: translate('home.faq.answer1'),
+      },
+      {
+        question: translate('home.faq.question2'),
+        answer: translate('home.faq.answer2'),
+      },
+      {
+        question: translate('home.faq.question3'),
+        answer: translate('home.faq.answer3'),
+      },
+      {
+        question: translate('home.faq.question4'),
+        answer: translate('home.faq.answer4'),
+      },
+      {
+        question: translate('home.faq.question5'),
+        answer: translate('home.faq.answer5'),
+      },
+      {
+        question: translate('home.faq.question6'),
+        answer: translate('home.faq.answer6'),
+      },
+    ],
+    []
+  );
+
+  const [cardProps, setCardProps] = useState({
+    title: translate('home.benefitsTitle'),
+    items: items,
+  });
+
+  const [faqProps, setFaqProps] = useState({
+    faqItems: faqData,
+    title: translate('home.faqTitle'),
+  });
+
+  // Update cardProps and faqProps when language changes
   useEffect(() => {
     // lets repopulate newsletterProps here
     setNewsletterProps({
@@ -75,7 +137,26 @@ const Home = () => {
       errorMessage: null,
       zipPlaceholder: translate('home.zipCode'),
     });
-  }, [language, setNewsletterProps, successMessage]);
+
+    // Update cardProps and faqProps when language changes
+    setCardProps({
+      title: translate('home.benefitsTitle'),
+      items: items,
+    });
+
+    setFaqProps({
+      faqItems: faqData,
+      title: translate('home.faqTitle'),
+    });
+  }, [
+    language,
+    setNewsletterProps,
+    successMessage,
+    setCardProps,
+    setFaqProps,
+    items,
+    faqData,
+  ]);
 
   const handleNewsletterCallback = async (
     email: string,
@@ -134,30 +215,9 @@ const Home = () => {
         </View>
       </ImageBackground>
 
-      <View className="p-4">
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Enjoy on your TV.</Text>
-          <Text style={styles.sectionText}>
-            Watch on Smart TVs, Playstation, Xbox, Chromecast, Apple TV, Blu-ray
-            players, and more.
-          </Text>
-        </View>
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>
-            Download your shows to watch offline.
-          </Text>
-          <Text style={styles.sectionText}>
-            Save your favorites easily and always have something to watch.
-          </Text>
-        </View>
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Watch everywhere.</Text>
-          <Text style={styles.sectionText}>
-            Stream unlimited movies and TV shows on your phone, tablet, laptop,
-            and TV without paying more.
-          </Text>
-        </View>
-        <FAQ />
+      <View className="justify-center p-4 align-middle">
+        <CardComponent title={cardProps.title} items={cardProps.items} />
+        <FAQ faqItems={faqProps.faqItems} title={faqProps.title} />
         {/* <View style={styles.footer}></View> */}
       </View>
     </ScrollView>
@@ -172,7 +232,7 @@ const styles = StyleSheet.create({
     // padding: 20,
   },
   headerBackground: {
-    height: 500,
+    height: 950,
     width: '100%',
     // marginBottom: 40,
   },
@@ -217,7 +277,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
   },
 });
 

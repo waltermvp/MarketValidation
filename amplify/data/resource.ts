@@ -19,7 +19,10 @@ const schema = a
         zip: a.string(),
       })
       .identifier(['email'])
-      .authorization((allow) => [allow.guest()]),
+      .authorization((allow) => [
+        allow.guest().to(['create']),
+        allow.authenticated().to(['read']),
+      ]),
 
     signUpNewsletter: a
       .query()

@@ -17,7 +17,7 @@ export const Newsletter = ({
   zipPlaceholder,
   buttonText,
   successMessage,
-  errorMessage,
+  errorMessage: initialErrorMessage,
 }: {
   title: string;
   subtitle: string;
@@ -39,10 +39,22 @@ export const Newsletter = ({
   });
   const [country, setCountry] = useState('');
   const [zipCode, setZipCode] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string | null>(
+    initialErrorMessage
+  );
   const countries = ['USA', 'Canada', 'UK', 'Australia'];
 
   const handleSubmit = async () => {
     setLoading(true);
+    setErrorMessage(null);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+      setErrorMessage(translate('home.invalidEmail'));
+      setLoading(false);
+      return;
+    }
+
     try {
       await callBack(email, country, zipCode);
       setSuccess(true);
@@ -96,12 +108,9 @@ export const Newsletter = ({
                   style={{ height }} // Set a fixed height
                 />
                 <Picker
-                  style={
-                    {
-                      // height: window.innerWidth >= 640 ? height : undefined,
-                      // height: 44,
-                    }
-                  }
+                  style={{
+                    padding: window.innerWidth >= 640 ? 10 : undefined,
+                  }}
                   selectedValue={country}
                   onValueChange={(itemValue) => setCountry(itemValue)}
                   className="flex-1 rounded-md border border-neutral-700 bg-neutral-800 text-white"
@@ -136,10 +145,13 @@ export const Newsletter = ({
                     marginTop: 0,
                     width: '50%',
                     alignSelf: 'center',
+                    paddingVertical: 32,
                   }}
                   className=" !bg-danger-999"
                 >
-                  <Text className="font-bold text-white">{buttonText}</Text>
+                  <Text className="text-lg font-bold text-white">
+                    {buttonText}
+                  </Text>
                   <Ionicons
                     size={28}
                     name="chevron-forward-sharp"

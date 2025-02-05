@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "@aws-amplify/react-native": "^1.1.6",
+    "@aws-amplify/ui-react-native": "^2.4.1",
     "@aws-sdk/client-ses": "^3.726.1",
     "@expo/metro-runtime": "^4.0.0",
     "@gorhom/bottom-sheet": "^5.0.5",
@@ -80,6 +81,7 @@
     "react-native-edge-to-edge": "^1.1.2",
     "react-native-flash-message": "^0.4.2",
     "react-native-gesture-handler": "~2.20.2",
+    "react-native-get-random-values": "^1.11.0",
     "react-native-keyboard-controller": "^1.13.2",
     "react-native-mmkv": "~3.1.0",
     "react-native-reanimated": "~3.16.1",
@@ -91,6 +93,7 @@
     "react-native-web": "~0.19.13",
     "react-query-kit": "^3.3.0",
     "tailwind-variants": "^0.2.1",
+    "timeago.js": "^4.0.2",
     "zod": "^3.23.8",
     "zustand": "^4.5.5"
   },

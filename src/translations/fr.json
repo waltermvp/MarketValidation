@@ -1,14 +1,43 @@
 {
   "home": {
+    "title": "La pollution toxique environnementale est votre nouveau voisin",
+    "subtitle": "Elle contamine chaque respiration que vous prenez, chaque verre d'eau que vous buvez et chaque repas que vous mangez, causant une sensibilité chimique, le cancer, des maladies cardiaques, des empoisonnements et plus encore. \n\n C'est une menace invisible et mortelle pour vous et votre famille.\n\n Protégez votre santé maintenant. Inscrivez-vous à MapYourHealth et apprenez tous les dangers pour la santé dans votre environnement.",
     "enterEmail": "Entrez votre email",
     "errorMessage": "Oups, entrez un email correct.",
     "selectCountry": "Sélectionnez votre pays",
     "signUp": "S'inscrire",
-    "subtitle": "Ceci est une application rapide pour échantillonner la validation du marché auprès des utilisateurs.",
     "success": "Merci de vous être inscrit",
     "successAlreadyRegistered": "Cet email a déjà été enregistré",
-    "title": "Validation du marché",
-    "zipCode": "Code postal"
+    "zipCode": "Code postal",
+    "invalidEmail": "Veuillez entrer une adresse e-mail valide.",
+    "description": "Il contamine chaque respiration que vous prenez, chaque verre d'eau que vous buvez et chaque repas que vous mangez, causant une sensibilité chimique, le cancer, des maladies cardiaques, des empoisonnements et plus encore.",
+    "callToAction": "Protégez votre santé maintenant. Inscrivez-vous à MapYourHealth et apprenez tout sur les dangers pour la santé dans votre environnement.",
+    "benefitsTitle": "Plus d'avantages à s'inscrire",
+    "benefits": {
+      "title1": "Exposez les polluants toxiques cachés.",
+      "content1": "Suivez en temps réel la présence de produits chimiques éternels (PFAS), de radon, de pathogènes, de dioxyde de soufre (SO2), de composés organiques volatils (COV), de métaux lourds, de particules fines, et plus encore.",
+      "title2": "Surveillez les services publics essentiels.",
+      "content2": "Évaluez la qualité du traitement de l'eau, des soins de santé, des pompiers, de l'approvisionnement en énergie, de l'application de la loi et de la protection de l'environnement dans votre ville.",
+      "title3": "Auto-défense contre les polluants.",
+      "content3": "Accédez aux dernières recommandations scientifiques, aux technologies abordables et aux services luttant contre les polluants dangereux.",
+      "title4": "Planifiez vos voyages et déménagements.",
+      "content4": "Informez-vous sur les risques pour la santé de vivre dans d'autres villes lors de la planification de voyages ou de déménagements."
+    },
+    "faqTitle": "Questions Fréquemment Posées",
+    "faq": {
+      "question1": "Qu'est-ce que MapYourHealth?",
+      "answer1": "MapYourHealth est une carte interactive surveillant tous les dangers pour la santé dans votre environnement immédiat et au-delà. Cette plateforme unique représente visuellement des études de recherche, des dossiers de santé publique et des reportages d'investigation concernant la santé environnementale.",
+      "question2": "Pourquoi devrais-je me soucier des polluants environnementaux?",
+      "answer2": "Les polluants environnementaux mettent en danger la santé de tous. Selon votre emplacement, ils peuvent entraîner une gamme de problèmes graves à court et à long terme, y compris la sensibilité chimique (CS), des problèmes respiratoires, des maladies cardiovasculaires, des cancers, des troubles du développement et d'autres maladies chroniques.",
+      "question3": "Comment utiliser MapYourHealth?",
+      "answer3": "MapYourHealth vous offre la plateforme pour surveiller les menaces environnementales pour votre santé afin de faire des choix de mode de vie en toute sécurité, prospecter de nouveaux espaces de vie, planifier des voyages et rester informé des dernières recommandations et technologies contre les polluants environnementaux.",
+      "question4": "MapYourHealth est-il disponible partout?",
+      "answer4": "MapYourHealth n'est peut-être pas encore disponible dans votre région. Inscrivez-vous pour recevoir une alerte par e-mail automatique dès que MapYourHealth devient disponible dans votre ville.",
+      "question5": "MapYourHealth est-il gratuit?",
+      "answer5": "MapYourHealth est gratuit. Mais la bonne santé vaut plus que de l'or.",
+      "question6": "Soumettez un conseil sur les dangers environnementaux",
+      "answer6": "Contactez MapYourHealth et faites-nous savoir toute source de pollution toxique qui afflige votre ville natale. Les e-mails envoyés à tip@mapyourhealth.info seront traités en toute confidentialité."
+    }
   },
   "onboarding": {
     "message": "Welcome to obytes app site"
