@@ -9,10 +9,10 @@ export const ReviewCard = ({ id, rating = 2, comment, name }: Props) => {
   return (
     <View
       key={id}
-      className="w-[175px] overflow-hidden rounded-xl  border border-neutral-300 bg-white  dark:bg-neutral-900"
+      className="h-[220px] w-[175px]  overflow-hidden  rounded-xl border border-neutral-300  bg-white dark:bg-neutral-900"
     >
-      <View className="p-2 pt-0">
-        <View className="py-4 pt-2">
+      <View className="px-2 pt-2">
+        <View className="mb-2">
           <Text className="font-bold leading-snug text-gray-600">{name}</Text>
           <View className="flex-row items-center ">
             {/* Iterate over the rating and draw an Ionicon for each value */}
@@ -28,7 +28,7 @@ export const ReviewCard = ({ id, rating = 2, comment, name }: Props) => {
           </View>
         </View>
 
-        <Text numberOfLines={4} className=" leading-snug text-gray-600">
+        <Text numberOfLines={5} className=" leading-snug text-gray-600">
           {comment}
         </Text>
       </View>
