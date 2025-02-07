@@ -13,7 +13,7 @@ export const Reviews = () => {
     onSettled() {
       refetch();
     },
-    onError(error, variables, context) {
+    onError(error, variables) {
       console.log('error', error);
       console.log('variables', variables);
     },
