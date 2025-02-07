@@ -24,6 +24,16 @@ const schema = a
         allow.authenticated().to(['read']),
       ]),
 
+    Review: a
+      .model({
+        name: a.string(),
+        rating: a.integer(),
+        comment: a.string(),
+      })
+      .authorization((allow) => [
+        allow.guest().to(['read', 'create']),
+        allow.authenticated().to(['create', 'read']),
+      ]),
     signUpNewsletter: a
       .query()
       .arguments({

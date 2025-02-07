@@ -9,6 +9,7 @@ import CardComponent from '@/components/card-component';
 import { FAQ } from '@/components/faq';
 import { MenuBar } from '@/components/menu-bar';
 import { Newsletter } from '@/components/newsletter';
+import { Reviews } from '@/components/reviews';
 import { translate, useSelectedLanguage } from '@/lib';
 
 import outputs from '../../amplify_outputs.json';
@@ -216,6 +217,7 @@ const Home = () => {
       </ImageBackground>
 
       <View className="justify-center p-4 align-middle">
+        <Reviews />
         <CardComponent title={cardProps.title} items={cardProps.items} />
         <FAQ faqItems={faqProps.faqItems} title={faqProps.title} />
         {/* <View style={styles.footer}></View> */}
