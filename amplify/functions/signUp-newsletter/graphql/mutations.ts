@@ -8,6 +8,24 @@ type GeneratedMutation<InputType, OutputType> = string & {
   __generatedMutationOutput: OutputType;
 };
 
+export const createReview = /* GraphQL */ `mutation CreateReview(
+  $condition: ModelReviewConditionInput
+  $input: CreateReviewInput!
+) {
+  createReview(condition: $condition, input: $input) {
+    comment
+    createdAt
+    id
+    name
+    rating
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateReviewMutationVariables,
+  APITypes.CreateReviewMutation
+>;
 export const createUser = /* GraphQL */ `mutation CreateUser(
   $condition: ModelUserConditionInput
   $input: CreateUserInput!
@@ -27,6 +45,24 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
   APITypes.CreateUserMutationVariables,
   APITypes.CreateUserMutation
 >;
+export const deleteReview = /* GraphQL */ `mutation DeleteReview(
+  $condition: ModelReviewConditionInput
+  $input: DeleteReviewInput!
+) {
+  deleteReview(condition: $condition, input: $input) {
+    comment
+    createdAt
+    id
+    name
+    rating
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteReviewMutationVariables,
+  APITypes.DeleteReviewMutation
+>;
 export const deleteUser = /* GraphQL */ `mutation DeleteUser(
   $condition: ModelUserConditionInput
   $input: DeleteUserInput!
@@ -45,6 +81,24 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
 ` as GeneratedMutation<
   APITypes.DeleteUserMutationVariables,
   APITypes.DeleteUserMutation
+>;
+export const updateReview = /* GraphQL */ `mutation UpdateReview(
+  $condition: ModelReviewConditionInput
+  $input: UpdateReviewInput!
+) {
+  updateReview(condition: $condition, input: $input) {
+    comment
+    createdAt
+    id
+    name
+    rating
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateReviewMutationVariables,
+  APITypes.UpdateReviewMutation
 >;
 export const updateUser = /* GraphQL */ `mutation UpdateUser(
   $condition: ModelUserConditionInput

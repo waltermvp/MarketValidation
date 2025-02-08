@@ -3,13 +3,20 @@ import { Amplify } from 'aws-amplify';
 import { configureAutoTrack } from 'aws-amplify/analytics';
 import { generateClient } from 'aws-amplify/api'; // import { EnvEnv } from 'env';
 import React, { useEffect, useMemo, useState } from 'react';
-import { ImageBackground, ScrollView, StyleSheet, View } from 'react-native';
+import {
+  Dimensions,
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
 
 import CardComponent from '@/components/card-component';
 import { FAQ } from '@/components/faq';
 import { MenuBar } from '@/components/menu-bar';
-import { Newsletter } from '@/components/newsletter';
+import { RequestQuoteForm } from '@/components/request-quote-form';
 import { Reviews } from '@/components/reviews';
+import { Text } from '@/components/ui';
 import { translate, useSelectedLanguage } from '@/lib';
 
 import outputs from '../../amplify_outputs.json';
@@ -161,17 +168,30 @@ const Home = () => {
 
   const handleNewsletterCallback = async (
     email: string,
-    country?: string,
-    zip?: string
+    content: string,
+    name?: string
   ) => {
+    console.log('handleNewsletterCallback', name, email, content);
     try {
-      const result = await client.queries.signUpNewsletter({
-        email,
-        country: country ? country : undefined,
-        zip: zip ? zip : undefined,
-      });
+      const vars = {
+        email: email,
+        content: content,
+        name: name,
+      };
+      console.log('vars', vars);
+      const result = await client.queries.requestQuote(vars);
+      console.log('result');
+      if (result.errors) {
+        console.log(result.errors);
+        // setSuccessMessage(translate('home.successAlreadyRegistered'));
+        //@ts-ignore
+        setNewsletterProps((prevProps) => ({
+          ...prevProps,
+          errorMessage: translate('home.errorMessage'),
+        }));
+      }
       if (!result.data?.success) {
-        console.log(result.data?.message);
+        console.log(result);
         setSuccessMessage(translate('home.successAlreadyRegistered'));
         //@ts-ignore
         setNewsletterProps((prevProps) => ({
@@ -186,12 +206,22 @@ const Home = () => {
         }));
       }
     } catch (error) {
+      console.log('error', error);
       //@ts-ignore
       setNewsletterProps((prevProps) => ({
         ...prevProps,
         errorMessage: translate('home.errorMessage'),
       }));
     }
+  };
+
+  const { width } = Dimensions.get('window');
+
+  const headerStyle = {
+    paddingHorizontal: 10,
+    flexDirection: width > 600 ? 'row' : 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   };
 
   return (
@@ -208,10 +238,31 @@ const Home = () => {
           }}
         />
         <View style={styles.overlay} />
-        <View style={styles.header}>
-          <Newsletter
-            callBack={handleNewsletterCallback}
-            {...newsletterProps}
+        <View
+          // style={[styles.header, headerStyle]}
+          className={`flex  items-center justify-center ${
+            width >= 1024 ? 'flex-row' : 'flex-col'
+          }`} // Add this line
+        >
+          <View className="items-center justify-center p-12">
+            <Text
+              className="text-center text-2xl text-white"
+              children="Over a decade of professional experience in all facets of electrical repairs and installations"
+            ></Text>
+            <Text
+              className=" text-lg text-white"
+              children="We specialize in creating beautiful, functional websites and mobile apps."
+            ></Text>
+            <View>
+              <Text className="text-white" children="dddd"></Text>
+              <Text className="text-white" children="dddd"></Text>
+            </View>
+          </View>
+
+          <RequestQuoteForm
+            onSubmit={(data) => {
+              handleNewsletterCallback(data.name, data.email, data.content);
+            }}
           />
         </View>
       </ImageBackground>
@@ -241,7 +292,9 @@ const styles = StyleSheet.create({
   header: {
     // paddingTop: 20,
     paddingHorizontal: 10,
-    // alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   section: {
     marginBottom: 30,

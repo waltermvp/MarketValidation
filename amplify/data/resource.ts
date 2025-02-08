@@ -1,5 +1,6 @@
 import { a, type ClientSchema, defineData } from '@aws-amplify/backend';
 
+import { requestQuote } from '../functions/request-quote/resource';
 import { signUpNewsletter } from '../functions/signUp-newsletter/resource';
 
 /*== STEP 1 ===============================================================
@@ -26,9 +27,19 @@ const schema = a
 
     Review: a
       .model({
+        name: a.string().required(),
+        rating: a.integer().required(),
+        comment: a.string().required(),
+      })
+      .authorization((allow) => [
+        allow.guest().to(['read', 'create']),
+        allow.authenticated().to(['create', 'read']),
+      ]),
+    QuoteRequest: a
+      .model({
         name: a.string(),
-        rating: a.integer(),
-        comment: a.string(),
+        rating: a.integer().required(),
+        content: a.string().required(),
       })
       .authorization((allow) => [
         allow.guest().to(['read', 'create']),
@@ -47,9 +58,24 @@ const schema = a
       )
       .handler(a.handler.function(signUpNewsletter))
       .authorization((allow) => [allow.guest()]),
+
+    requestQuote: a
+      .query()
+      .arguments({
+        email: a.string().required(),
+        content: a.string(),
+        name: a.string(),
+        // callbackURL: a.string(),
+      })
+      .returns(
+        a.customType({ success: a.boolean().required(), message: a.string() })
+      )
+      .handler(a.handler.function(requestQuote))
+      .authorization((allow) => [allow.guest()]),
   })
   .authorization((allow) => [
     allow.resource(signUpNewsletter).to(['query', 'listen', 'mutate']),
+    allow.resource(requestQuote).to(['query', 'listen', 'mutate']),
   ]);
 
 export type Schema = ClientSchema<typeof schema>;

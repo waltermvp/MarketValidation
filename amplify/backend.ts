@@ -2,6 +2,7 @@ import { defineBackend } from '@aws-amplify/backend';
 import { auth } from './auth/resource';
 import { data } from './data/resource';
 import { signUpNewsletter } from './functions/signUp-newsletter/resource';
+import { requestQuote } from './functions/request-quote/resource';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import { Policy, PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { CfnApp } from 'aws-cdk-lib/aws-pinpoint';
@@ -10,7 +11,7 @@ import { Stack } from 'aws-cdk-lib/core';
 /**
  * @see https://docs.amplify.aws/react/build-a-backend/ to add storage, functions, and more
  */
-const backend = defineBackend({ signUpNewsletter, auth, data });
+const backend = defineBackend({ signUpNewsletter, auth, data, requestQuote });
 const analyticsStack = backend.createStack('analytics-stack');
 
 const statement = new iam.PolicyStatement({
@@ -47,6 +48,7 @@ backend.auth.resources.unauthenticatedUserIamRole.attachInlinePolicy(
 );
 backend.signUpNewsletter.resources.lambda.addToRolePolicy(statement);
 
+backend.requestQuote.resources.lambda.addToRolePolicy(statement);
 // patch the custom Pinpoint resource to the expected output configuration
 backend.addOutput({
   analytics: {
