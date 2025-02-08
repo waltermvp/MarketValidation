@@ -8,6 +8,18 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
+export const getReview = /* GraphQL */ `query GetReview($id: ID!) {
+  getReview(id: $id) {
+    comment
+    createdAt
+    id
+    name
+    rating
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<APITypes.GetReviewQueryVariables, APITypes.GetReviewQuery>;
 export const getUser = /* GraphQL */ `query GetUser($email: AWSEmail!) {
   getUser(email: $email) {
     country
@@ -21,6 +33,29 @@ export const getUser = /* GraphQL */ `query GetUser($email: AWSEmail!) {
   }
 }
 ` as GeneratedQuery<APITypes.GetUserQueryVariables, APITypes.GetUserQuery>;
+export const listReviews = /* GraphQL */ `query ListReviews(
+  $filter: ModelReviewFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listReviews(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      comment
+      createdAt
+      id
+      name
+      rating
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListReviewsQueryVariables,
+  APITypes.ListReviewsQuery
+>;
 export const listUsers = /* GraphQL */ `query ListUsers(
   $email: AWSEmail
   $filter: ModelUserFilterInput
@@ -50,6 +85,17 @@ export const listUsers = /* GraphQL */ `query ListUsers(
   }
 }
 ` as GeneratedQuery<APITypes.ListUsersQueryVariables, APITypes.ListUsersQuery>;
+export const requestQuote = /* GraphQL */ `query RequestQuote($content: String, $email: String!, $name: String) {
+  requestQuote(content: $content, email: $email, name: $name) {
+    message
+    success
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.RequestQuoteQueryVariables,
+  APITypes.RequestQuoteQuery
+>;
 export const signUpNewsletter = /* GraphQL */ `query SignUpNewsletter(
   $callbackURL: String
   $country: String
@@ -62,6 +108,7 @@ export const signUpNewsletter = /* GraphQL */ `query SignUpNewsletter(
     email: $email
     zip: $zip
   ) {
+    message
     success
     __typename
   }
