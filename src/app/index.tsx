@@ -196,7 +196,7 @@ const Home = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <ImageBackground
-        source={require('../../assets/background.jpeg')}
+        source={require('../../assets/background.jpg')}
         style={styles.headerBackground}
         resizeMode="cover"
       >
