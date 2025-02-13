@@ -227,12 +227,12 @@ const Home = () => {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    // flex: 1,
+    // ,
     backgroundColor: '#000',
     // padding: 20,
   },
   headerBackground: {
-    height: 950,
+    height: 700,
     width: '100%',
     // marginBottom: 40,
   },

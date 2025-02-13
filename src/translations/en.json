@@ -1,43 +1,43 @@
 {
   "home": {
-    "title": "Environmental toxic pollution is your new neighbour",
-    "subtitle": "It is contaminating every breath you take, every glass of water you drink and every meal you eat, causing chemical sensitivity, cancer, heart disease, poisoning and more. \n\n It is an invisible and deadly threat to you and your family.\n\n Protect your health now. Sign up to MapYourHealth and learn about all health hazards in your surroundings.",
+    "benefits": {
+      "content1": "Track in real time the presence of Forever Chemicals (PFAS), Radon, Pathogens, Sulfur Dioxide (SO2), Volatile Organic Compounds (VOCs), Heavy Metals, Particulate Matter, and more.",
+      "content2": "Assess the quality of water treatment, healthcare, fire department, energy supply, law enforcement, and environment protection in your city.",
+      "content3": "Access the latest scientific recommendations, affordable technologies, and services combating dangerous pollutants.",
+      "content4": "Get informed on the health risks of living in other cities when planning travels or relocation.",
+      "title1": "Expose hidden toxic pollutants.",
+      "title2": "Monitor Essential Public Services.",
+      "title3": "Self-defense against pollutants.",
+      "title4": "Plan Travels and Relocation."
+    },
+    "benefitsTitle": "More benefits to Sign Up",
+    "callToAction": "Protect your health now. Sign up to MapYourHealth and learn about all health hazards in your surroundings.",
+    "description": "It is contaminating every breath you take, every glass of water you drink, and every meal you eat, causing chemical sensitivity, cancer, heart disease, poisoning, and more. It is an invisible and deadly threat to you and your family.",
     "enterEmail": "Enter your email",
     "errorMessage": "Whoops, enter a correct email.",
-    "selectCountry": "Select your country",
-    "signUp": "Sign Up",
-    "description": "It is contaminating every breath you take, every glass of water you drink, and every meal you eat, causing chemical sensitivity, cancer, heart disease, poisoning, and more. It is an invisible and deadly threat to you and your family.",
-    "callToAction": "Protect your health now. Sign up to MapYourHealth and learn about all health hazards in your surroundings.",
-    "success": "Thank you for signing up.",
-    "successAlreadyRegistered": "This email has already been registered.",
-    "zipCode": "Zip Code",
-    "invalidEmail": "Please enter a valid email address.",
-    "benefitsTitle": "More benefits to Sign Up",
-    "benefits": {
-      "title1": "Expose hidden toxic pollutants.",
-      "content1": "Track in real time the presence of Forever Chemicals (PFAS), Radon, Pathogens, Sulfur Dioxide (SO2), Volatile Organic Compounds (VOCs), Heavy Metals, Particulate Matter, and more.",
-      "title2": "Monitor Essential Public Services.",
-      "content2": "Assess the quality of water treatment, healthcare, fire department, energy supply, law enforcement, and environment protection in your city.",
-      "title3": "Self-defense against pollutants.",
-      "content3": "Access the latest scientific recommendations, affordable technologies, and services combating dangerous pollutants.",
-      "title4": "Plan Travels and Relocation.",
-      "content4": "Get informed on the health risks of living in other cities when planning travels or relocation."
+    "faq": {
+      "answer1": "MapYourHealth is an interactive map monitoring all health hazards in your immediate environment and beyond. This unique platform visually represents research studies, public health records, and investigative reporting pertaining to environmental health.",
+      "answer2": "Environmental pollutants are endangering the health of everyone. Depending on where you are, they can lead to a range of serious short-term and long-term problems, including Chemical Sensitivity (CS), respiratory issues, cardiovascular diseases, cancers, developmental disorders, and other chronic illnesses.",
+      "answer3": "MapYourHealth offers you the platform to monitor environmental threats to your health in order to safely make lifestyle choices, prospect for new living spaces, plan travels, and stay updated on the latest recommendations and technologies countering environmental pollutants.",
+      "answer4": "MapYourHealth might not yet be available in your location. Sign up to receive an automatic email alert as soon as MapYourHealth becomes available in your city.",
+      "answer5": "MapYourHealth is free. But good health is worth more than gold.",
+      "answer6": "Get in touch with MapYourHealth and let us know about any source of toxic pollution plaguing your hometown. Emails sent to tip@mapyourhealth.info will be treated in all confidentiality.",
+      "question1": "What is MapYourHealth?",
+      "question2": "Why should I be concerned about environmental pollutants?",
+      "question3": "How do I use MapYourHealth?",
+      "question4": "Is MapYourHealth available everywhere?",
+      "question5": "Is MapYourHealth free?",
+      "question6": "Submit a tip on environmental hazards"
     },
     "faqTitle": "Frequently Asked Questions",
-    "faq": {
-      "question1": "What is MapYourHealth?",
-      "answer1": "MapYourHealth is an interactive map monitoring all health hazards in your immediate environment and beyond. This unique platform visually represents research studies, public health records, and investigative reporting pertaining to environmental health.",
-      "question2": "Why should I be concerned about environmental pollutants?",
-      "answer2": "Environmental pollutants are endangering the health of everyone. Depending on where you are, they can lead to a range of serious short-term and long-term problems, including Chemical Sensitivity (CS), respiratory issues, cardiovascular diseases, cancers, developmental disorders, and other chronic illnesses.",
-      "question3": "How do I use MapYourHealth?",
-      "answer3": "MapYourHealth offers you the platform to monitor environmental threats to your health in order to safely make lifestyle choices, prospect for new living spaces, plan travels, and stay updated on the latest recommendations and technologies countering environmental pollutants.",
-      "question4": "Is MapYourHealth available everywhere?",
-      "answer4": "MapYourHealth might not yet be available in your location. Sign up to receive an automatic email alert as soon as MapYourHealth becomes available in your city.",
-      "question5": "Is MapYourHealth free?",
-      "answer5": "MapYourHealth is free. But good health is worth more than gold.",
-      "question6": "Submit a tip on environmental hazards",
-      "answer6": "Get in touch with MapYourHealth and let us know about any source of toxic pollution plaguing your hometown. Emails sent to tip@mapyourhealth.info will be treated in all confidentiality."
-    }
+    "invalidEmail": "Please enter a valid email address.",
+    "selectCountry": "Select your country",
+    "signUp": "Sign Up",
+    "subtitle": "It is contaminating every breath you take, every glass of water you drink and every meal you \n\n Protect your health now. Sign up to MapYourHealth and learn about all health hazards in your surroundings.",
+    "success": "Thank you for signing up.",
+    "successAlreadyRegistered": "This email has already been registered.",
+    "title": "Environmental toxic pollution is your new neighbour",
+    "zipCode": "Zip Code"
   },
   "onboarding": {
     "message": "Welcome to obytes app site"
