@@ -33,7 +33,12 @@ export const Newsletter = ({
   const [success, setSuccess] = useState(() => {
     // Initialize from localStorage if available
     if (typeof window !== 'undefined') {
-      return localStorage.getItem('newsletterSubscribed') === 'true';
+      const localState = localStorage.getItem('newsletterSubscribed');
+      if (localState) {
+        console.log(localState, 'localState');
+
+        return localState === 'true';
+      }
     }
     return false;
   });
@@ -71,10 +76,10 @@ export const Newsletter = ({
       <View className=" border border-blue-500 px-2 pt-14">
         <Text
           children={title}
-          className="text-center text-2xl font-bold text-white "
+          className="px-16 text-center text-3xl font-bold text-white "
         />
         <Text
-          className="mt-4 text-center text-lg font-medium text-white"
+          className="mt-4 px-20 text-center text-2xl text-white"
           children={subtitle}
         />
         {success ? (
@@ -84,59 +89,58 @@ export const Newsletter = ({
             className={`flex ${window.innerWidth < 640 ? 'mt-5 flex-col' : 'flex-row'} space-x-2, w-full items-center justify-center self-center border border-green-500`}
           >
             <Ionicons name="checkmark-circle" size={48} color="#22c55e" />
-            <Text className="font-semibold text-white">{successMessage}</Text>
+            <Text className="font-semibold text-white">
+              {successMessage ? successMessage : translate('home.success')}
+            </Text>
           </Animated.View>
         ) : (
           <View
-            className={`${window.innerWidth < 640 ? 'flex-col' : 'flex-row'} items-center justify-center border border-yellow-500 bg-black align-middle`}
+            className={`${window.innerWidth < 640 ? 'flex-col' : 'flex-row'} h-48 items-center justify-center  border border-yellow-500  align-middle`}
           >
-            <Input
-              error={errorMessage}
-              errorClassName="text-neutral-200 dark:text-neutral-200"
-              className="rounded-md border border-neutral-700 bg-neutral-800 p-3 text-white"
-              placeholder={placeholder}
-              autoComplete="email"
-              keyboardType="email-address"
-              placeholderTextColor="#9CA3AF"
-              value={email}
-              onChangeText={setEmail}
-              autoCapitalize="none"
-              onSubmitEditing={handleSubmit}
-              style={{ height }} // Set a fixed height
-            />
-            <Picker
-              style={{
-                padding: window.innerWidth >= 640 ? 10 : undefined,
-              }}
-              selectedValue={country}
-              onValueChange={(itemValue) => setCountry(itemValue)}
-              className="rounded-md border border-neutral-700 bg-neutral-800 text-white"
+            <View
+              className={`${window.innerWidth < 640 ? `flex-col` : `flex-row`} mr-2 items-center justify-evenly border border-yellow-500`}
             >
-              <Picker.Item label={translate('home.selectCountry')} value="" />
-              {countries.map((country) => (
-                <Picker.Item key={country} label={country} value={country} />
-              ))}
-            </Picker>
-            <Input
-              className={`mt-4 rounded-md border border-neutral-700 bg-neutral-800 p-3 text-white`}
-              placeholder={zipPlaceholder}
-              value={zipCode}
-              onChangeText={setZipCode}
-              style={{ height }} // Set a fixed height
-              keyboardType="numeric"
-            />
+              <Input
+                error={errorMessage}
+                // errorClassName="text-neutral-200 dark:text-neutral-200"
+                className=" rounded-md border border-neutral-700 bg-neutral-800 p-3 text-white"
+                placeholder={placeholder}
+                autoComplete="email"
+                keyboardType="email-address"
+                placeholderTextColor="#9CA3AF"
+                value={email}
+                onChangeText={setEmail}
+                autoCapitalize="none"
+                onSubmitEditing={handleSubmit}
+              />
+              <Picker
+                style={{
+                  marginTop: -8,
+                  padding: window.innerWidth >= 640 ? 12 : undefined,
+                }}
+                selectedValue={country}
+                onValueChange={(itemValue) => setCountry(itemValue)}
+                className="rounded-md border border-neutral-700 bg-neutral-800 text-white"
+              >
+                <Picker.Item label={translate('home.selectCountry')} value="" />
+                {countries.map((country) => (
+                  <Picker.Item key={country} label={country} value={country} />
+                ))}
+              </Picker>
+              <Input
+                className="rounded-md border border-neutral-700 bg-neutral-800 p-3 text-white"
+                placeholder={zipPlaceholder}
+                value={zipCode}
+                onChangeText={setZipCode}
+                style={{ height }} // Set a fixed height
+                keyboardType="numeric"
+              />
+            </View>
             <Button
               label={buttonText}
               loading={loading}
               onPress={handleSubmit}
-              // style={{
-              //   height,
-              //   marginTop: 0,
-              //   // width: '50%',
-              //   alignSelf: 'center',
-              //   // paddingVertical: 32,
-              // }}
-              className="max-w-ss7 mt-0 h-[44px] self-center !bg-danger-999"
+              className="max-w-ss7  mt-0 h-[44px] self-center !bg-danger-999"
             >
               <Text className="text-lg font-bold text-white">{buttonText}</Text>
               <Ionicons
