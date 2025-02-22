@@ -2,7 +2,7 @@ import React from 'react';
 import Animated from 'react-native-reanimated';
 
 import { LanguageSelector } from '@/components/language-selector';
-import { Image, View } from '@/components/ui';
+import { Text, View } from '@/components/ui';
 import { type Language } from '@/lib/i18n/resources';
 
 type MenuBarProps = {
@@ -20,12 +20,9 @@ export function MenuBar({
   return (
     <View className="align-center z-50 w-full flex-row justify-between px-6">
       <Animated.View style={animatedStyle} className={'left-4 top-4'}>
-        <Image
-          className=" left-0.5 top-0.5 size-12"
-          source={
-            'https://images.unsplash.com/photo-1564507004663-b6dfb3c824d5?auto=format&fit=crop&w=400&q=80'
-          }
-        />
+        <Text className="text-2xl font-bold text-primary-500">
+          Map your Health
+        </Text>
       </Animated.View>
       <LanguageSelector currentLang={lang} onChangeLang={onLanguageChange} />
     </View>

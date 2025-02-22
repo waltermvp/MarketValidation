@@ -12,6 +12,11 @@ module.exports = {
         inter: ['Inter'],
       },
       colors,
+      screens: {
+        '2xs': '320px',
+        xs: '425px',
+        otherSm: '575px',
+      },
     },
   },
   plugins: [],

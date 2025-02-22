@@ -64,22 +64,22 @@ const Home = () => {
       {
         title: translate('home.benefits.title1'),
         content: translate('home.benefits.content1'),
-        image: 'path/to/image1.jpg',
+        image: require('../../assets/pollution.png'),
       },
       {
         title: translate('home.benefits.title2'),
         content: translate('home.benefits.content2'),
-        image: 'path/to/image2.jpg',
+        image: require('../../assets/monitor.png'),
       },
       {
         title: translate('home.benefits.title3'),
         content: translate('home.benefits.content3'),
-        image: 'path/to/image3.jpg',
+        image: require('../../assets/protect.png'),
       },
       {
         title: translate('home.benefits.title4'),
         content: translate('home.benefits.content4'),
-        image: 'path/to/image4.jpg',
+        image: require('../../assets/relocation.png'),
       },
     ],
     []
@@ -90,10 +90,12 @@ const Home = () => {
       {
         question: translate('home.faq.question1'),
         answer: translate('home.faq.answer1'),
+        image: '../../assets/monitor.png',
       },
       {
         question: translate('home.faq.question2'),
         answer: translate('home.faq.answer2'),
+        image: '../../assets/monitor.png',
       },
       {
         question: translate('home.faq.question3'),
@@ -214,9 +216,9 @@ const Home = () => {
           />
         </View>
       </ImageBackground>
+      <CardComponent title={cardProps.title} items={cardProps.items} />
 
       <View className="justify-center p-4 align-middle">
-        <CardComponent title={cardProps.title} items={cardProps.items} />
         <FAQ faqItems={faqProps.faqItems} title={faqProps.title} />
         {/* <View style={styles.footer}></View> */}
       </View>
