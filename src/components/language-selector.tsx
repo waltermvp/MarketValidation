@@ -19,11 +19,11 @@ export const LanguageSelector = ({
         onPress={() => onChangeLang('en')}
         className={`aspect-square rounded-full p-2 transition-all ${
           currentLang === 'en'
-            ? 'bg-primary-main/10 shadow-sm'
+            ? 'bg-neutral-200 shadow-sm'
             : 'opacity-50 hover:opacity-75'
         }`}
       >
-        <Text className="aspect-square text-lg font-semibold !text-black">
+        <Text className="aspect-square bg-transparent text-lg font-semibold !text-black">
           En
         </Text>
       </Pressable>
@@ -31,7 +31,7 @@ export const LanguageSelector = ({
         onPress={() => onChangeLang('fr')}
         className={`aspect-square rounded-full p-2 transition-all ${
           currentLang === 'fr'
-            ? 'bg-primary-main/10 shadow-sm'
+            ? 'bg-neutral-200 shadow-sm'
             : 'opacity-50 hover:opacity-75'
         }`}
       >
