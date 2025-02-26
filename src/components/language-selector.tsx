@@ -24,7 +24,7 @@ export const LanguageSelector = ({
         }`}
       >
         <Text
-          className={`aspect-square bg-transparent text-lg font-semibold ${
+          className={`aspect-square bg-transparent text-lg font-bold ${
             currentLang === 'en' ? '!text-primary-500' : '!text-white'
           }`}
         >
@@ -40,7 +40,7 @@ export const LanguageSelector = ({
         }`}
       >
         <Text
-          className={`aspect-square text-lg font-semibold ${
+          className={`aspect-square text-lg font-bold ${
             currentLang === 'fr' ? '!text-primary-500' : '!text-white'
           }`}
         >
