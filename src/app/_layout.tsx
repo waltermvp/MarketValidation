@@ -1,12 +1,21 @@
 // Import  global CSS file
 import '../../global.css';
 
+import {
+  Roboto_100Thin as RobotoThin,
+  Roboto_300Light as RobotoLight,
+  Roboto_400Regular as RobotoRegular,
+  Roboto_500Medium as RobotoMedium,
+  Roboto_700Bold as RobotoBold,
+  Roboto_900Black as RobotoBlack,
+  useFonts,
+} from '@expo-google-fonts/roboto';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import React from 'react';
-import { StyleSheet } from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import FlashMessage from 'react-native-flash-message';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
@@ -32,6 +41,29 @@ SplashScreen.setOptions({
 });
 
 export default function RootLayout() {
+  const [loaded, error] = useFonts({
+    RobotoBlack,
+    RobotoBold,
+    RobotoMedium,
+    RobotoRegular,
+    RobotoLight,
+    RobotoThin,
+  });
+
+  useEffect(() => {
+    if (loaded || error) {
+      SplashScreen.hideAsync();
+    }
+  }, [loaded, error]);
+  console.log(loaded, error, 'LE');
+  if (!loaded && !error) {
+    return (
+      <View>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+
   return (
     <Providers>
       <Stack initialRouteName="index">

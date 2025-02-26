@@ -10,6 +10,7 @@ module.exports = {
     extend: {
       fontFamily: {
         inter: ['Inter'],
+        roboto: ['Roboto', 'sans-serif'],
       },
       colors,
       screens: {

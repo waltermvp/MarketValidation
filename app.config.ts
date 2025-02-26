@@ -63,12 +63,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         imageWidth: 150,
       },
     ],
-    [
-      'expo-font',
-      {
-        fonts: ['./assets/fonts/Inter.ttf'],
-      },
-    ],
+    // [
+    //   'expo-font',
+    //   {
+    //     fonts: ['./assets/fonts/Inter.ttf'],
+    //   },
+    // ],
     'expo-localization',
     'expo-router',
     ['app-icon-badge', appIconBadgeConfig],
