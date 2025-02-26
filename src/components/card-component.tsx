@@ -43,10 +43,10 @@ const CardComponent = ({
           <Text className="text-3xl text-white">{item.title}</Text>
           <Text className="pt-4 text-lg text-white">{item.content}</Text>
         </View>
-        <View className=" items-center  py-4">
+        <View className="flex-1 items-center justify-center">
           <Image
             source={item.image}
-            className="aspect-square size-32 lg:size-64"
+            className="mt-4 aspect-square size-44 sm:size-44 md:size-44 lg:size-48 "
             contentFit="contain"
           />
         </View>
@@ -56,9 +56,9 @@ const CardComponent = ({
 
   return (
     <FlatList
-      contentContainerClassName="items-center gap-4"
+      contentContainerClassName="items-center sm:items-start gap-4 mt-4  sm:mt-8"
       ListHeaderComponent={
-        <Text className="px-3 text-3xl text-white">{title}</Text>
+        <Text className=" px-3 text-3xl text-white">{title}</Text>
       }
       key={numColumns}
       data={items}
