@@ -73,8 +73,8 @@ export const Newsletter = ({
   };
 
   return (
-    <View className={` `}>
-      <View className="px-2 pt-14">
+    <View className={`flex-1`}>
+      <View className="my-14 px-2">
         <Text
           children={title}
           className="px-16 text-center text-3xl font-bold !text-primary-500 "
@@ -96,7 +96,7 @@ export const Newsletter = ({
           </Animated.View>
         ) : (
           <View
-            className={`${width < breakpoint ? 'flex-col' : 'flex-row'} h-48 items-center justify-center align-middle`}
+            className={`${width < breakpoint ? 'mt-4 flex-col' : 'flex-row'} h-48 items-center justify-center align-middle`}
           >
             <View
               className={`${width < breakpoint ? `mt-8 flex-col gap-4` : `flex-row gap-4`} mr-2 items-center justify-evenly`}
@@ -117,7 +117,8 @@ export const Newsletter = ({
               <Picker
                 style={{
                   marginTop: -8,
-                  padding: width >= breakpoint ? 12 : undefined,
+                  // padding: 200, //width >= breakpoint ? 120 : 100,
+                  height: width >= breakpoint ? 44 : 44,
                 }}
                 selectedValue={country}
                 onValueChange={(itemValue) => setCountry(itemValue)}

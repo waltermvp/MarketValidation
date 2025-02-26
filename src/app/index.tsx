@@ -202,19 +202,14 @@ const Home = () => {
         style={styles.headerBackground}
         resizeMode="cover"
       >
+        <View style={styles.overlay} />
         <MenuBar
           lang={language}
           onLanguageChange={(lang) => {
             setLanguage(lang);
           }}
         />
-        <View style={styles.overlay} />
-        <View style={styles.header}>
-          <Newsletter
-            callBack={handleNewsletterCallback}
-            {...newsletterProps}
-          />
-        </View>
+        <Newsletter callBack={handleNewsletterCallback} {...newsletterProps} />
       </ImageBackground>
       <CardComponent title={cardProps.title} items={cardProps.items} />
 
@@ -228,20 +223,15 @@ const Home = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
+    // flexGrow: 1,
     // ,
     backgroundColor: '#000',
     // padding: 20,
   },
   headerBackground: {
-    height: 700,
+    height: 'auto',
     width: '100%',
     // marginBottom: 40,
-  },
-  header: {
-    // paddingTop: 20,
-    paddingHorizontal: 10,
-    // alignItems: 'center',
   },
   section: {
     marginBottom: 30,
@@ -275,6 +265,7 @@ const styles = StyleSheet.create({
   },
   overlay: {
     position: 'absolute',
+    flex: 1,
     top: 0,
     left: 0,
     right: 0,
