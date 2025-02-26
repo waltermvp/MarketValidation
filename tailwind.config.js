@@ -11,6 +11,10 @@ module.exports = {
       fontFamily: {
         inter: ['Inter'],
         roboto: ['Roboto', 'sans-serif'],
+        'netflix-bold': ['NetflixSans-Bold'],
+        'netflix-light': ['NetflixSans-Light'],
+        'netflix-medium': ['NetflixSans-Medium'],
+        'netflix-regular': ['NetflixSans-Regular'],
       },
       colors,
       screens: {

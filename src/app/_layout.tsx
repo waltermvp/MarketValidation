@@ -1,17 +1,9 @@
 // Import  global CSS file
 import '../../global.css';
 
-import {
-  Roboto_100Thin as RobotoThin,
-  Roboto_300Light as RobotoLight,
-  Roboto_400Regular as RobotoRegular,
-  Roboto_500Medium as RobotoMedium,
-  Roboto_700Bold as RobotoBold,
-  Roboto_900Black as RobotoBlack,
-  useFonts,
-} from '@expo-google-fonts/roboto';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { ThemeProvider } from '@react-navigation/native';
+import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import React, { useEffect } from 'react';
@@ -42,12 +34,10 @@ SplashScreen.setOptions({
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    RobotoBlack,
-    RobotoBold,
-    RobotoMedium,
-    RobotoRegular,
-    RobotoLight,
-    RobotoThin,
+    'NetflixSans-Bold': require('../../assets/fonts/NetflixSans-Bold.otf'),
+    'NetflixSans-Light': require('../../assets/fonts/NetflixSans-Light.otf'),
+    'NetflixSans-Medium': require('../../assets/fonts/NetflixSans-Medium.otf'),
+    'NetflixSans-Regular': require('../../assets/fonts/NetflixSans-Regular.otf'),
   });
 
   useEffect(() => {
