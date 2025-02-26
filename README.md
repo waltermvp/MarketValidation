@@ -65,3 +65,12 @@ pnpm android
 - [Forms](https://starter.obytes.com/ui-and-theme/Forms)
 - [Data fetching](https://starter.obytes.com/guides/data-fetching)
 - [Contribute to starter](https://starter.obytes.com/how-to-contribute/)
+
+## TODO:
+
+- [ ] By the way, @Walter Vargas-Pena I like the idea of putting the "email", "select your country" and "zip code" rectangles on the same line. fix layout of inputs
+
+- [ ] Walter, this is the font hierarchy for the site (the same that Netflix uses...):
+      Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif
+
+- [ ] test localization not updating evertything
