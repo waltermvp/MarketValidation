@@ -82,7 +82,7 @@ const Home = () => {
         image: require('../../assets/relocation.png'),
       },
     ],
-    []
+    [language]
   );
 
   const faqData = useMemo(
@@ -114,7 +114,7 @@ const Home = () => {
         answer: translate('home.faq.answer6'),
       },
     ],
-    []
+    [language]
   );
 
   const [cardProps, setCardProps] = useState({
