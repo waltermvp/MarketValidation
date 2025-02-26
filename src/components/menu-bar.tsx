@@ -14,7 +14,7 @@ export function MenuBar({ lang, onLanguageChange }: MenuBarProps) {
   return (
     <View className="align-center z-50 w-full flex-row justify-between px-6">
       <Animated.View className={'left-4 top-4'}>
-        <Text className="text-2xl font-bold !text-primary-500">
+        <Text className="text-3xl font-bold !text-primary-500">
           Map your Health
         </Text>
       </Animated.View>
