@@ -46,7 +46,7 @@ const CardComponent = ({
         <View className="flex-1 items-center justify-center">
           <Image
             source={item.image}
-            className="mt-4 aspect-square size-44 sm:size-44 md:size-44 lg:size-48 "
+            className="my-4 aspect-square size-44 sm:size-44 md:size-44 lg:mb-8 lg:size-48 "
             contentFit="contain"
           />
         </View>
