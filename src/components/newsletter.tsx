@@ -119,6 +119,7 @@ export const Newsletter = ({
                   marginTop: -8,
                   // padding: 200, //width >= breakpoint ? 120 : 100,
                   height: width >= breakpoint ? 44 : 44,
+                  width: 200,
                 }}
                 selectedValue={country}
                 onValueChange={(itemValue) => setCountry(itemValue)}
