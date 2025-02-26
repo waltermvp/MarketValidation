@@ -73,8 +73,8 @@ export const Newsletter = ({
   };
 
   return (
-    <View className={` border border-red-500`}>
-      <View className=" border border-blue-500 px-2 pt-14">
+    <View className={` `}>
+      <View className="px-2 pt-14">
         <Text
           children={title}
           className="px-16 text-center text-3xl font-bold !text-primary-500 "
@@ -87,7 +87,7 @@ export const Newsletter = ({
           <Animated.View
             entering={FadeIn.duration(1000)}
             // className=" flex-row items-center justify-center space-x-2"
-            className={`flex ${width < breakpoint ? 'mt-5 flex-col' : 'flex-row'} space-x-2, w-full items-center justify-center self-center border border-green-500`}
+            className={`flex ${width < breakpoint ? 'mt-5 flex-col' : 'flex-row'} space-x-2, w-full items-center justify-center self-center`}
           >
             <Ionicons name="checkmark-circle" size={48} color="#22c55e" />
             <Text className="font-semibold text-white">
@@ -96,10 +96,10 @@ export const Newsletter = ({
           </Animated.View>
         ) : (
           <View
-            className={`${width < breakpoint ? 'flex-col' : 'flex-row'} h-48 items-center justify-center   border border-yellow-500  align-middle`}
+            className={`${width < breakpoint ? 'flex-col' : 'flex-row'} h-48 items-center justify-center align-middle`}
           >
             <View
-              className={`${width < breakpoint ? `mt-8 flex-col gap-4` : `flex-row gap-4`} mr-2 items-center justify-evenly  border border-yellow-500`}
+              className={`${width < breakpoint ? `mt-8 flex-col gap-4` : `flex-row gap-4`} mr-2 items-center justify-evenly`}
             >
               <Input
                 error={errorMessage}
