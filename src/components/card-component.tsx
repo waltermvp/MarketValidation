@@ -41,7 +41,7 @@ const CardComponent = ({
       >
         <View className="flex-1">
           <Text className="text-3xl text-white">{item.title}</Text>
-          <Text className="pt-4 text-lg">{item.content}</Text>
+          <Text className="pt-4 text-lg text-white">{item.content}</Text>
         </View>
         <View className=" items-center  py-4">
           <Image
