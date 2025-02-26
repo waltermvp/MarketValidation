@@ -23,7 +23,11 @@ export const LanguageSelector = ({
             : 'opacity-50 hover:opacity-75'
         }`}
       >
-        <Text className="aspect-square bg-transparent text-lg font-semibold !text-black">
+        <Text
+          className={`aspect-square bg-transparent text-lg font-semibold ${
+            currentLang === 'en' ? '!text-primary-500' : '!text-white'
+          }`}
+        >
           En
         </Text>
       </Pressable>
@@ -35,7 +39,11 @@ export const LanguageSelector = ({
             : 'opacity-50 hover:opacity-75'
         }`}
       >
-        <Text className="aspect-square text-lg font-semibold !text-black">
+        <Text
+          className={`aspect-square text-lg font-semibold ${
+            currentLang === 'fr' ? '!text-primary-500' : '!text-white'
+          }`}
+        >
           Fr
         </Text>
       </Pressable>
