@@ -211,9 +211,9 @@ const Home = () => {
         />
         <Newsletter callBack={handleNewsletterCallback} {...newsletterProps} />
       </ImageBackground>
-      <CardComponent title={cardProps.title} items={cardProps.items} />
+      <View className="mx-12 justify-center align-middle">
+        <CardComponent title={cardProps.title} items={cardProps.items} />
 
-      <View className="justify-center p-4 align-middle">
         <FAQ faqItems={faqProps.faqItems} title={faqProps.title} />
         {/* <View style={styles.footer}></View> */}
       </View>
