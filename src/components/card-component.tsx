@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Dimensions, FlatList, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, FlatList, StyleSheet, View } from 'react-native';
 
-import { Image } from './ui';
+import { Image, Text } from './ui';
 
 type CardItem = {
   title: string;
@@ -40,12 +40,8 @@ const CardComponent = ({
         style={styles.cardWrapper}
       >
         <View className="flex-1">
-          <Text style={styles.cardTitle} className="text-3xl">
-            {item.title}
-          </Text>
-          <Text style={styles.cardContent} className="text-lg">
-            {item.content}
-          </Text>
+          <Text className="text-3xl text-white">{item.title}</Text>
+          <Text className="pt-4 text-lg">{item.content}</Text>
         </View>
         <View className=" items-center  py-4">
           <Image
