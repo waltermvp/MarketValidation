@@ -36,7 +36,7 @@ require('dotenv').config({
 
 const BUNDLE_ID = 'com.marketvalidation'; // ios bundle id
 const PACKAGE = 'com.marketvalidation'; // android package name
-const NAME = 'MarketValidation'; // app name
+const NAME = 'Map Your Health'; // app name
 const EXPO_ACCOUNT_OWNER = 'expo-owner'; // expo account owner
 const EAS_PROJECT_ID = 'c3e1075b-6fe7-4686-aa49-35b46a229044'; // eas project id
 const SCHEME = 'MarketValidation'; // app scheme
