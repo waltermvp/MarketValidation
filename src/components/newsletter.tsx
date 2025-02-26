@@ -8,6 +8,7 @@ import { Button, Input, Text } from '@/components/ui';
 import { translate } from '@/lib';
 
 const height = 44;
+const breakpoint = 784;
 // eslint-disable-next-line max-lines-per-function
 export const Newsletter = ({
   title,
@@ -86,7 +87,7 @@ export const Newsletter = ({
           <Animated.View
             entering={FadeIn.duration(1000)}
             // className=" flex-row items-center justify-center space-x-2"
-            className={`flex ${width < 640 ? 'mt-5 flex-col' : 'flex-row'} space-x-2, w-full items-center justify-center self-center border border-green-500`}
+            className={`flex ${width < breakpoint ? 'mt-5 flex-col' : 'flex-row'} space-x-2, w-full items-center justify-center self-center border border-green-500`}
           >
             <Ionicons name="checkmark-circle" size={48} color="#22c55e" />
             <Text className="font-semibold text-white">
@@ -95,10 +96,10 @@ export const Newsletter = ({
           </Animated.View>
         ) : (
           <View
-            className={`${width < 640 ? 'flex-col' : 'flex-row'} h-48 items-center justify-center  border border-yellow-500  align-middle`}
+            className={`${width < breakpoint ? 'flex-col' : 'flex-row'} h-48 items-center justify-center   border border-yellow-500  align-middle`}
           >
             <View
-              className={`${width < 640 ? `flex-col` : `flex-row`} mr-2 items-center justify-evenly border border-yellow-500`}
+              className={`${width < breakpoint ? `mt-4 flex-col gap-2` : `flex-row gap-4`} mr-2 items-center justify-evenly  border border-yellow-500`}
             >
               <Input
                 error={errorMessage}
@@ -116,7 +117,7 @@ export const Newsletter = ({
               <Picker
                 style={{
                   marginTop: -8,
-                  padding: width >= 640 ? 12 : undefined,
+                  padding: width >= breakpoint ? 12 : undefined,
                 }}
                 selectedValue={country}
                 onValueChange={(itemValue) => setCountry(itemValue)}
