@@ -99,7 +99,7 @@ export const Newsletter = ({
             className={`${width < breakpoint ? 'flex-col' : 'flex-row'} h-48 items-center justify-center   border border-yellow-500  align-middle`}
           >
             <View
-              className={`${width < breakpoint ? `mt-4 flex-col gap-2` : `flex-row gap-4`} mr-2 items-center justify-evenly  border border-yellow-500`}
+              className={`${width < breakpoint ? `mt-8 flex-col gap-4` : `flex-row gap-4`} mr-2 items-center justify-evenly  border border-yellow-500`}
             >
               <Input
                 error={errorMessage}
