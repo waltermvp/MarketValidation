@@ -24,7 +24,7 @@ export const LanguageSelector = ({
         }`}
       >
         <Text
-          className={`aspect-square bg-transparent text-lg font-bold ${
+          className={`aspect-square bg-transparent pb-6 text-lg font-bold${
             currentLang === 'en' ? '!text-primary-500' : '!text-white'
           }`}
         >
