@@ -36,7 +36,8 @@ const CardComponent = ({
     console.log(item.image, 'item');
     return (
       <View
-        className={`item-center otherSm:h-100 m-2.5 flex-1 flex-col self-center rounded-lg  bg-[#1c1c1c] p-3.5 text-white shadow-md `}
+        className={`m-2.5 flex-1 flex-col self-stretch rounded-lg bg-[#1c1c1c] p-3.5 text-white shadow-md`}
+        style={styles.cardWrapper}
       >
         <View className="flex-1">
           <Text style={styles.cardTitle} className="text-3xl">
@@ -46,10 +47,10 @@ const CardComponent = ({
             {item.content}
           </Text>
         </View>
-        <View className="flex-1 items-center pt-16">
+        <View className=" items-center  py-4">
           <Image
             source={item.image}
-            className="aspect-square size-32 lg:size-64 "
+            className="aspect-square size-32 lg:size-64"
             contentFit="contain"
           />
         </View>
@@ -59,7 +60,7 @@ const CardComponent = ({
 
   return (
     <FlatList
-      contentContainerClassName="items-center"
+      contentContainerClassName="items-center gap-4"
       ListHeaderComponent={
         <Text className="px-3 text-3xl text-white">{title}</Text>
       }
@@ -119,6 +120,10 @@ const styles = StyleSheet.create({
   },
   fullWidth: {
     maxWidth: '100%', // Make the card take the full width when numColumns is 1
+  },
+  cardWrapper: {
+    minHeight: 400, // Add a fixed minimum height
+    height: '100%', // Make sure it fills the available space
   },
 });
 
