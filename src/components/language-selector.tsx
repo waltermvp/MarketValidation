@@ -14,7 +14,7 @@ export const LanguageSelector = ({
   onChangeLang,
 }: LanguageSelectorProps) => {
   return (
-    <View className="right-4 top-4 z-50 flex-row gap-2 rounded-full bg-white/80 p-1 shadow-lg backdrop-blur-sm">
+    <View className="right-4 top-4 z-50 flex-row gap-2 rounded-full bg-primary-500 p-1 shadow-lg backdrop-blur-sm">
       <Pressable
         onPress={() => onChangeLang('en')}
         className={`aspect-square rounded-full p-2 transition-all ${
