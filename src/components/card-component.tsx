@@ -33,10 +33,9 @@ const CardComponent = ({
   }, []);
 
   const renderItem = ({ item }: { item: CardItem }) => {
-    console.log(item.image, 'item');
     return (
       <View
-        className={`mx-2.5 flex-1 flex-col self-stretch rounded-lg border-2 border-primary-500 bg-[#1c1c1c] p-3.5 text-white shadow-md`}
+        className={`mx-2.5 flex-1 flex-col self-stretch rounded-lg bg-[#1c1c1c] p-3.5 text-white shadow-md`}
         style={styles.cardWrapper}
       >
         <View className="flex-1">
