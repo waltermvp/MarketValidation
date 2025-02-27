@@ -4,6 +4,8 @@
     "copyright": "Copyright"
   },
   "home": {
+    "CTA1": "It is responsible for one in six deaths worldwide, causing cancer, heart and respiratory diseases, chemical sensitivity and more chronic illnesses.\n\n\n Protect your health now. Sign up to ",
+    "CTA2": "  and learn about all health hazards in your surroundings.",
     "benefits": {
       "content1": "Track in real time the presence of Forever Chemicals (PFAS), Radon, Pathogens, Sulfur Dioxide (SO2), Volatile Organic Compounds (VOCs), Heavy Metals, Particulate Matter, and more.",
       "content2": "Assess the quality of water treatment, healthcare, fire department, energy supply, law enforcement, and environment protection in your city.",
@@ -15,7 +17,6 @@
       "title4": "Plan Travels and Relocation."
     },
     "benefitsTitle": "More benefits to Sign Up",
-    "callToAction": "Protect your health now. Sign up to MapYourHealth and learn about all health hazards in your surroundings.",
     "description": "It is contaminating every breath you take, every glass of water you drink, and every meal you eat, causing chemical sensitivity, cancer, heart disease, poisoning, and more. It is an invisible and deadly threat to you and your family.",
     "enterEmail": "Enter your email",
     "errorMessage": "Whoops, enter a correct email.",

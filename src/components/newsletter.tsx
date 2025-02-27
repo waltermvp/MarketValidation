@@ -12,7 +12,7 @@ const breakpoint = 784;
 // eslint-disable-next-line max-lines-per-function
 export const Newsletter = ({
   title,
-  subtitle,
+  // subtitle,
   callBack,
   placeholder,
   zipPlaceholder,
@@ -21,7 +21,7 @@ export const Newsletter = ({
   errorMessage: initialErrorMessage,
 }: {
   title: string;
-  subtitle: string;
+  // subtitle: string;
   placeholder: string;
   zipPlaceholder: string;
   buttonText: string;
@@ -81,8 +81,19 @@ export const Newsletter = ({
         />
         <Text
           className="mt-4 px-20 text-center text-lg font-semibold text-white"
-          children={subtitle}
-        />
+          // children={subtitle}
+        >
+          <Text className="text-lg font-semibold text-white">
+            {translate('home.CTA1')}
+          </Text>
+          <Text className="font-netflix-bold text-2xl text-primary-500">
+            {translate('appname')}
+          </Text>
+          <Text className="text-lg font-semibold text-white">
+            {translate('home.CTA2')}
+          </Text>
+        </Text>
+
         {success ? (
           <Animated.View
             entering={FadeIn.duration(1000)}
