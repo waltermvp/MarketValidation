@@ -24,7 +24,7 @@ export const LanguageSelector = ({
         }`}
       >
         <Text
-          className={`aspect-square bg-transparent pb-6 text-lg ${
+          className={`aspect-square bg-transparent pb-6 font-netflix-bold text-lg ${
             currentLang === 'en' ? '!text-primary-500' : '!text-white'
           }`}
         >
@@ -33,14 +33,14 @@ export const LanguageSelector = ({
       </Pressable>
       <Pressable
         onPress={() => onChangeLang('fr')}
-        className={`aspect-square rounded-full p-2 transition-all ${
+        className={`aspect-square  rounded-full p-2  transition-all ${
           currentLang === 'fr'
             ? 'bg-neutral-200 shadow-sm'
             : 'opacity-50 hover:opacity-75'
         }`}
       >
         <Text
-          className={`aspect-square pb-6 text-lg font-bold ${
+          className={`aspect-square pb-6 font-netflix-bold text-lg ${
             currentLang === 'fr' ? '!text-primary-500' : '!text-white'
           }`}
         >
