@@ -1,4 +1,8 @@
 {
+  "appname": "MapYourHealth",
+  "footer": {
+    "copyright": "Copyright"
+  },
   "home": {
     "benefits": {
       "content1": "Track in real time the presence of Forever Chemicals (PFAS), Radon, Pathogens, Sulfur Dioxide (SO2), Volatile Organic Compounds (VOCs), Heavy Metals, Particulate Matter, and more.",

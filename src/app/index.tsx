@@ -9,6 +9,7 @@ import CardComponent from '@/components/card-component';
 import { FAQ } from '@/components/faq';
 import { MenuBar } from '@/components/menu-bar';
 import { Newsletter } from '@/components/newsletter';
+import { Text } from '@/components/ui/text';
 import { translate, useSelectedLanguage } from '@/lib';
 
 import outputs from '../../amplify_outputs.json';
@@ -211,11 +212,15 @@ const Home = () => {
         />
         <Newsletter callBack={handleNewsletterCallback} {...newsletterProps} />
       </ImageBackground>
-      <View className="mx-12 justify-center align-middle">
+      <View className="m-12 justify-center align-middle">
         <CardComponent title={cardProps.title} items={cardProps.items} />
 
         <FAQ faqItems={faqProps.faqItems} title={faqProps.title} />
-        {/* <View style={styles.footer}></View> */}
+      </View>
+      <View className="flex h-16  flex-row items-center justify-center bg-primary-500">
+        <Text className="font-bold !text-black">
+          &copy; 2025 - {translate('appname')}
+        </Text>
       </View>
     </ScrollView>
   );
