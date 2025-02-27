@@ -58,7 +58,7 @@ const CardComponent = ({
     <FlatList
       contentContainerClassName="items-center sm:items-start gap-4 mt-4 -mx-5  sm:mt-8"
       ListHeaderComponent={
-        <Text className=" px-2 font-netflix-medium text-2xl text-white sm:text-3xl">
+        <Text className="px-2 font-netflix-medium text-2xl text-white sm:text-4xl">
           {title}
         </Text>
       }
