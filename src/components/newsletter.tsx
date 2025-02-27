@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useWindowDimensions, View } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 
-import { Button, Input, Text } from '@/components/ui';
+import { Button, colors, Input, Text } from '@/components/ui';
 import { translate } from '@/lib';
 
 const height = 44;
@@ -77,13 +77,13 @@ export const Newsletter = ({
       <View className="my-14 px-2">
         <Text
           children={title}
-          className="px-16 text-center  font-netflix-bold text-3xl  font-bold !text-primary-500  md:text-4xl"
+          className="px-16 text-center font-netflix-bold text-3xl !text-primary-500 md:text-4xl"
         />
-        <Text className="mt-4 max-w-7xl self-center px-20 text-center text-lg font-semibold text-white">
+        <Text className="mt-4 max-w-7xl self-center px-20 text-center text-lg text-white">
           <Text className=" font-netflix-light text-lg text-white">
             {translate('home.CTA1')}
           </Text>
-          <Text className="font-netflix-light text-lg text-primary-500">
+          <Text className="font-netflix-bold text-lg text-primary-500">
             {translate('appname')}
           </Text>
           <Text className="font-netflix-light text-lg text-white">
@@ -95,10 +95,14 @@ export const Newsletter = ({
           <Animated.View
             entering={FadeIn.duration(1000)}
             // className=" flex-row items-center justify-center space-x-2"
-            className={`flex ${width < breakpoint ? 'mt-5 flex-col' : 'flex-row'} space-x-2, w-full items-center justify-center self-center`}
+            className={`flex ${width < breakpoint ? 'mt-5 flex-col' : 'flex-row'} space-x-2, mt-8 w-full items-center justify-center self-center`}
           >
-            <Ionicons name="checkmark-circle" size={48} color="#22c55e" />
-            <Text className="font-semibold text-white">
+            <Ionicons
+              name="checkmark-circle"
+              size={48}
+              color={colors.primary[550]}
+            />
+            <Text className="ml-4 font-netflix-regular text-2xl text-white">
               {successMessage ? successMessage : translate('home.success')}
             </Text>
           </Animated.View>
