@@ -38,14 +38,15 @@ const CardComponent = ({
         className={`mx-2.5 flex-1 flex-col self-stretch rounded-lg bg-[#1c1c1c] p-3.5 text-white shadow-md`}
         style={styles.cardWrapper}
       >
-        <View className="flex-1">
-          <Text className="text-3xl text-white">{item.title}</Text>
-          <Text className="pt-4 text-lg text-white">{item.content}</Text>
-        </View>
-        <View className="flex-1 items-center justify-center">
+        <Text className="text-3xl text-white">{item.title}</Text>
+
+        <View className="flex-1 flex-row items-end">
+          <Text className="self-start pt-4 text-lg text-white">
+            {item.content}
+          </Text>
           <Image
             source={item.image}
-            className="-mb-4 mt-10 aspect-square size-28 lg:mb-8 lg:size-48"
+            className=" aspect-square size-16 lg:mb-8 lg:size-24"
             contentFit="contain"
           />
         </View>
