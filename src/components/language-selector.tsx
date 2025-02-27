@@ -24,7 +24,7 @@ export const LanguageSelector = ({
         }`}
       >
         <Text
-          className={`aspect-square self-center bg-transparent pb-6 text-center font-netflix-bold text-lg ${
+          className={`aspect-square self-center bg-transparent pb-6 text-center font-netflix-bold text-2xl ${
             currentLang === 'en' ? '!text-primary-500' : '!text-white'
           }`}
         >
@@ -40,7 +40,7 @@ export const LanguageSelector = ({
         }`}
       >
         <Text
-          className={`aspect-square self-center bg-transparent pb-6 text-center font-netflix-bold text-lg ${
+          className={`aspect-square self-center bg-transparent pb-6 text-center font-netflix-bold text-2xl ${
             currentLang === 'fr' ? '!text-primary-500' : '!text-white'
           }`}
         >
