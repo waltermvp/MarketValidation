@@ -77,7 +77,7 @@ export const Newsletter = ({
       <View className="my-14 px-2">
         <Text
           children={title}
-          className="px-16 text-center font-netflix-bold text-3xl !text-primary-500 md:text-4xl"
+          className="px-16 text-center font-netflix-bold text-3xl !text-primary-500 sm:text-4xl"
         />
         <Text className="mt-4 max-w-7xl self-center px-20 text-center text-lg text-white">
           <Text className=" font-netflix-light text-lg text-white">
