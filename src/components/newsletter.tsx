@@ -79,17 +79,14 @@ export const Newsletter = ({
           children={title}
           className="px-16 text-center  font-netflix-bold text-3xl  font-bold !text-primary-500  md:text-4xl"
         />
-        <Text
-          className="mt-4 max-w-7xl self-center px-20 text-center text-lg font-semibold text-white"
-          // children={subtitle}
-        >
-          <Text className=" text-lg font-semibold text-white">
+        <Text className="mt-4 max-w-7xl self-center px-20 text-center text-lg font-semibold text-white">
+          <Text className=" font-netflix-light text-lg text-white">
             {translate('home.CTA1')}
           </Text>
-          <Text className="font-netflix-bold text-lg text-primary-500">
+          <Text className="font-netflix-light text-lg text-primary-500">
             {translate('appname')}
           </Text>
-          <Text className="text-lg font-semibold text-white">
+          <Text className="font-netflix-light text-lg text-white">
             {translate('home.CTA2')}
           </Text>
         </Text>
