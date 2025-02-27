@@ -62,7 +62,9 @@ export const FAQ = ({
 
   return (
     <View>
-      <Text className="p-3 pl-2 text-3xl !text-white">{title}</Text>
+      <Text className="p-3 pl-2 font-netflix-medium text-2xl !text-white">
+        {title}
+      </Text>
       {faqItems.map((item, index) => (
         <View
           className="overflow-hidden border-b-2 bg-charcoal-850"
