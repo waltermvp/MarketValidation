@@ -219,7 +219,7 @@ const Home = () => {
         <FAQ faqItems={faqProps.faqItems} title={faqProps.title} />
       </View>
       <View className="flex h-16  flex-row items-center justify-center bg-primary-500">
-        <Text className="font-bold !text-black">
+        <Text className="font-netflix-light !text-black">
           &copy; 2025 - {translate('appname')}
         </Text>
       </View>
