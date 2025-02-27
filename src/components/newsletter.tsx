@@ -73,7 +73,7 @@ export const Newsletter = ({
   };
 
   return (
-    <View className={`flex-1`}>
+    <View className={`mt-4 flex-1 xs:mt-12`}>
       <View className="my-14 px-2">
         <Text
           children={title}
