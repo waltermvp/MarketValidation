@@ -73,13 +73,13 @@ export const Newsletter = ({
   };
 
   return (
-    <View className={`mt-4 flex-1 xs:mt-12`}>
-      <View className="my-14 px-2">
+    <View className={`mt-4 flex-1 items-center xs:mt-12`}>
+      <View className="my-14 max-w-5xl px-2">
         <Text
           children={title}
           className="px-16 text-center font-netflix-bold text-3xl !text-primary-500 sm:text-4xl"
         />
-        <Text className="mt-4 max-w-7xl self-center px-20 text-center text-lg text-white">
+        <Text className="mt-4  self-center px-20 text-center text-lg text-white">
           <Text className=" font-netflix-light text-lg text-white">
             {translate('home.CTA1')}
           </Text>
