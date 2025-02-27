@@ -36,7 +36,7 @@ const CardComponent = ({
     console.log(item.image, 'item');
     return (
       <View
-        className={`m-2.5 flex-1 flex-col self-stretch rounded-lg bg-[#1c1c1c] p-3.5 text-white shadow-md`}
+        className={`mx-2.5 flex-1 flex-col self-stretch rounded-lg border-2 border-primary-500 bg-[#1c1c1c] p-3.5 text-white shadow-md`}
         style={styles.cardWrapper}
       >
         <View className="flex-1">
@@ -56,7 +56,7 @@ const CardComponent = ({
 
   return (
     <FlatList
-      contentContainerClassName="items-center sm:items-start gap-4 mt-4  sm:mt-8"
+      contentContainerClassName="items-center sm:items-start gap-4 mt-4 -mx-5  sm:mt-8"
       ListHeaderComponent={
         <Text className=" px-3 text-3xl text-white">{title}</Text>
       }

@@ -215,6 +215,7 @@ const Home = () => {
       <View className="m-12 justify-center align-middle">
         <CardComponent title={cardProps.title} items={cardProps.items} />
 
+        <View className="h-12  md:h-24" />
         <FAQ faqItems={faqProps.faqItems} title={faqProps.title} />
       </View>
       <View className="flex h-16  flex-row items-center justify-center bg-primary-500">
