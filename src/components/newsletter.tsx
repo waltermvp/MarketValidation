@@ -7,6 +7,17 @@ import Animated, { FadeIn } from 'react-native-reanimated';
 import { Button, colors, Input, Text } from '@/components/ui';
 import { translate } from '@/lib';
 
+import countries from '../../assets/countries.json';
+
+// Update the Country type to match the JSON structure
+type Country = {
+  name: {
+    common: string;
+    official: string;
+  };
+  cca2: string; // This is the country code in the JSON
+};
+
 const height = 44;
 const breakpoint = 784;
 // eslint-disable-next-line max-lines-per-function
@@ -49,7 +60,11 @@ export const Newsletter = ({
   const [errorMessage, setErrorMessage] = useState<string | null>(
     initialErrorMessage
   );
-  const countries = ['USA', 'Canada', 'UK', 'Australia'];
+
+  // Sort countries alphabetically by name
+  const sortedCountries = countries.sort((a: Country, b: Country) =>
+    a.name.common.localeCompare(b.name.common)
+  );
 
   const handleSubmit = async () => {
     setLoading(true);
@@ -138,8 +153,12 @@ export const Newsletter = ({
                 className="rounded-md border border-neutral-700 bg-neutral-800 text-white"
               >
                 <Picker.Item label={translate('home.selectCountry')} value="" />
-                {countries.map((country) => (
-                  <Picker.Item key={country} label={country} value={country} />
+                {sortedCountries.map((country: Country) => (
+                  <Picker.Item
+                    key={country.cca2}
+                    label={country.name.common}
+                    value={country.cca2}
+                  />
                 ))}
               </Picker>
               <Input
