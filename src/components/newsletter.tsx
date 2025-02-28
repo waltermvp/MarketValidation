@@ -95,7 +95,7 @@ export const Newsletter = ({
           <Animated.View
             entering={FadeIn.duration(1000)}
             // className=" flex-row items-center justify-center space-x-2"
-            className={`flex ${width < breakpoint ? 'mt-5 flex-col' : 'flex-row'} space-x-2, mt-8 w-full items-center justify-center self-center`}
+            className={`flex ${width < breakpoint ? 'mt-5 flex-col-reverse' : 'flex-row'} space-x-2, mt-8 w-full items-center justify-center self-center`}
           >
             <Ionicons
               name="checkmark-circle"
@@ -155,7 +155,7 @@ export const Newsletter = ({
               label={buttonText}
               loading={loading}
               onPress={handleSubmit}
-              className="max-w-ss7  mt-0 h-[44px] self-center !bg-primary-550"
+              className="max-w-ss7 mt-0  h-[44px]  self-center !bg-primary-550"
             >
               <Text className="text-lg font-bold text-white">{buttonText}</Text>
               <Ionicons
