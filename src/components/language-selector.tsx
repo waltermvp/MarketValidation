@@ -14,17 +14,17 @@ export const LanguageSelector = ({
   onChangeLang,
 }: LanguageSelectorProps) => {
   return (
-    <View className="right-4 top-4 z-50 flex-row gap-2 rounded-full bg-primary-500 p-1 shadow-lg backdrop-blur-sm">
+    <View className="right-4 top-4 z-50 flex-row gap-1 rounded-full bg-primary-500 p-1 shadow-lg backdrop-blur-sm">
       <Pressable
         onPress={() => onChangeLang('en')}
-        className={`aspect-square rounded-full p-2 transition-all ${
+        className={`aspect-square rounded-full p-1 transition-all ${
           currentLang === 'en'
             ? 'bg-neutral-200 shadow-sm'
             : 'opacity-50 hover:opacity-75'
         }`}
       >
         <Text
-          className={`aspect-square self-center bg-transparent pb-6 text-center font-netflix-bold text-2xl ${
+          className={`-mt-0.5  aspect-square self-center bg-transparent text-center font-netflix-regular text-lg ${
             currentLang === 'en' ? '!text-primary-500' : '!text-white'
           }`}
         >
@@ -33,14 +33,14 @@ export const LanguageSelector = ({
       </Pressable>
       <Pressable
         onPress={() => onChangeLang('fr')}
-        className={`aspect-square  rounded-full p-2  transition-all ${
+        className={`aspect-square  rounded-full p-1  transition-all ${
           currentLang === 'fr'
             ? 'bg-neutral-200 shadow-sm'
             : 'opacity-50 hover:opacity-75'
         }`}
       >
         <Text
-          className={`aspect-square self-center bg-transparent pb-6 text-center font-netflix-bold text-2xl ${
+          className={` -mt-0.5 aspect-square self-center bg-transparent  text-center font-netflix-regular text-lg ${
             currentLang === 'fr' ? '!text-primary-500' : '!text-white'
           }`}
         >
