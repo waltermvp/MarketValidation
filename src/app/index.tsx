@@ -3,7 +3,13 @@ import { Amplify } from 'aws-amplify';
 import { configureAutoTrack } from 'aws-amplify/analytics';
 import { generateClient } from 'aws-amplify/api'; // import { EnvEnv } from 'env';
 import React, { useEffect, useMemo, useState } from 'react';
-import { ImageBackground, ScrollView, StyleSheet, View } from 'react-native';
+import {
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 
 import CardComponent from '@/components/card-component';
 import { FAQ } from '@/components/faq';
@@ -13,6 +19,17 @@ import { Text } from '@/components/ui/text';
 import { translate, useSelectedLanguage } from '@/lib';
 
 import outputs from '../../amplify_outputs.json';
+const mobileLandscape960 = require('../../assets/hero-background/mobile_landscape_960x600.jpg');
+const mobilePortrait375 = require('../../assets/hero-background/mobile_portrait_375x667.jpg');
+const mobilePortrait480 = require('../../assets/hero-background/mobile_portrait_480x800.jpg');
+const tabletLandscape = require('../../assets/hero-background/tablet_landscape_1024x640.jpg');
+const tabletPortrait800 = require('../../assets/hero-background/tablet_portrait_800x1000.jpg');
+const tabletPortrait900 = require('../../assets/hero-background/tablet_portrait_900x1200.jpg');
+const mobileLandscape800 = require('../../assets/hero-background/mobile_landscape_800x500.jpg');
+const largeDesktop1440 = require('../../assets/hero-background/large_desktop_1440x810.jpg');
+const largeDesktop1920 = require('../../assets/hero-background/large_desktop_1920x800.jpg');
+const standardDesktop1280 = require('../../assets/hero-background/standard_desktop_1280x720.jpg');
+const standardDesktop1366 = require('../../assets/hero-background/standard_desktop_1366x768.jpg');
 
 Amplify.configure(outputs);
 // localStorage.clear(); //TODO: remove
@@ -59,6 +76,8 @@ const Home = () => {
     zipPlaceholder: translate('home.zipCode'),
   });
 
+  const { width, height } = useWindowDimensions();
+
   // Replace the direct items and faqData declarations with memoized versions
   const items = useMemo(
     () => [
@@ -83,7 +102,7 @@ const Home = () => {
         image: require('../../assets/relocation.png'),
       },
     ],
-    [language]
+    []
   );
 
   const faqData = useMemo(
@@ -115,7 +134,7 @@ const Home = () => {
         answer: translate('home.faq.answer6'),
       },
     ],
-    [language]
+    []
   );
 
   const [cardProps, setCardProps] = useState({
@@ -196,10 +215,34 @@ const Home = () => {
     }
   };
 
+  // Add this function to determine which background to use
+  const getBackgroundImage = () => {
+    const isPortrait = height > width;
+    console.log(`Screen: ${width}x${height}, isPortrait: ${isPortrait}`); // Debug info
+
+    if (isPortrait) {
+      // Portrait mode breakpoints
+      if (width <= 375) return mobilePortrait375; // iPhone SE, small phones
+      if (width <= 480) return mobilePortrait480; // Larger phones
+      if (width <= 768) return tabletPortrait800; // Small tablets
+      if (width <= 1024) return tabletPortrait900; // Large tablets
+      return tabletPortrait900; // Default portrait
+    } else {
+      // Landscape mode breakpoints
+      if (width <= 667) return mobileLandscape800; // Phone landscape
+      if (width <= 960) return mobileLandscape960; // Large phone landscape
+      if (width <= 1024) return tabletLandscape; // Tablet landscape
+      if (width <= 1280) return standardDesktop1280; // Small desktop/laptop
+      if (width <= 1366) return standardDesktop1366; // Standard laptop
+      if (width <= 1440) return largeDesktop1440; // Large laptop
+      return largeDesktop1920; // 4K+ displays
+    }
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <ImageBackground
-        source={require('../../assets/background.jpg')}
+        source={getBackgroundImage()}
         style={styles.headerBackground}
         resizeMode="cover"
       >
