@@ -92,16 +92,16 @@ export const Newsletter = ({
       <View className="my-14 max-w-5xl px-2">
         <Text
           children={title}
-          className="px-16 text-center font-netflix-bold text-3xl !text-primary-500 sm:text-4xl"
+          className="px-16 text-center font-netflix-bold text-4xl !text-primary-500 sm:text-5xl"
         />
-        <Text className="mt-4  self-center px-20 text-center text-lg text-white">
-          <Text className=" font-netflix-light text-lg text-white">
+        <Text className="mt-4  self-center px-20 text-center text-xl text-white">
+          <Text className=" font-netflix-light text-xl text-white">
             {translate('home.CTA1')}
           </Text>
-          <Text className="font-netflix-bold text-lg text-primary-500">
+          <Text className="font-netflix-bold text-xl text-primary-500">
             {translate('appname')}
           </Text>
-          <Text className="font-netflix-light text-lg text-white">
+          <Text className="font-netflix-light text-xl text-white">
             {translate('home.CTA2')}
           </Text>
         </Text>
@@ -117,7 +117,7 @@ export const Newsletter = ({
               size={48}
               color={colors.primary[550]}
             />
-            <Text className="ml-4 font-netflix-regular text-2xl text-white">
+            <Text className="ml-4 font-netflix-regular text-3xl text-white">
               {successMessage ? successMessage : translate('home.success')}
             </Text>
           </Animated.View>
@@ -176,7 +176,7 @@ export const Newsletter = ({
               onPress={handleSubmit}
               className="max-w-ss7 mt-0  h-[44px]  self-center !bg-primary-550"
             >
-              <Text className="text-lg font-bold text-white">{buttonText}</Text>
+              <Text className="text-xl font-bold text-white">{buttonText}</Text>
               <Ionicons
                 size={28}
                 name="chevron-forward-sharp"
