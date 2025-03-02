@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Dimensions, FlatList, StyleSheet, View } from 'react-native';
 
+import { translate } from '@/lib';
+
 import { Image, Text } from './ui';
 
 type CardItem = {
@@ -56,11 +58,16 @@ const CardComponent = ({
 
   return (
     <FlatList
-      contentContainerClassName="items-start gap-4 mt-4 -mx-5  sm:mt-8"
+      contentContainerClassName="items-start gap-4 mt-1 -mx-5  sm:mt-2"
       ListHeaderComponent={
-        <Text className="px-2 font-netflix-medium text-2xl text-white sm:text-4xl">
-          {title}
-        </Text>
+        <View className="flex-row items-center justify-between">
+          <Text className="px-2 font-netflix-medium text-2xl !text-neutral-100 sm:text-4xl">
+            {title}
+            <Text className="!bg-primary-550 px-1 font-netflix-medium text-2xl sm:text-4xl">
+              {translate('home.signUp')}
+            </Text>
+          </Text>
+        </View>
       }
       key={numColumns}
       data={items}

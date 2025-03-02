@@ -7,6 +7,17 @@ import Animated, { FadeIn } from 'react-native-reanimated';
 import { Button, colors, Input, Text } from '@/components/ui';
 import { translate } from '@/lib';
 
+import countries from '../../assets/countries.json';
+
+// Update the Country type to match the JSON structure
+type Country = {
+  name: {
+    common: string;
+    official: string;
+  };
+  cca2: string; // This is the country code in the JSON
+};
+
 const height = 44;
 const breakpoint = 784;
 // eslint-disable-next-line max-lines-per-function
@@ -49,7 +60,11 @@ export const Newsletter = ({
   const [errorMessage, setErrorMessage] = useState<string | null>(
     initialErrorMessage
   );
-  const countries = ['USA', 'Canada', 'UK', 'Australia'];
+
+  // Sort countries alphabetically by name
+  const sortedCountries = countries.sort((a: Country, b: Country) =>
+    a.name.common.localeCompare(b.name.common)
+  );
 
   const handleSubmit = async () => {
     setLoading(true);
@@ -77,16 +92,16 @@ export const Newsletter = ({
       <View className="my-14 max-w-5xl px-2">
         <Text
           children={title}
-          className="px-16 text-center font-netflix-bold text-3xl !text-primary-500 sm:text-4xl"
+          className="px-16 text-center font-netflix-bold text-4xl !text-primary-500 sm:text-5xl"
         />
-        <Text className="mt-4  self-center px-20 text-center text-lg text-white">
-          <Text className=" font-netflix-light text-lg text-white">
+        <Text className="mt-4  self-center px-20 text-center text-xl text-white">
+          <Text className=" font-netflix-light text-xl text-white">
             {translate('home.CTA1')}
           </Text>
-          <Text className="font-netflix-bold text-lg text-primary-500">
+          <Text className="font-netflix-bold text-xl text-primary-500">
             {translate('appname')}
           </Text>
-          <Text className="font-netflix-light text-lg text-white">
+          <Text className="font-netflix-light text-xl text-white">
             {translate('home.CTA2')}
           </Text>
         </Text>
@@ -95,14 +110,14 @@ export const Newsletter = ({
           <Animated.View
             entering={FadeIn.duration(1000)}
             // className=" flex-row items-center justify-center space-x-2"
-            className={`flex ${width < breakpoint ? 'mt-5 flex-col' : 'flex-row'} space-x-2, mt-8 w-full items-center justify-center self-center`}
+            className={`flex ${width < breakpoint ? 'mt-5 flex-col-reverse' : 'flex-row'} space-x-2, mt-8 w-full items-center justify-center self-center`}
           >
             <Ionicons
               name="checkmark-circle"
               size={48}
               color={colors.primary[550]}
             />
-            <Text className="ml-4 font-netflix-regular text-2xl text-white">
+            <Text className="ml-4 font-netflix-regular text-3xl text-white">
               {successMessage ? successMessage : translate('home.success')}
             </Text>
           </Animated.View>
@@ -138,8 +153,12 @@ export const Newsletter = ({
                 className="rounded-md border border-neutral-700 bg-neutral-800 text-white"
               >
                 <Picker.Item label={translate('home.selectCountry')} value="" />
-                {countries.map((country) => (
-                  <Picker.Item key={country} label={country} value={country} />
+                {sortedCountries.map((country: Country) => (
+                  <Picker.Item
+                    key={country.cca2}
+                    label={country.name.common}
+                    value={country.cca2}
+                  />
                 ))}
               </Picker>
               <Input
@@ -155,9 +174,9 @@ export const Newsletter = ({
               label={buttonText}
               loading={loading}
               onPress={handleSubmit}
-              className="max-w-ss7  mt-0 h-[44px] self-center !bg-primary-550"
+              className="max-w-ss7 mt-0  h-[44px]  self-center !bg-primary-550"
             >
-              <Text className="text-lg font-bold text-white">{buttonText}</Text>
+              <Text className="text-xl font-bold text-white">{buttonText}</Text>
               <Ionicons
                 size={28}
                 name="chevron-forward-sharp"
