@@ -255,7 +255,7 @@ const Home = () => {
         />
         <Newsletter callBack={handleNewsletterCallback} {...newsletterProps} />
       </ImageBackground>
-      <View className="m-12 justify-center align-middle">
+      <View className="mx-12 justify-center align-middle">
         <CardComponent title={cardProps.title} items={cardProps.items} />
 
         <View className="h-12  md:h-24" />
