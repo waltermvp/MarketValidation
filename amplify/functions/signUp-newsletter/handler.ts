@@ -148,6 +148,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
       }
     }
 
+    console.log('error in handler', error);
     return { success: false, message: 'Failed to process subscription' };
   }
 };
