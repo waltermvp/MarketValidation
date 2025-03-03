@@ -191,6 +191,7 @@ const Home = () => {
         country: country ? country : undefined,
         zip: zip ? zip : undefined,
       });
+      console.log('result', result);
       if (!result.data?.success) {
         console.log(result.data?.message);
         setSuccessMessage(translate('home.successAlreadyRegistered'));
@@ -207,6 +208,7 @@ const Home = () => {
         }));
       }
     } catch (error) {
+      console.log('error', error);
       //@ts-ignore
       setNewsletterProps((prevProps) => ({
         ...prevProps,
