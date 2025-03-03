@@ -17,7 +17,9 @@ const schema = a
         source: a.string().default('landingPage'),
         country: a.string(),
         zip: a.string(),
+        createdAt: a.datetime(),
       })
+      .secondaryIndexes((index) => [index('source').sortKeys(['createdAt'])])
       .identifier(['email'])
       .authorization((allow) => [
         allow.guest().to(['create']),
