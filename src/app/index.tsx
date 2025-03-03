@@ -255,16 +255,29 @@ const Home = () => {
         />
         <Newsletter callBack={handleNewsletterCallback} {...newsletterProps} />
       </ImageBackground>
-      <View className="mx-12 justify-center align-middle">
+      <View className="mx-12 mb-12 justify-center align-middle">
         <CardComponent title={cardProps.title} items={cardProps.items} />
 
         <View className="h-12  md:h-24" />
         <FAQ faqItems={faqProps.faqItems} title={faqProps.title} />
       </View>
-      <View className="flex h-16  flex-row items-center justify-center bg-primary-500">
-        <Text className="font-netflix-light !text-black">
-          &copy; 2025 - {translate('appname')}
-        </Text>
+      <View className="h-44 overflow-hidden">
+        <ImageBackground
+          source={getBackgroundImage()}
+          // style={styles.headerBackground}
+          // className="items-center "
+          imageStyle={{
+            height: 176 * 5, // Make the image 5x taller than the container
+            width: width,
+            top: -176 * 4, // Move the image up by 80% of its height (4x container height)
+          }}
+          resizeMode="cover"
+        >
+          <View style={[styles.overlay, { bottom: -200 }]} />
+          <Text className="mt-20 self-center font-netflix-regular !text-primary-500">
+            &copy; 2025 - {translate('appName')}
+          </Text>
+        </ImageBackground>
       </View>
     </ScrollView>
   );
