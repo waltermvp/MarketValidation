@@ -47,7 +47,7 @@ function Admin() {
             <View className="border-2-white p-2">
               <Text children={item.email} />
               <Text children={item.country} />
-              <Text children={format(item.createdAt)} />
+              <Text children={format(new Date(item.createdAt ?? ''))} />
             </View>
           );
         }}
