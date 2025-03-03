@@ -99,7 +99,7 @@ export const Newsletter = ({
             {translate('home.CTA1')}
           </Text>
           <Text className="font-netflix-bold text-xl text-primary-500">
-            {translate('appname')}
+            {translate('appName')}
           </Text>
           <Text className="font-netflix-light text-xl text-white">
             {translate('home.CTA2')}
