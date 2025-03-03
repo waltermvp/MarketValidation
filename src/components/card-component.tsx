@@ -63,7 +63,7 @@ const CardComponent = ({
         <View className="flex-row items-center justify-between">
           <Text className="px-2 font-netflix-medium text-2xl !text-neutral-100 sm:text-4xl">
             {title}
-            <Text className="!bg-primary-550 px-1 font-netflix-medium text-2xl sm:text-4xl">
+            <Text className="!bg-primary-550 px-1 font-netflix-medium text-2xl !text-white sm:text-4xl ">
               {translate('home.signUp')}
             </Text>
           </Text>
