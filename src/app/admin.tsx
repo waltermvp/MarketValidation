@@ -47,6 +47,7 @@ function Admin() {
             <View className="border-2-white p-2">
               <Text children={item.email} />
               <Text children={item.country} />
+              <Text children={item.zip} />
               <Text children={format(new Date(item.createdAt ?? ''))} />
             </View>
           );
