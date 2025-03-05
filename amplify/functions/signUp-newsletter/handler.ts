@@ -82,7 +82,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
         "We're really excited you've decided to give us a try. Please confirm your subscription by clicking the button below. In case you have any questions, feel free to reach out to us at contact@alfajoresny.com. You can login to your account with your username " +
         email,
       LoginButtonText: 'Confirm Subscription',
-      LoginButtonUrl: `${host}${callbackURL}/user/${newsletterToken}`,
+      LoginButtonUrl: `${host}${callbackURL}/user/`,
       SignatureText: 'Thanks,',
       SignatureCompany: 'The AlfajoresNY Team',
 
