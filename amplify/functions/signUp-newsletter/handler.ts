@@ -48,7 +48,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
   event,
   _context
 ) => {
-  const { email, callbackURL, country, zip } = event.arguments;
+  const { email, lang, callbackURL, country, zip } = event.arguments;
   console.log('arguments in handler', JSON.stringify(event.arguments, null, 2));
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -57,27 +57,24 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
 
   try {
     // Create user in database
-    const newsletterToken = randomBytes(32).toString('hex');
+    console.log('creating user in database');
 
     await dataClient.graphql({
       query: createUser,
       variables: {
         input: {
-          // newsletterToken: newsletterToken,
-          name: 'My first todo',
           email: email,
           country: country ? country : undefined,
           zip: zip ? zip : undefined,
-          // newsletterConfirmed: false,
-          // newsletterSubscribed: true,
         },
       },
     });
-
+    console.log('user created in database');
     const host = callbackURL === 'localhost:8081' ? 'http://' : 'https://';
     // Send welcome email
     const templateValues = {
       EmailTitle: 'Welcome to MapYourHealth - Confirm Your Subscription',
+      HeaderImage: 'https://mapyourhealth.info/logo.png',
       WelcomeHeader: 'Thanks for signing up!',
       // FirstName: 'John',
       // CompanyName: 'AlfajoresNY',
@@ -104,6 +101,8 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
       FontFamily: 'Arial, sans-serif',
       LineItems: '',
       OrderTotal: '',
+      subscriberName: 'Dear friend,',
+      cityName: 'New York',
     };
 
     const finalHtml = generateHtmlString(templateValues);
@@ -127,6 +126,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
     console.log('email sent');
     return { success: true };
   } catch (error) {
+    console.log('error in handler', error);
     // Ensure the error is properly typed or checked
     if (error && typeof error === 'object' && 'errors' in error) {
       const errorArray = (error as { errors: { errorType: string }[] }).errors;
@@ -158,8 +158,6 @@ interface EmailTemplateValues {
   // Content
   WelcomeHeader: string;
   MainMessage: string;
-  LineItems: string;
-  OrderTotal: string;
   LoginButtonText: string;
   LoginButtonUrl: string;
 
@@ -180,6 +178,8 @@ interface EmailTemplateValues {
 
   // Typography
   FontFamily: string;
+  subscriberName: string;
+  cityName: string;
 }
 
 // eslint-disable-next-line max-lines-per-function
@@ -257,6 +257,13 @@ function generateHtmlString(values: EmailTemplateValues): string {
           padding: 20px;
           text-align: center;
         }
+        .content p {
+          margin-bottom: 16px;
+        }
+        .highlight {
+          font-weight: bold;
+          color: ${values.MainTextColor};
+        }
       </style>
     </head>
     <body>
@@ -266,29 +273,22 @@ function generateHtmlString(values: EmailTemplateValues): string {
           <h1>${values.EmailTitle}</h1>
         </div>
         <div class="content">
-          <h2 class="welcome-header">${values.WelcomeHeader}</h2>
-          <p>${values.MainMessage}</p>
-          <table>
-            <thead>
-              <tr>
-                <th>Item</th>
-                <th>Quantity</th>
-                <th>Price</th>
-              </tr>
-            </thead>
-            <tbody>${values.LineItems}</tbody>
-            <tfoot>
-              <tr>
-                <td colspan="2" style="text-align: right; font-weight: bold;">Total:</td>
-                <td>${values.OrderTotal}</td>
-              </tr>
-            </tfoot>
-          </table>
-          <a class="action-button" href="${values.LoginButtonUrl}">${values.LoginButtonText}</a>
-          <p>${values.LoginButtonUrl}</p>
+          <p>Dear ${values.subscriberName},</p>
+          
+          <p>Thank you for taking care of your health.</p>
+          
+          <p>Currently, <span class="highlight">${values.cityName}</span> is not in our database. But rest assured that we will notify you via email as soon as we have mapped your neighborhood.</p>
+          
+          <p>Monitoring environmental health is essential for a safer and healthier world. By identifying and addressing local health hazards, you can prevent chronic illnesses, reduce exposure to harmful pollutants, and ensure access to clean air, water, and safe living conditions.</p>
+          
+          <p>In doing so, you can protect the well-being of current and future generations.</p>
+          
+          <p>Help us save more lives by inviting family and friends to Sign Up at <a href="https://MapYourHealth.info">MapYourHealth.info</a></p>
+          
+          <p>Wishing you a long and fulfilling life.</p>
         </div>
         <div class="footer">
-          <p>${values.SignatureText}<br>${values.SignatureCompany}</p>
+          <p>The MapYourHealth team</p>
         </div>
       </div>
     </body>
