@@ -7,17 +7,17 @@
     "CTA1": "It is responsible for one in six deaths worldwide, causing cancer, heart and respiratory diseases, multiple chemical sensitivity and more chronic illnesses.\n\n\n Protect your health now. Sign up to ",
     "CTA2": " and learn about all health hazards in your surroundings.",
     "benefits": {
-      "content1": "Track in real time the presence of Forever Chemicals (PFAS), Radon, Pathogens, Sulfur Dioxide (SO2), Volatile Organic Compounds (VOCs), Heavy Metals, Particulate Matter, and more.",
-      "content2": "Assess the quality of water treatment, healthcare, fire department, energy supply, law enforcement, and environment protection in your city.",
-      "content3": "Access the latest scientific recommendations, affordable technologies, and services combating dangerous pollutants.",
-      "content4": "Get informed on the health risks of living in other cities when planning travels or relocation.",
-      "title1": "Expose hidden toxic pollutants.",
-      "title2": "Monitor Essential Public Services.",
-      "title3": "Self-defense against pollutants.",
-      "title4": "Plan Travels and Relocation."
+      "title1": "Expose Hidden Toxic Pollutants",
+      "content1": "Track in real time the presence of Forever Chemicals (PFAS), radon, endocrine disruptors, pathogens, sulfur dioxide (SO2), volatile organic compounds (VOCs), heavy metals, ozone, particulate matter, and more.",
+      "title2": "Monitor Essential Public Services",
+      "content2": "Assess the quality of water treatment, healthcare, fire services, energy supply, law enforcement, and environmental protection in your city.",
+      "title3": "Self-Defense Against Pollutants",
+      "content3": "Access the latest scientific recommendations in environmental health, affordable protective technologies, and services to combat dangerous pollutants.",
+      "title4": "Plan Travels and Relocation",
+      "content4": "Get informed about the health risks of living in other cities when planning travels or relocation."
     },
     "benefitsTitle": "More benefits to ",
-    "description": "It is contaminating every breath you take, every glass of water you drink, and every meal you eat, causing chemical sensitivity, cancer, heart disease, poisoning, and more. It is an invisible and deadly threat to you and your family.",
+    "description": "It is contaminating every breath you take, every glass of water you drink, and every meal you eat, causing multiple chemical sensitivity, cancer, heart disease, poisoning, and more. It is an invisible and deadly threat to you and your family.",
     "enterEmail": "Enter your email",
     "errorMessage": "Whoops, enter a correct email.",
     "faq": {
@@ -41,7 +41,7 @@
     "subtitle": "It is responsible for one in six deaths worldwide, causing cancer, heart and respiratory diseases, multiple chemical sensitivity and more chronic illnesses.\n\n\n Protect your health now. Sign up to MapYourHealth and learn about all health hazards in your surroundings.",
     "success": "Thank you for signing up.",
     "successAlreadyRegistered": "This email has already been registered.",
-    "title": "Environmental pollution is your new neighbour",
+    "title": "Environmental pollution is your new neighbor",
     "zipCode": "Zip Code"
   },
   "onboarding": {
