@@ -89,7 +89,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
       LoginButtonText: 'Confirm Subscription',
       LoginButtonUrl: `${host}${callbackURL}/user/`,
       SignatureText: 'Thanks,',
-      SignatureCompany: 'The AlfajoresNY Team',
+      SignatureCompany: 'The MapYourHealth Team',
       // 500: '#c4d779',
       // 550: '#9db835',
       // Colors
@@ -123,7 +123,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
           Html: { Data: finalHtml },
         },
         Subject: {
-          Data: 'Welcome to AlfajoresNY Newsletter',
+          Data: 'Welcome to MapYourHealth Newsletter',
         },
       },
       Source: emailFrom,
