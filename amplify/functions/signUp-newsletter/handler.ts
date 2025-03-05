@@ -74,7 +74,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
     });
     console.log('user created in database');
     const host = callbackURL === 'localhost:8081' ? 'http://' : 'https://';
-    const footerURL = await getEmailImageUrl('footer.png');
+    const footerURL = await getEmailImageUrl('email-images/footer.png');
     console.log(footerURL, 'footerurl');
     // Send welcome email
     const templateValues = {
@@ -83,9 +83,6 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
       WelcomeHeader: 'Thanks for signing up!',
       // FirstName: 'John',
       // CompanyName: 'AlfajoresNY',
-      MainMessage:
-        "We're really excited you've decided to give us a try. Please confirm your subscription by clicking the button below. In case you have any questions, feel free to reach out to us at contact@alfajoresny.com. You can login to your account with your username " +
-        email,
       LoginButtonText: 'Confirm Subscription',
       LoginButtonUrl: `${host}${callbackURL}/user/`,
       SignatureText: 'Thanks,',
@@ -164,7 +161,6 @@ interface EmailTemplateValues {
 
   // Content
   WelcomeHeader: string;
-  MainMessage: string;
   LoginButtonText: string;
   LoginButtonUrl: string;
 
