@@ -83,14 +83,13 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
       // HeaderImageAlt: 'AlfajoresNY Welcome Header', 'Welcome to MapYourHealth - Confirm Your Subscription',
       WelcomeHeader: 'Thanks for signing up!',
       // FirstName: 'John',
-      // CompanyName: 'AlfajoresNY',
       MainMessage:
         "We're really excited you've decided to give us a try. Please confirm your subscription by clicking the button below. In case you have any questions, feel free to reach out to us at contact@alfajoresny.com. You can login to your account with your username " +
         email,
       LoginButtonText: 'Confirm Subscription',
       LoginButtonUrl: `${host}${callbackURL}/user/${newsletterToken}`,
       SignatureText: 'Thanks,',
-      SignatureCompany: 'The AlfajoresNY Team',
+      SignatureCompany: 'MapYourHealth',
 
       // Colors
       MainTextColor: '#7D2020',
