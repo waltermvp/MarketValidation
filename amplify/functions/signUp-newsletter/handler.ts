@@ -78,6 +78,9 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
     // Send welcome email
     const templateValues = {
       EmailTitle: 'Welcome to MapYourHealth - Confirm Your Subscription',
+      HeaderImage:
+        'https://dta56yysqj9ke.cloudfront.net/eyJidWNrZXQiOiJhbXBsaWZ5LWRxZmluYjB3cXFpczMtbWFpLWFsZmFqb3Jlc2RyaXZlYnVja2V0ZTNjNy03bjF6a3R0NWY5cmMiLCJrZXkiOiJhbGZhMS5qcGVnIn0=',
+      // HeaderImageAlt: 'AlfajoresNY Welcome Header', 'Welcome to MapYourHealth - Confirm Your Subscription',
       WelcomeHeader: 'Thanks for signing up!',
       // FirstName: 'John',
       // CompanyName: 'AlfajoresNY',
