@@ -6,11 +6,11 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 import { Policy, PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { CfnApp } from 'aws-cdk-lib/aws-pinpoint';
 import { Stack } from 'aws-cdk-lib/core';
-
+import { storage } from './storage/resource';
 /**
  * @see https://docs.amplify.aws/react/build-a-backend/ to add storage, functions, and more
  */
-const backend = defineBackend({ signUpNewsletter, auth, data });
+const backend = defineBackend({ signUpNewsletter, auth, data, storage });
 const analyticsStack = backend.createStack('analytics-stack');
 
 const statement = new iam.PolicyStatement({

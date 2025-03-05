@@ -33,6 +33,7 @@ const schema = a
         country: a.string(),
         zip: a.string(),
         callbackURL: a.string(),
+        lang: a.string(),
       })
       .returns(
         a.customType({ success: a.boolean().required(), message: a.string() })

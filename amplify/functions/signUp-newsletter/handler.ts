@@ -2,6 +2,21 @@ import { SendEmailCommand, SESClient } from '@aws-sdk/client-ses';
 import { Amplify } from 'aws-amplify';
 import { generateClient } from 'aws-amplify/data';
 import { randomBytes } from 'crypto';
+import {
+  S3Client,
+  GetObjectCommand,
+  type S3ClientConfig,
+} from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+
+const s3Client = new S3Client({
+  region: env.AWS_REGION,
+  credentials: {
+    accessKeyId: env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
+    sessionToken: env.AWS_SESSION_TOKEN,
+  },
+} as S3ClientConfig);
 
 // eslint-disable-next-line import/no-unresolved
 import { env } from '$amplify/env/signUp-newsletter';
@@ -48,7 +63,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
   event,
   _context
 ) => {
-  const { email, callbackURL, country, zip } = event.arguments;
+  const { email, lang, callbackURL, country, zip } = event.arguments;
   console.log('arguments in handler', JSON.stringify(event.arguments, null, 2));
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -57,55 +72,90 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
 
   try {
     // Create user in database
-    const newsletterToken = randomBytes(32).toString('hex');
+    console.log('creating user in database');
 
     await dataClient.graphql({
       query: createUser,
       variables: {
         input: {
-          // newsletterToken: newsletterToken,
-          name: 'My first todo',
           email: email,
           country: country ? country : undefined,
           zip: zip ? zip : undefined,
-          // newsletterConfirmed: false,
-          // newsletterSubscribed: true,
         },
       },
     });
-
+    console.log('user created in database');
     const host = callbackURL === 'localhost:8081' ? 'http://' : 'https://';
+    const footerURL = await getEmailImageUrl('email-images/footer.png');
+    console.log(footerURL, 'footerurl');
+
+    // Define email content based on language
+    const emailContent = {
+      en: {
+        title: 'Welcome to MapYourHealth - Confirm Your Subscription',
+        subject: 'Welcome to MapYourHealth Newsletter',
+        greeting: 'Dear friend,',
+        thankYouMessage: 'Thank you for taking care of your health.',
+        cityMessage:
+          'Currently, New York is not in our database. But rest assured that we will notify you via email as soon as we have mapped your neighborhood.',
+        mainMessage:
+          'Monitoring environmental health is essential for a safer and healthier world. By identifying and addressing local health hazards, you can prevent chronic illnesses, reduce exposure to harmful pollutants, and ensure access to clean air, water, and safe living conditions.',
+        followUpMessage:
+          'In doing so, you can protect the well-being of current and future generations.',
+        inviteMessage:
+          'Help us save more lives by inviting family and friends to Sign Up at',
+        closingMessage: 'Wishing you a long and fulfilling life.',
+        footerSignature: 'The MapYourHealth team',
+      },
+      fr: {
+        title: 'Bienvenue sur MapYourHealth - Confirmez votre abonnement',
+        subject: 'Bienvenue à la newsletter MapYourHealth',
+        greeting: 'Cher ami,',
+        thankYouMessage: 'Merci de prendre soin de votre santé.',
+        cityMessage:
+          "Présentement, [City Name] n'est pas dans notre base de données. Mais rassurez-vous, nous vous enverrons un courriel dès que nous aurons cartographié votre quartier.",
+        mainMessage:
+          "Veiller à la santé environnementale est essentiel pour un monde plus sûr et plus sain. En identifiant les menaces environnementales dans votre localité, vous pouvez prévenir des maladies chroniques, réduire l'exposition aux polluants nocifs et garantir l'accès à de l'air pur, de l'eau propre et des conditions de vie sûres.",
+        followUpMessage:
+          'Ce faisant, vous protégez le bien-être des générations présentes et futures.',
+        inviteMessage:
+          "Aidez-nous à sauver plus de vies en invitant vos amis et votre famille à s'inscrire sur",
+        closingMessage: 'Amicalement,',
+        footerSignature: "L'équipe de MapYourHealth",
+      },
+    };
+
+    const content = emailContent[lang === 'fr' ? 'fr' : 'en'];
+
     // Send welcome email
     const templateValues = {
-      EmailTitle: 'Welcome to MapYourHealth - Confirm Your Subscription',
-      HeaderImage:
-        'https://dta56yysqj9ke.cloudfront.net/eyJidWNrZXQiOiJhbXBsaWZ5LWRxZmluYjB3cXFpczMtbWFpLWFsZmFqb3Jlc2RyaXZlYnVja2V0ZTNjNy03bjF6a3R0NWY5cmMiLCJrZXkiOiJhbGZhMS5qcGVnIn0=',
-      // HeaderImageAlt: 'AlfajoresNY Welcome Header', 'Welcome to MapYourHealth - Confirm Your Subscription',
+      EmailTitle: content.title,
+      HeaderImage: footerURL,
       WelcomeHeader: 'Thanks for signing up!',
-      // FirstName: 'John',
-      MainMessage:
-        "We're really excited you've decided to give us a try. Please confirm your subscription by clicking the button below. In case you have any questions, feel free to reach out to us at contact@alfajoresny.com. You can login to your account with your username " +
-        email,
       LoginButtonText: 'Confirm Subscription',
-      LoginButtonUrl: `${host}${callbackURL}/user/${newsletterToken}`,
+      LoginButtonUrl: `${host}${callbackURL}/user/`,
       SignatureText: 'Thanks,',
-      SignatureCompany: 'MapYourHealth',
-
-      // Colors
-      MainTextColor: '#7D2020',
+      SignatureCompany: 'The MapYourHealth Team',
+      MainTextColor: '#9db835',
       EmailBackgroundColor: '#7D2020',
       HeaderBackgroundColor: '#ffffff',
       ContentBackgroundColor: '#ffffff',
-      MainBackgroundColor: '#7D2020',
+      MainBackgroundColor: '#9db835',
       TableHeaderBackgroundColor: '#f8f9fa',
       HeaderTextColor: '#000000',
       HighlightTextColor: '#ffffff',
       FooterTextColor: '#ffffff',
-
-      // Typography
       FontFamily: 'Arial, sans-serif',
-      LineItems: '',
-      OrderTotal: '',
+      greeting: content.greeting,
+      thankYouMessage: content.thankYouMessage,
+      cityMessage: content.cityMessage,
+      mainMessage: content.mainMessage,
+      followUpMessage: content.followUpMessage,
+      inviteMessage: content.inviteMessage,
+      websiteUrl: 'MapYourHealth.info',
+      closingMessage: content.closingMessage,
+      footerSignature: content.footerSignature,
+      footerURL: footerURL,
     };
 
     const finalHtml = generateHtmlString(templateValues);
@@ -119,7 +169,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
           Html: { Data: finalHtml },
         },
         Subject: {
-          Data: 'Welcome to AlfajoresNY Newsletter',
+          Data: content.subject,
         },
       },
       Source: emailFrom,
@@ -129,6 +179,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
     console.log('email sent');
     return { success: true };
   } catch (error) {
+    console.log('error in handler', error);
     // Ensure the error is properly typed or checked
     if (error && typeof error === 'object' && 'errors' in error) {
       const errorArray = (error as { errors: { errorType: string }[] }).errors;
@@ -159,9 +210,6 @@ interface EmailTemplateValues {
 
   // Content
   WelcomeHeader: string;
-  MainMessage: string;
-  LineItems: string;
-  OrderTotal: string;
   LoginButtonText: string;
   LoginButtonUrl: string;
 
@@ -182,6 +230,19 @@ interface EmailTemplateValues {
 
   // Typography
   FontFamily: string;
+
+  // New content text properties
+  greeting: string;
+  thankYouMessage: string;
+  cityMessage: string;
+  mainMessage: string;
+  followUpMessage: string;
+  inviteMessage: string;
+  websiteUrl: string;
+  closingMessage: string;
+  footerSignature: string;
+
+  footerURL: String;
 }
 
 // eslint-disable-next-line max-lines-per-function
@@ -255,45 +316,63 @@ function generateHtmlString(values: EmailTemplateValues): string {
         }
         .footer {
           background-color: ${values.MainBackgroundColor};
+          background-image: url('${values.footerURL}'); /* Add your image URL here */
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
           color: ${values.FooterTextColor};
           padding: 20px;
           text-align: center;
+        }
+        .content p {
+          margin-bottom: 16px;
+        }
+        .highlight {
+          font-weight: bold;
+          color: ${values.MainTextColor};
         }
       </style>
     </head>
     <body>
       <div class="container">
         <div class="header">
-          <img src="${values.HeaderImage}" alt="${values.EmailTitle}">
           <h1>${values.EmailTitle}</h1>
         </div>
         <div class="content">
-          <h2 class="welcome-header">${values.WelcomeHeader}</h2>
-          <p>${values.MainMessage}</p>
-          <table>
-            <thead>
-              <tr>
-                <th>Item</th>
-                <th>Quantity</th>
-                <th>Price</th>
-              </tr>
-            </thead>
-            <tbody>${values.LineItems}</tbody>
-            <tfoot>
-              <tr>
-                <td colspan="2" style="text-align: right; font-weight: bold;">Total:</td>
-                <td>${values.OrderTotal}</td>
-              </tr>
-            </tfoot>
-          </table>
-          <a class="action-button" href="${values.LoginButtonUrl}">${values.LoginButtonText}</a>
-          <p>${values.LoginButtonUrl}</p>
+          <p>${values.greeting}</p>
+          
+          <p>${values.thankYouMessage}</p>
+          
+          <p>${values.cityMessage}</p>
+          
+          <p>${values.mainMessage}</p>
+          
+          <p>${values.followUpMessage}</p>
+          
+          <p>${values.inviteMessage} <a href="${values.websiteUrl}">${values.websiteUrl}</a></p>
+          
+          <p>${values.closingMessage}</p>
         </div>
         <div class="footer">
-          <p>${values.SignatureText}<br>${values.SignatureCompany}</p>
+          <p>${values.footerSignature}</p>
         </div>
       </div>
     </body>
     </html>
   `;
+}
+
+async function getEmailImageUrl(imageKey: string) {
+  const fullKey = imageKey.startsWith('email-images/')
+    ? imageKey
+    : `email-images/${imageKey}`;
+
+  const command = new GetObjectCommand({
+    Bucket: env.MAPYOURHEALTH_IMAGES_BUCKET_NAME,
+    Key: fullKey,
+  });
+
+  const url = await getSignedUrl(s3Client as any, command, { expiresIn: 3600 });
+  console.log(url, 'url');
+  return url;
 }
