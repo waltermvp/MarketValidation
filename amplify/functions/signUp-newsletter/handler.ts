@@ -85,13 +85,14 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
       LoginButtonUrl: `${host}${callbackURL}/user/`,
       SignatureText: 'Thanks,',
       SignatureCompany: 'The AlfajoresNY Team',
-
+      // 500: '#c4d779',
+      // 550: '#9db835',
       // Colors
       MainTextColor: '#7D2020',
       EmailBackgroundColor: '#7D2020',
       HeaderBackgroundColor: '#ffffff',
       ContentBackgroundColor: '#ffffff',
-      MainBackgroundColor: '#7D2020',
+      MainBackgroundColor: '#9db835',
       TableHeaderBackgroundColor: '#f8f9fa',
       HeaderTextColor: '#000000',
       HighlightTextColor: '#ffffff',
@@ -253,6 +254,10 @@ function generateHtmlString(values: EmailTemplateValues): string {
         }
         .footer {
           background-color: ${values.MainBackgroundColor};
+          background-image: url('https://mapyourhealth.info/footer-bg.jpg'); /* Add your image URL here */
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
           color: ${values.FooterTextColor};
           padding: 20px;
           text-align: center;
