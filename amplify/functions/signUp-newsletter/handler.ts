@@ -81,15 +81,10 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
       EmailTitle: 'Welcome to MapYourHealth - Confirm Your Subscription',
       HeaderImage: footerURL,
       WelcomeHeader: 'Thanks for signing up!',
-      // FirstName: 'John',
-      // CompanyName: 'AlfajoresNY',
       LoginButtonText: 'Confirm Subscription',
       LoginButtonUrl: `${host}${callbackURL}/user/`,
       SignatureText: 'Thanks,',
       SignatureCompany: 'The MapYourHealth Team',
-      // 500: '#c4d779',
-      // 550: '#9db835',
-      // Colors
       MainTextColor: '#9db835',
       EmailBackgroundColor: '#7D2020',
       HeaderBackgroundColor: '#ffffff',
@@ -99,13 +94,19 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
       HeaderTextColor: '#000000',
       HighlightTextColor: '#ffffff',
       FooterTextColor: '#ffffff',
-
-      // Typography
       FontFamily: 'Arial, sans-serif',
-      LineItems: '',
-      OrderTotal: '',
-      subscriberName: 'Dear friend,',
-      cityName: 'New York',
+      greeting: 'Dear friend,',
+      thankYouMessage: 'Thank you for taking care of your health.',
+      cityMessage: `Currently, New York is not in our database. But rest assured that we will notify you via email as soon as we have mapped your neighborhood.`,
+      mainMessage:
+        'Monitoring environmental health is essential for a safer and healthier world. By identifying and addressing local health hazards, you can prevent chronic illnesses, reduce exposure to harmful pollutants, and ensure access to clean air, water, and safe living conditions.',
+      followUpMessage:
+        'In doing so, you can protect the well-being of current and future generations.',
+      inviteMessage:
+        'Help us save more lives by inviting family and friends to Sign Up at',
+      websiteUrl: 'MapYourHealth.info',
+      closingMessage: 'Wishing you a long and fulfilling life.',
+      footerSignature: 'The MapYourHealth team',
       footerURL: footerURL,
     };
 
@@ -181,8 +182,17 @@ interface EmailTemplateValues {
 
   // Typography
   FontFamily: string;
-  subscriberName: string;
-  cityName: string;
+
+  // New content text properties
+  greeting: string;
+  thankYouMessage: string;
+  cityMessage: string;
+  mainMessage: string;
+  followUpMessage: string;
+  inviteMessage: string;
+  websiteUrl: string;
+  closingMessage: string;
+  footerSignature: string;
 
   footerURL: String;
 }
@@ -282,22 +292,22 @@ function generateHtmlString(values: EmailTemplateValues): string {
           <h1>${values.EmailTitle}</h1>
         </div>
         <div class="content">
-          <p>${values.subscriberName},</p>
+          <p>${values.greeting}</p>
           
-          <p>Thank you for taking care of your health.</p>
+          <p>${values.thankYouMessage}</p>
           
-          <p>Currently, <span class="highlight">${values.cityName}</span> is not in our database. But rest assured that we will notify you via email as soon as we have mapped your neighborhood.</p>
+          <p>${values.cityMessage}</p>
           
-          <p>Monitoring environmental health is essential for a safer and healthier world. By identifying and addressing local health hazards, you can prevent chronic illnesses, reduce exposure to harmful pollutants, and ensure access to clean air, water, and safe living conditions.</p>
+          <p>${values.mainMessage}</p>
           
-          <p>In doing so, you can protect the well-being of current and future generations.</p>
+          <p>${values.followUpMessage}</p>
           
-          <p>Help us save more lives by inviting family and friends to Sign Up at <a href="${values.footerURL}">MapYourHealth.info</a></p>
+          <p>${values.inviteMessage} <a href="${values.footerURL}">${values.websiteUrl}</a></p>
           
-          <p>Wishing you a long and fulfilling life.</p>
+          <p>${values.closingMessage}</p>
         </div>
         <div class="footer">
-          <p>The MapYourHealth team</p>
+          <p>${values.footerSignature}</p>
         </div>
       </div>
     </body>
