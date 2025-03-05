@@ -300,7 +300,6 @@ function generateHtmlString(values: EmailTemplateValues): string {
     <body>
       <div class="container">
         <div class="header">
-          <img src="${values.HeaderImage}" alt="${values.EmailTitle}">
           <h1>${values.EmailTitle}</h1>
         </div>
         <div class="content">
