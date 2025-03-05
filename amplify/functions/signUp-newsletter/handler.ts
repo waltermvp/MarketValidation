@@ -280,7 +280,7 @@ function generateHtmlString(values: EmailTemplateValues): string {
         }
         .footer {
           background-color: ${values.MainBackgroundColor};
-          background-image: url('https://mapyourhealth.info/footer-bg.jpg'); /* Add your image URL here */
+          background-image: url('${values.footerURL}'); /* Add your image URL here */
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
@@ -314,7 +314,7 @@ function generateHtmlString(values: EmailTemplateValues): string {
           
           <p>${values.followUpMessage}</p>
           
-          <p>${values.inviteMessage} <a href="${values.footerURL}">${values.websiteUrl}</a></p>
+          <p>${values.inviteMessage} <a href="${values.websiteUrl}">${values.websiteUrl}</a></p>
           
           <p>${values.closingMessage}</p>
         </div>
