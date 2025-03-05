@@ -93,7 +93,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
       // 500: '#c4d779',
       // 550: '#9db835',
       // Colors
-      MainTextColor: '#7D2020',
+      MainTextColor: '#9db835',
       EmailBackgroundColor: '#7D2020',
       HeaderBackgroundColor: '#ffffff',
       ContentBackgroundColor: '#ffffff',
@@ -286,7 +286,7 @@ function generateHtmlString(values: EmailTemplateValues): string {
           <h1>${values.EmailTitle}</h1>
         </div>
         <div class="content">
-          <p>Dear ${values.subscriberName},</p>
+          <p>${values.subscriberName},</p>
           
           <p>Thank you for taking care of your health.</p>
           
