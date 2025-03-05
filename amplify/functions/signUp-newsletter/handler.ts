@@ -93,7 +93,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
     const emailContent = {
       en: {
         title: 'Welcome to MapYourHealth - Confirm Your Subscription',
-        subject: 'Welcome to MapYourHealth Newsletter',
+        subject: 'Welcome to MapYourHealth',
         greeting: 'Dear friend,',
         thankYouMessage: 'Thank you for taking care of your health.',
         cityMessage:
@@ -109,7 +109,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
       },
       fr: {
         title: 'Bienvenue sur MapYourHealth - Confirmez votre abonnement',
-        subject: 'Bienvenue à la newsletter MapYourHealth',
+        subject: 'Bienvenue à MapYourHealth',
         greeting: 'Cher ami,',
         thankYouMessage: 'Merci de prendre soin de votre santé.',
         cityMessage:
