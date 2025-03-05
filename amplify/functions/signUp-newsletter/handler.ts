@@ -2,9 +2,21 @@ import { SendEmailCommand, SESClient } from '@aws-sdk/client-ses';
 import { Amplify } from 'aws-amplify';
 import { generateClient } from 'aws-amplify/data';
 import { randomBytes } from 'crypto';
-import { S3 } from '@aws-sdk/client-s3';
+import {
+  S3Client,
+  GetObjectCommand,
+  type S3ClientConfig,
+} from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
-const s3 = new S3();
+const s3Client = new S3Client({
+  region: env.AWS_REGION,
+  credentials: {
+    accessKeyId: env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
+    sessionToken: env.AWS_SESSION_TOKEN,
+  },
+} as S3ClientConfig);
 
 // eslint-disable-next-line import/no-unresolved
 import { env } from '$amplify/env/signUp-newsletter';
@@ -316,15 +328,16 @@ function generateHtmlString(values: EmailTemplateValues): string {
 }
 
 async function getEmailImageUrl(imageKey: string) {
-  // Your bucket name from the storage config
-  const bucketName = 'mapyourhealth-images';
-
-  // Make sure the imageKey includes the 'email-images/' prefix
   const fullKey = imageKey.startsWith('email-images/')
     ? imageKey
     : `email-images/${imageKey}`;
 
-  // Generate a public URL for the S3 object
-  const url = `https://${bucketName}.s3.${process.env.AWS_REGION}.amazonaws.com/${fullKey}`;
+  const command = new GetObjectCommand({
+    Bucket: env.MAPYOURHEALTH_IMAGES_BUCKET_NAME,
+    Key: fullKey,
+  });
+
+  const url = await getSignedUrl(s3Client as any, command, { expiresIn: 3600 });
+  console.log(url, 'url');
   return url;
 }
