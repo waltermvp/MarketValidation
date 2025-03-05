@@ -2,6 +2,9 @@ import { SendEmailCommand, SESClient } from '@aws-sdk/client-ses';
 import { Amplify } from 'aws-amplify';
 import { generateClient } from 'aws-amplify/data';
 import { randomBytes } from 'crypto';
+import { S3 } from '@aws-sdk/client-s3';
+
+const s3 = new S3();
 
 // eslint-disable-next-line import/no-unresolved
 import { env } from '$amplify/env/signUp-newsletter';
@@ -71,10 +74,12 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
     });
     console.log('user created in database');
     const host = callbackURL === 'localhost:8081' ? 'http://' : 'https://';
+    const footerURL = await getEmailImageUrl('footer.png');
+    console.log(footerURL, 'footerurl');
     // Send welcome email
     const templateValues = {
       EmailTitle: 'Welcome to MapYourHealth - Confirm Your Subscription',
-      HeaderImage: 'https://mapyourhealth.info/logo.png',
+      HeaderImage: footerURL,
       WelcomeHeader: 'Thanks for signing up!',
       // FirstName: 'John',
       // CompanyName: 'AlfajoresNY',
@@ -104,6 +109,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
       OrderTotal: '',
       subscriberName: 'Dear friend,',
       cityName: 'New York',
+      footerURL: footerURL,
     };
 
     const finalHtml = generateHtmlString(templateValues);
@@ -181,6 +187,8 @@ interface EmailTemplateValues {
   FontFamily: string;
   subscriberName: string;
   cityName: string;
+
+  footerURL: String;
 }
 
 // eslint-disable-next-line max-lines-per-function
@@ -288,7 +296,7 @@ function generateHtmlString(values: EmailTemplateValues): string {
           
           <p>In doing so, you can protect the well-being of current and future generations.</p>
           
-          <p>Help us save more lives by inviting family and friends to Sign Up at <a href="https://MapYourHealth.info">MapYourHealth.info</a></p>
+          <p>Help us save more lives by inviting family and friends to Sign Up at <a href="${values.footerURL}">MapYourHealth.info</a></p>
           
           <p>Wishing you a long and fulfilling life.</p>
         </div>
@@ -299,4 +307,18 @@ function generateHtmlString(values: EmailTemplateValues): string {
     </body>
     </html>
   `;
+}
+
+async function getEmailImageUrl(imageKey: string) {
+  // Your bucket name from the storage config
+  const bucketName = 'mapyourhealth-images';
+
+  // Make sure the imageKey includes the 'email-images/' prefix
+  const fullKey = imageKey.startsWith('email-images/')
+    ? imageKey
+    : `email-images/${imageKey}`;
+
+  // Generate a public URL for the S3 object
+  const url = `https://${bucketName}.s3.${process.env.AWS_REGION}.amazonaws.com/${fullKey}`;
+  return url;
 }
