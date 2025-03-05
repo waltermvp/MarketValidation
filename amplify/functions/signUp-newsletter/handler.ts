@@ -77,11 +77,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
     const host = callbackURL === 'localhost:8081' ? 'http://' : 'https://';
     // Send welcome email
     const templateValues = {
-      EmailTitle: 'Welcome to AlfajoresNY - Confirm Your Subscription',
-      HeaderImage:
-        // 'https://dta56yysqj9ke.cloudfront.net/eyJidWNrZXQiOiJhbXBsaWZ5LWRxZmluYjB3cXFpczMtbWFpLWFsZmFqb3Jlc2RyaXZlYnVja2V0ZTNjNy03bjF6a3R0NWY5cmMiLCJrZXkiOiJJTUdfMDEzOS5KUEcifQ==',
-        'https://dta56yysqj9ke.cloudfront.net/eyJidWNrZXQiOiJhbXBsaWZ5LWRxZmluYjB3cXFpczMtbWFpLWFsZmFqb3Jlc2RyaXZlYnVja2V0ZTNjNy03bjF6a3R0NWY5cmMiLCJrZXkiOiJhbGZhMS5qcGVnIn0=',
-      // HeaderImageAlt: 'AlfajoresNY Welcome Header',
+      EmailTitle: 'Welcome to MapYourHealth - Confirm Your Subscription',
       WelcomeHeader: 'Thanks for signing up!',
       // FirstName: 'John',
       // CompanyName: 'AlfajoresNY',
@@ -128,6 +124,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
     });
 
     await ses.send(sendEmailCommand);
+    console.log('email sent');
     return { success: true };
   } catch (error) {
     // Ensure the error is properly typed or checked
