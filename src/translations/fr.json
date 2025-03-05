@@ -6,6 +6,7 @@
     "errorMessage": "Oups, entrez un email correct.",
     "selectCountry": "Sélectionnez votre pays",
     "signUp": "S'inscrire",
+    "enterZipCode": "Veuillez saisir votre code postal",
     "success": "Merci de vous être inscrit",
     "successAlreadyRegistered": "Cet email a déjà été enregistré",
     "zipCode": "Code postal",

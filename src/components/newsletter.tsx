@@ -38,7 +38,7 @@ export const Newsletter = ({
   buttonText: string;
   successMessage: string;
   errorMessage: string | null;
-  callBack: (email: string, country?: string, zip?: string) => Promise<void>;
+  callBack: (email: string, country: string, zip: string) => Promise<void>;
 }) => {
   const { width } = useWindowDimensions();
   const [email, setEmail] = useState('');
@@ -73,6 +73,19 @@ export const Newsletter = ({
 
     if (!emailRegex.test(email)) {
       setErrorMessage(translate('home.invalidEmail'));
+      setLoading(false);
+      return;
+    }
+
+    // Add validation for country and zip
+    if (!country) {
+      setErrorMessage(translate('home.selectCountry'));
+      setLoading(false);
+      return;
+    }
+
+    if (!zipCode) {
+      setErrorMessage(translate('home.enterZipCode'));
       setLoading(false);
       return;
     }
