@@ -190,6 +190,7 @@ const Home = () => {
         email,
         country: country ? country : undefined,
         zip: zip ? zip : undefined,
+        lang: language,
       });
       console.log('result', result);
       if (!result.data?.success) {
