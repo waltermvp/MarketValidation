@@ -102,7 +102,8 @@ const Home = () => {
         image: require('../../assets/relocation.png'),
       },
     ],
-    []
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [language]
   );
 
   const faqData = useMemo(
@@ -134,7 +135,8 @@ const Home = () => {
         answer: translate('home.faq.answer6'),
       },
     ],
-    []
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [language]
   );
 
   const [cardProps, setCardProps] = useState({
