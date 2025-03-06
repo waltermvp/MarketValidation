@@ -164,7 +164,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
     try {
       const msg = {
         to: email,
-        from: 'walter.vargaspena@gmail.com',
+        from: process.env.SENDGRID_FROM_EMAIL ?? 'walter.vargaspena@gmail.com',
         subject: content.subject,
         html: finalHtml,
       };

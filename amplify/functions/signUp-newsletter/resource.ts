@@ -7,6 +7,7 @@ export const signUpNewsletter = defineFunction({
   entry: './handler.ts',
   environment: {
     SENDGRID_API_KEY: secret('SENDGRID_API_KEY'),
-    // SENDGRID_FROM_EMAIL: secret('SENDGRID_FROM_EMAIL'),
+    SENDGRID_FROM_EMAIL:
+      process.env.SENDGRID_FROM_EMAIL ?? 'walter.vargaspena@gmail.com',
   },
 });
