@@ -371,6 +371,9 @@ async function getEmailImageUrl(imageKey: string) {
     Key: fullKey,
   });
 
-  const url = await getSignedUrl(s3Client as any, command, { expiresIn: 3600 });
+  const url = await getSignedUrl(s3Client as any, command, {
+    expiresIn: 7 * 24 * 60 * 60,
+  });
+  console.log(url, 'url');
   return url;
 }
