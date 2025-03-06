@@ -1,4 +1,4 @@
-import { SendEmailCommand, SESClient } from '@aws-sdk/client-ses';
+// import { SendEmailCommand, SESClient } from '@aws-sdk/client-ses';
 import { Amplify } from 'aws-amplify';
 import { generateClient } from 'aws-amplify/data';
 import { randomBytes } from 'crypto';
@@ -8,6 +8,7 @@ import {
   type S3ClientConfig,
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import sgMail from '@sendgrid/mail';
 
 const s3Client = new S3Client({
   region: env.AWS_REGION,
@@ -25,7 +26,6 @@ import type { Schema } from '../../data/resource';
 import { createUser } from './graphql/mutations';
 import { html as welcomeHTML } from './welcome.json';
 
-const emailFrom = 'contact@alfajoresny.com';
 Amplify.configure(
   {
     API: {
@@ -55,8 +55,11 @@ Amplify.configure(
 );
 
 const dataClient = generateClient<Schema>();
-const ses = new SESClient({ region: env.AWS_REGION });
-const htmlOutput = welcomeHTML;
+// const ses = new SESClient({ region: env.AWS_REGION });
+// const htmlOutput = welcomeHTML;
+
+// Set your SendGrid API key from environment variables
+sgMail.setApiKey(process.env.SENDGRID_API_KEY ?? '');
 
 // eslint-disable-next-line max-lines-per-function
 export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
@@ -65,7 +68,6 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
 ) => {
   const { email, lang, callbackURL, country, zip } = event.arguments;
   console.log('arguments in handler', JSON.stringify(event.arguments, null, 2));
-
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return { success: false, message: 'Invalid email format' };
   }
@@ -87,7 +89,6 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
     console.log('user created in database');
     const host = callbackURL === 'localhost:8081' ? 'http://' : 'https://';
     const footerURL = await getEmailImageUrl('email-images/footer.png');
-    console.log(footerURL, 'footerurl');
 
     // Define email content based on language
     const emailContent = {
@@ -160,24 +161,22 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
 
     const finalHtml = generateHtmlString(templateValues);
 
-    const sendEmailCommand = new SendEmailCommand({
-      Destination: {
-        ToAddresses: [email],
-      },
-      Message: {
-        Body: {
-          Html: { Data: finalHtml },
-        },
-        Subject: {
-          Data: content.subject,
-        },
-      },
-      Source: emailFrom,
-    });
+    try {
+      const msg = {
+        to: email,
+        from: 'walter.vargaspena@gmail.com',
+        subject: content.subject,
+        html: finalHtml,
+      };
 
-    await ses.send(sendEmailCommand);
-    console.log('email sent');
-    return { success: true };
+      console.log('msg will send', msg);
+      await sgMail.send(msg);
+      console.log('Email sent via SendGrid');
+      return { success: true };
+    } catch (error) {
+      console.error('Failed to send email:', error);
+      throw error;
+    }
   } catch (error) {
     console.log('error in handler', error);
     // Ensure the error is properly typed or checked
@@ -373,6 +372,5 @@ async function getEmailImageUrl(imageKey: string) {
   });
 
   const url = await getSignedUrl(s3Client as any, command, { expiresIn: 3600 });
-  console.log(url, 'url');
   return url;
 }
