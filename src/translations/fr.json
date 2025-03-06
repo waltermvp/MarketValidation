@@ -5,7 +5,7 @@
     "enterEmail": "Entrez votre email",
     "errorMessage": "Oups, entrez un email correct.",
     "selectCountry": "Sélectionnez votre pays",
-    "signUp": "S'inscrire",
+    "signUp": "s'inscrire",
     "enterZipCode": "Veuillez saisir votre code postal",
     "success": "Merci de vous être inscrit",
     "successAlreadyRegistered": "Cet email a déjà été enregistré",
@@ -13,7 +13,7 @@
     "invalidEmail": "Veuillez entrer une adresse e-mail valide.",
     "description": "Il contamine chaque respiration que vous prenez, chaque verre d'eau que vous buvez et chaque repas que vous mangez, causant une sensibilité chimique, le cancer, des maladies cardiaques, des empoisonnements et plus encore.",
     "callToAction": "Protégez votre santé maintenant. Inscrivez-vous à MapYourHealth et apprenez tout sur les dangers pour la santé dans votre environnement.",
-    "benefitsTitle": "Plus d'avantages à s'inscrire",
+    "benefitsTitle": "Plus d'avantages à ",
     "CTA1": "Elle est responsable d'un décès sur six dans le monde, causant des cancers, des maladies cardiaques et respiratoires, l’hypersensibilité chimique et de nombreuses autres maladies chroniques. \n\n\n Protégez votre santé dès maintenant. Inscrivez-vous à ",
     "CTA2": " et identifiez toutes les menaces environnementales dans votre localité.",
     "benefits": {
