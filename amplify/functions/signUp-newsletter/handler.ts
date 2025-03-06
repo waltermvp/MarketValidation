@@ -110,7 +110,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
       fr: {
         title: 'Bienvenue sur MapYourHealth - Confirmez votre abonnement',
         subject: 'Bienvenue à MapYourHealth',
-        greeting: 'Cher ami,',
+        greeting: 'Bonjour,,',
         thankYouMessage: 'Merci de prendre soin de votre santé.',
         cityMessage:
           "Présentement, [City Name] n'est pas dans notre base de données. Mais rassurez-vous, nous vous enverrons un courriel dès que nous aurons cartographié votre quartier.",
