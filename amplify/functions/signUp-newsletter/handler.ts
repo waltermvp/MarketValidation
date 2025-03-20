@@ -55,7 +55,7 @@ Amplify.configure(
 );
 
 const dataClient = generateClient<Schema>();
-const ses = new SESClient({ region: env.AWS_REGION });
+const ses = new SESClient({ region: 'us-east-1' });
 const htmlOutput = welcomeHTML;
 
 // eslint-disable-next-line max-lines-per-function
