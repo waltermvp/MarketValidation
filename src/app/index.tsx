@@ -194,7 +194,7 @@ const Home = () => {
         zip: zip ? zip : undefined,
         lang: language,
       });
-      console.log('result', result);
+      console.log('signup result', result);
       if (!result.data?.success) {
         console.log(result.data?.message);
         setSuccessMessage(translate('home.successAlreadyRegistered'));
