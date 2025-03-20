@@ -25,7 +25,7 @@ import type { Schema } from '../../data/resource';
 import { createUser } from './graphql/mutations';
 import { html as welcomeHTML } from './welcome.json';
 
-const emailFrom = 'contact@alfajoresny.com';
+const emailFrom = 'contact@mapyourhealth.info'; //TODO: use env vars
 Amplify.configure(
   {
     API: {
