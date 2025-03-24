@@ -4,8 +4,10 @@
 
 export type User = {
   __typename: "User",
+  confirmationCode?: string | null,
+  confirmed?: boolean | null,
   country?: string | null,
-  createdAt: string,
+  createdAt?: string | null,
   email: string,
   name?: string | null,
   source?: string | null,
@@ -13,8 +15,20 @@ export type User = {
   zip?: string | null,
 };
 
+export type ModelStringKeyConditionInput = {
+  beginsWith?: string | null,
+  between?: Array< string | null > | null,
+  eq?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  le?: string | null,
+  lt?: string | null,
+};
+
 export type ModelUserFilterInput = {
   and?: Array< ModelUserFilterInput | null > | null,
+  confirmationCode?: ModelStringInput | null,
+  confirmed?: ModelBooleanInput | null,
   country?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   email?: ModelStringInput | null,
@@ -67,6 +81,13 @@ export type ModelSizeInput = {
   ne?: number | null,
 };
 
+export type ModelBooleanInput = {
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  eq?: boolean | null,
+  ne?: boolean | null,
+};
+
 export type ModelIDInput = {
   attributeExists?: boolean | null,
   attributeType?: ModelAttributeTypes | null,
@@ -97,11 +118,20 @@ export type ModelUserConnection = {
 
 export type SignUpNewsletterReturnType = {
   __typename: "SignUpNewsletterReturnType",
-  success?: boolean | null,
+  message?: string | null,
+  success: boolean,
+};
+
+export type ConfirmNewsletterReturnType = {
+  __typename: "ConfirmNewsletterReturnType",
+  message?: string | null,
+  success: boolean,
 };
 
 export type ModelUserConditionInput = {
   and?: Array< ModelUserConditionInput | null > | null,
+  confirmationCode?: ModelStringInput | null,
+  confirmed?: ModelBooleanInput | null,
   country?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
   name?: ModelStringInput | null,
@@ -113,7 +143,10 @@ export type ModelUserConditionInput = {
 };
 
 export type CreateUserInput = {
+  confirmationCode?: string | null,
+  confirmed?: boolean | null,
   country?: string | null,
+  createdAt?: string | null,
   email: string,
   name?: string | null,
   source?: string | null,
@@ -125,7 +158,10 @@ export type DeleteUserInput = {
 };
 
 export type UpdateUserInput = {
+  confirmationCode?: string | null,
+  confirmed?: boolean | null,
   country?: string | null,
+  createdAt?: string | null,
   email: string,
   name?: string | null,
   source?: string | null,
@@ -134,6 +170,8 @@ export type UpdateUserInput = {
 
 export type ModelSubscriptionUserFilterInput = {
   and?: Array< ModelSubscriptionUserFilterInput | null > | null,
+  confirmationCode?: ModelSubscriptionStringInput | null,
+  confirmed?: ModelSubscriptionBooleanInput | null,
   country?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
   email?: ModelSubscriptionStringInput | null,
@@ -160,6 +198,11 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array< string | null > | null,
 };
 
+export type ModelSubscriptionBooleanInput = {
+  eq?: boolean | null,
+  ne?: boolean | null,
+};
+
 export type ModelSubscriptionIDInput = {
   beginsWith?: string | null,
   between?: Array< string | null > | null,
@@ -182,13 +225,71 @@ export type GetUserQueryVariables = {
 export type GetUserQuery = {
   getUser?:  {
     __typename: "User",
+    confirmationCode?: string | null,
+    confirmed?: boolean | null,
     country?: string | null,
-    createdAt: string,
+    createdAt?: string | null,
     email: string,
     name?: string | null,
     source?: string | null,
     updatedAt: string,
     zip?: string | null,
+  } | null,
+};
+
+export type ListUserByConfirmationCodeAndCreatedAtQueryVariables = {
+  confirmationCode: string,
+  createdAt?: ModelStringKeyConditionInput | null,
+  filter?: ModelUserFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  sortDirection?: ModelSortDirection | null,
+};
+
+export type ListUserByConfirmationCodeAndCreatedAtQuery = {
+  listUserByConfirmationCodeAndCreatedAt?:  {
+    __typename: "ModelUserConnection",
+    items:  Array< {
+      __typename: "User",
+      confirmationCode?: string | null,
+      confirmed?: boolean | null,
+      country?: string | null,
+      createdAt?: string | null,
+      email: string,
+      name?: string | null,
+      source?: string | null,
+      updatedAt: string,
+      zip?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type ListUserBySourceAndCreatedAtQueryVariables = {
+  createdAt?: ModelStringKeyConditionInput | null,
+  filter?: ModelUserFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  sortDirection?: ModelSortDirection | null,
+  source: string,
+};
+
+export type ListUserBySourceAndCreatedAtQuery = {
+  listUserBySourceAndCreatedAt?:  {
+    __typename: "ModelUserConnection",
+    items:  Array< {
+      __typename: "User",
+      confirmationCode?: string | null,
+      confirmed?: boolean | null,
+      country?: string | null,
+      createdAt?: string | null,
+      email: string,
+      name?: string | null,
+      source?: string | null,
+      updatedAt: string,
+      zip?: string | null,
+    } | null >,
+    nextToken?: string | null,
   } | null,
 };
 
@@ -205,8 +306,10 @@ export type ListUsersQuery = {
     __typename: "ModelUserConnection",
     items:  Array< {
       __typename: "User",
+      confirmationCode?: string | null,
+      confirmed?: boolean | null,
       country?: string | null,
-      createdAt: string,
+      createdAt?: string | null,
       email: string,
       name?: string | null,
       source?: string | null,
@@ -221,13 +324,27 @@ export type SignUpNewsletterQueryVariables = {
   callbackURL?: string | null,
   country?: string | null,
   email: string,
+  lang?: string | null,
   zip?: string | null,
 };
 
 export type SignUpNewsletterQuery = {
   signUpNewsletter?:  {
     __typename: "SignUpNewsletterReturnType",
-    success?: boolean | null,
+    message?: string | null,
+    success: boolean,
+  } | null,
+};
+
+export type ConfirmNewsletterMutationVariables = {
+  confirmationCode: string,
+};
+
+export type ConfirmNewsletterMutation = {
+  confirmNewsletter?:  {
+    __typename: "ConfirmNewsletterReturnType",
+    message?: string | null,
+    success: boolean,
   } | null,
 };
 
@@ -239,8 +356,10 @@ export type CreateUserMutationVariables = {
 export type CreateUserMutation = {
   createUser?:  {
     __typename: "User",
+    confirmationCode?: string | null,
+    confirmed?: boolean | null,
     country?: string | null,
-    createdAt: string,
+    createdAt?: string | null,
     email: string,
     name?: string | null,
     source?: string | null,
@@ -257,8 +376,10 @@ export type DeleteUserMutationVariables = {
 export type DeleteUserMutation = {
   deleteUser?:  {
     __typename: "User",
+    confirmationCode?: string | null,
+    confirmed?: boolean | null,
     country?: string | null,
-    createdAt: string,
+    createdAt?: string | null,
     email: string,
     name?: string | null,
     source?: string | null,
@@ -275,8 +396,10 @@ export type UpdateUserMutationVariables = {
 export type UpdateUserMutation = {
   updateUser?:  {
     __typename: "User",
+    confirmationCode?: string | null,
+    confirmed?: boolean | null,
     country?: string | null,
-    createdAt: string,
+    createdAt?: string | null,
     email: string,
     name?: string | null,
     source?: string | null,
@@ -292,8 +415,10 @@ export type OnCreateUserSubscriptionVariables = {
 export type OnCreateUserSubscription = {
   onCreateUser?:  {
     __typename: "User",
+    confirmationCode?: string | null,
+    confirmed?: boolean | null,
     country?: string | null,
-    createdAt: string,
+    createdAt?: string | null,
     email: string,
     name?: string | null,
     source?: string | null,
@@ -309,8 +434,10 @@ export type OnDeleteUserSubscriptionVariables = {
 export type OnDeleteUserSubscription = {
   onDeleteUser?:  {
     __typename: "User",
+    confirmationCode?: string | null,
+    confirmed?: boolean | null,
     country?: string | null,
-    createdAt: string,
+    createdAt?: string | null,
     email: string,
     name?: string | null,
     source?: string | null,
@@ -326,8 +453,10 @@ export type OnUpdateUserSubscriptionVariables = {
 export type OnUpdateUserSubscription = {
   onUpdateUser?:  {
     __typename: "User",
+    confirmationCode?: string | null,
+    confirmed?: boolean | null,
     country?: string | null,
-    createdAt: string,
+    createdAt?: string | null,
     email: string,
     name?: string | null,
     source?: string | null,

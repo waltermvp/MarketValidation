@@ -10,6 +10,8 @@ type GeneratedSubscription<InputType, OutputType> = string & {
 
 export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
   onCreateUser(filter: $filter) {
+    confirmationCode
+    confirmed
     country
     createdAt
     email
@@ -26,6 +28,8 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
 >;
 export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
   onDeleteUser(filter: $filter) {
+    confirmationCode
+    confirmed
     country
     createdAt
     email
@@ -42,6 +46,8 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
 >;
 export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
   onUpdateUser(filter: $filter) {
+    confirmationCode
+    confirmed
     country
     createdAt
     email
