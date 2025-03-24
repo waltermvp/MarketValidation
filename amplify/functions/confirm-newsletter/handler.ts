@@ -80,10 +80,9 @@ export const handler: Schema['confirmNewsletter']['functionHandler'] = async (
       query: updateUser,
       variables: {
         input: {
-          // @ts-ignore
-          id: user.id ?? '',
+          email: user.email,
           confirmed: true,
-          confirmationCode: null, // Clear the code after use
+          confirmationCode: 'CONFIRMED',
         },
       },
     });

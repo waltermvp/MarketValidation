@@ -25,7 +25,8 @@ import type { Schema } from '../../data/resource';
 import { createUser } from './graphql/mutations';
 import { html as welcomeHTML } from './welcome.json';
 
-const emailFrom = 'contact@mapyourhealth.info'; //TODO: use env vars
+const emailFrom = env.EMAIL_FROM;
+
 Amplify.configure(
   {
     API: {
@@ -94,7 +95,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
     console.log('user created in database');
     const host = callbackURL === 'localhost:8081' ? 'http://' : 'https://';
     const footerURL = await getEmailImageUrl('email-images/footer.png');
-    console.log(footerURL, 'footerurl');
+    // console.log(footerURL, 'footerurl');
 
     // Define email content based on language
     const emailContent = {
@@ -195,6 +196,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
     console.log('email sent');
     return { success: true };
   } catch (error) {
+    console.log('error in handler', emailFrom);
     console.log('error in handler', error);
     // Ensure the error is properly typed or checked
     if (error && typeof error === 'object' && 'errors' in error) {
@@ -215,6 +217,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
     }
 
     console.log('error in handler', error);
+    console.log('from : ', emailFrom);
     return { success: false, message: 'Failed to process subscription' };
   }
 };
