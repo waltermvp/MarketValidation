@@ -25,7 +25,7 @@ import type { Schema } from '../../data/resource';
 import { createUser } from './graphql/mutations';
 import { html as welcomeHTML } from './welcome.json';
 
-const emailFrom = 'contact@alfajoresny.com';
+const emailFrom = 'contact@mapyourhealth.info'; //TODO: use env vars
 Amplify.configure(
   {
     API: {
@@ -55,7 +55,7 @@ Amplify.configure(
 );
 
 const dataClient = generateClient<Schema>();
-const ses = new SESClient({ region: env.AWS_REGION });
+const ses = new SESClient({ region: 'us-east-1' });
 const htmlOutput = welcomeHTML;
 
 function generateConfirmationCode(): string {
@@ -406,7 +406,9 @@ async function getEmailImageUrl(imageKey: string) {
     Key: fullKey,
   });
 
-  const url = await getSignedUrl(s3Client as any, command, { expiresIn: 3600 });
+  const url = await getSignedUrl(s3Client as any, command, {
+    expiresIn: 7 * 24 * 60 * 60,
+  });
   console.log(url, 'url');
   return url;
 }
