@@ -79,7 +79,7 @@
   },
   "confirm": {
     "loading": "Confirmation de votre abonnement en cours...",
-    "success": "Merci d'avoir confirmé votre abonnement ! Vous serez redirigé vers la page d'accueil dans quelques secondes.",
+    "success": "Merci d'avoir confirmé votre abonnement !",
     "error": "Une erreur s'est produite lors de la confirmation de votre abonnement. Veuillez réessayer ou contacter le support.",
     "invalidCode": "Code de confirmation invalide. Veuillez vérifier votre email pour le bon lien."
   }
