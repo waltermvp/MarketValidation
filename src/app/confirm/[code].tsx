@@ -23,34 +23,43 @@ export function ConfirmScreen() {
 
   React.useEffect(() => {
     const confirmSubscription = async () => {
+      console.log('Starting confirmation process...');
+
       if (!code || typeof code !== 'string') {
+        console.log('Invalid code detected:', code);
         setState('error');
         setMessage(translate('confirm.invalidCode'));
         return;
       }
 
       try {
+        console.log('Making confirmation request for code:', code);
         const result = await client.mutations.confirmNewsletter({
           confirmationCode: code,
         });
+        console.log('Confirmation response:', result);
 
-        console.log('result', JSON.stringify(result, null, 2));
         if (result.data?.success) {
+          console.log('Setting success state');
           setState('success');
           setMessage(translate('confirm.success'));
         } else {
+          console.log('Setting error state from unsuccessful response');
           setState('error');
           setMessage(result.data?.message || translate('confirm.error'));
         }
       } catch (error) {
-        console.error('Confirmation error:', error);
+        console.log('Error caught during confirmation:', error);
         setState('error');
         setMessage(translate('confirm.error'));
       }
     };
 
+    console.log('Current state before confirmation:', state);
     confirmSubscription();
   }, [code, client]);
+
+  console.log('Rendering with state:', state, 'message:', message);
 
   return (
     <View className="flex-1 items-center justify-center bg-white p-4">
