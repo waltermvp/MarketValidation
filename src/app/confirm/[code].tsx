@@ -20,10 +20,14 @@ export function ConfirmScreen() {
   const [message, setMessage] = React.useState<string>(
     translate('confirm.loading')
   );
+  const hasConfirmed = React.useRef(false);
 
   React.useEffect(() => {
     const confirmSubscription = async () => {
-      console.log('Starting confirmation process...');
+      // Prevent multiple confirmation attempts
+      if (hasConfirmed.current) {
+        return;
+      }
 
       if (!code || typeof code !== 'string') {
         console.log('Invalid code detected:', code);
@@ -41,6 +45,7 @@ export function ConfirmScreen() {
 
         if (result.data?.success) {
           console.log('Setting success state');
+          hasConfirmed.current = true; // Mark as confirmed
           setState('success');
           setMessage(translate('confirm.success'));
         } else {
@@ -55,7 +60,6 @@ export function ConfirmScreen() {
       }
     };
 
-    console.log('Current state before confirmation:', state);
     confirmSubscription();
   }, [code, client]);
 
