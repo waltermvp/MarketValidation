@@ -137,7 +137,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
           'Please confirm your subscription by clicking the button below:',
       },
       fr: {
-        title: 'Merci de votre inscription',
+        title: 'Merci de vous abonner',
         subject: 'Bienvenue à MapYourHealth',
         greeting: 'Bonjour,',
         thankYouMessage: 'Merci de prendre soin de votre santé.',
@@ -151,7 +151,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
           "Aidez-nous à sauver plus de vies en invitant vos amis et votre famille à s'inscrire sur",
         closingMessage: 'Amicalement,',
         footerSignature: "L'équipe de MapYourHealth",
-        confirmButton: "Confirmer l'inscription",
+        confirmButton: 'Confirmer',
         confirmMessage:
           'Veuillez confirmer votre inscription en cliquant sur le bouton ci-dessous :',
       },
