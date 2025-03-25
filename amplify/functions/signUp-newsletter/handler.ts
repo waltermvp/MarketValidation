@@ -93,7 +93,25 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
       },
     });
     console.log('user created in database');
-    const host = callbackURL === 'localhost:8081' ? 'http://' : 'https://';
+
+    // Handle URL construction
+    let baseUrl: string;
+    if (
+      callbackURL?.includes('localhost') ||
+      callbackURL?.includes('127.0.0.1')
+    ) {
+      baseUrl = `http://${callbackURL}`;
+    } else if (callbackURL?.includes('amplifyapp.com')) {
+      baseUrl = `https://${callbackURL}`;
+    } else {
+      // For custom domains or other cases, assume https
+      baseUrl = `https://${callbackURL}`;
+    }
+
+    // Ensure baseUrl doesn't end with a slash before adding paths
+    baseUrl = baseUrl.replace(/\/$/, '');
+
+    const confirmationUrl = `${baseUrl}/confirm/${confirmationCode}`;
     const footerURL = await getEmailImageUrl('email-images/footer.png');
     // console.log(footerURL, 'footerurl');
 
@@ -147,7 +165,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
       HeaderImage: footerURL,
       WelcomeHeader: 'Thanks for signing up!',
       LoginButtonText: 'Confirm Subscription',
-      LoginButtonUrl: `${host}${callbackURL}/user/`,
+      LoginButtonUrl: `${baseUrl}/user/`,
       SignatureText: 'Thanks,',
       SignatureCompany: 'The MapYourHealth Team',
       MainTextColor: '#000000',
@@ -170,7 +188,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
       closingMessage: content.closingMessage,
       footerSignature: content.footerSignature,
       footerURL: footerURL,
-      confirmationUrl: `${host}${callbackURL}/confirm/${confirmationCode}`,
+      confirmationUrl: confirmationUrl,
       confirmButton: content.confirmButton,
       confirmMessage: content.confirmMessage,
     };

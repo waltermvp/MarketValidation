@@ -4,7 +4,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
 
 import { Text, View } from '@/components/ui';
-import { translate, useSelectedLanguage } from '@/lib';
+import { translate } from '@/lib';
 
 type ConfirmationState = {
   status: 'loading' | 'success' | 'error';
@@ -15,7 +15,6 @@ type ConfirmationState = {
 export function ConfirmScreen() {
   const { code } = useLocalSearchParams();
   const router = useRouter();
-  const { language } = useSelectedLanguage();
   const client = generateClient<Schema>();
   const [state, setState] = React.useState<ConfirmationState>({
     status: 'loading',
@@ -43,10 +42,9 @@ export function ConfirmScreen() {
             status: 'success',
             message: translate('confirm.success'),
           });
-          // Redirect to home after 3 seconds
-          setTimeout(() => {
-            router.replace('/');
-          }, 3000);
+          // Wait for the success message to be visible before redirecting
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+          router.replace('/');
         } else {
           setState({
             status: 'error',
@@ -75,7 +73,7 @@ export function ConfirmScreen() {
               : state.status === 'success'
                 ? 'text-green-600'
                 : 'text-neutral-800'
-          }`}
+          } transition-colors duration-300`}
         >
           {state.message}
         </Text>
