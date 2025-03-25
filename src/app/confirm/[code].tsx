@@ -1,4 +1,5 @@
 import { type Schema } from 'amplify/data/resource';
+import { Amplify } from 'aws-amplify';
 import { generateClient } from 'aws-amplify/api';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
@@ -6,6 +7,9 @@ import React from 'react';
 import { Text, View } from '@/components/ui';
 import { translate } from '@/lib';
 
+import outputs from '../../../amplify_outputs.json';
+
+Amplify.configure(outputs);
 type ConfirmationState = {
   status: 'loading' | 'success' | 'error';
   message: string;
