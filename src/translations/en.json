@@ -75,5 +75,11 @@
     "version": "Version",
     "website": "Website"
   },
-  "welcome": "Welcome to obytes app site"
+  "welcome": "Welcome to obytes app site",
+  "confirm": {
+    "loading": "Confirming your subscription...",
+    "success": "Thank you for confirming your subscription! You will be redirected to the home page in a few seconds.",
+    "error": "There was an error confirming your subscription. Please try again or contact support.",
+    "invalidCode": "Invalid confirmation code. Please check your email for the correct link."
+  }
 }

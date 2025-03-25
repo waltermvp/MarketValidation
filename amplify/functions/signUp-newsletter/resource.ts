@@ -5,4 +5,7 @@ export const signUpNewsletter = defineFunction({
   name: 'signUp-newsletter',
   // optionally specify a path to your handler (defaults to "./handler.ts")
   entry: './handler.ts',
+  environment: {
+    EMAIL_FROM: process.env.EMAIL_FROM!,
+  },
 });

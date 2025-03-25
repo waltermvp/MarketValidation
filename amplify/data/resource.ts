@@ -1,5 +1,6 @@
 import { a, type ClientSchema, defineData } from '@aws-amplify/backend';
 
+import { confirmNewsletter } from '../functions/confirm-newsletter/resource';
 import { signUpNewsletter } from '../functions/signUp-newsletter/resource';
 
 /*== STEP 1 ===============================================================
@@ -17,9 +18,14 @@ const schema = a
         source: a.string().default('landingPage'),
         country: a.string(),
         zip: a.string(),
+        confirmed: a.boolean().default(false),
+        confirmationCode: a.string(),
         createdAt: a.datetime(),
       })
-      .secondaryIndexes((index) => [index('source').sortKeys(['createdAt'])])
+      .secondaryIndexes((index) => [
+        index('source').sortKeys(['createdAt']),
+        index('confirmationCode').sortKeys(['createdAt']),
+      ])
       .identifier(['email'])
       .authorization((allow) => [
         allow.guest().to(['create']),
@@ -40,9 +46,21 @@ const schema = a
       )
       .handler(a.handler.function(signUpNewsletter))
       .authorization((allow) => [allow.guest()]),
+
+    confirmNewsletter: a
+      .mutation()
+      .arguments({
+        confirmationCode: a.string().required(),
+      })
+      .returns(
+        a.customType({ success: a.boolean().required(), message: a.string() })
+      )
+      .authorization((allow) => [allow.guest()])
+      .handler(a.handler.function(confirmNewsletter)),
   })
   .authorization((allow) => [
     allow.resource(signUpNewsletter).to(['query', 'listen', 'mutate']),
+    allow.resource(confirmNewsletter).to(['query', 'listen', 'mutate']),
   ]);
 
 export type Schema = ClientSchema<typeof schema>;

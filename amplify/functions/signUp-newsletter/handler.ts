@@ -25,7 +25,8 @@ import type { Schema } from '../../data/resource';
 import { createUser } from './graphql/mutations';
 import { html as welcomeHTML } from './welcome.json';
 
-const emailFrom = 'contact@mapyourhealth.info'; //TODO: use env vars
+const emailFrom = env.EMAIL_FROM;
+
 Amplify.configure(
   {
     API: {
@@ -58,6 +59,10 @@ const dataClient = generateClient<Schema>();
 const ses = new SESClient({ region: 'us-east-1' });
 const htmlOutput = welcomeHTML;
 
+function generateConfirmationCode(): string {
+  return randomBytes(32).toString('hex');
+}
+
 // eslint-disable-next-line max-lines-per-function
 export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
   event,
@@ -74,6 +79,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
     // Create user in database
     console.log('creating user in database');
 
+    const confirmationCode = generateConfirmationCode();
     await dataClient.graphql({
       query: createUser,
       variables: {
@@ -81,23 +87,43 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
           email: email,
           country: country ? country : undefined,
           zip: zip ? zip : undefined,
+          confirmed: false,
+          confirmationCode: confirmationCode,
         },
       },
     });
     console.log('user created in database');
-    const host = callbackURL === 'localhost:8081' ? 'http://' : 'https://';
+
+    // Handle URL construction
+    let baseUrl: string;
+    if (
+      callbackURL?.includes('localhost') ||
+      callbackURL?.includes('127.0.0.1')
+    ) {
+      baseUrl = `http://${callbackURL}`;
+    } else if (callbackURL?.includes('amplifyapp.com')) {
+      baseUrl = `https://${callbackURL}`;
+    } else {
+      // For custom domains or other cases, assume https
+      baseUrl = `https://${callbackURL}`;
+    }
+
+    // Ensure baseUrl doesn't end with a slash before adding paths
+    baseUrl = baseUrl.replace(/\/$/, '');
+
+    const confirmationUrl = `${baseUrl}/confirm/${confirmationCode}`;
     const footerURL = await getEmailImageUrl('email-images/footer.png');
-    console.log(footerURL, 'footerurl');
+    // console.log(footerURL, 'footerurl');
 
     // Define email content based on language
     const emailContent = {
       en: {
-        title: 'Welcome to MapYourHealth - Confirm Your Subscription',
+        title: 'Thank you for Subscribing',
         subject: 'Welcome to MapYourHealth',
         greeting: 'Dear friend,',
         thankYouMessage: 'Thank you for taking care of your health.',
         cityMessage:
-          'Currently, New York is not in our database. But rest assured that we will notify you via email as soon as we have mapped your neighborhood.',
+          'Currently, your city is not in our database. But rest assured that we will notify you via email as soon as we have mapped your neighborhood.',
         mainMessage:
           'Monitoring environmental health is essential for a safer and healthier world. By identifying and addressing local health hazards, you can prevent chronic illnesses, reduce exposure to harmful pollutants, and ensure access to clean air, water, and safe living conditions.',
         followUpMessage:
@@ -106,14 +132,17 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
           'Help us save more lives by inviting family and friends to Sign Up at',
         closingMessage: 'Wishing you a long and fulfilling life.',
         footerSignature: 'The MapYourHealth team',
+        confirmButton: 'Confirm Subscription',
+        confirmMessage:
+          'Please confirm your subscription by clicking the button below:',
       },
       fr: {
-        title: 'Bienvenue sur MapYourHealth - Confirmez votre abonnement',
+        title: 'Merci de votre inscription',
         subject: 'Bienvenue à MapYourHealth',
-        greeting: 'Bonjour,,',
+        greeting: 'Bonjour,',
         thankYouMessage: 'Merci de prendre soin de votre santé.',
         cityMessage:
-          "Présentement, [City Name] n'est pas dans notre base de données. Mais rassurez-vous, nous vous enverrons un courriel dès que nous aurons cartographié votre quartier.",
+          "Présentement, votre ville n'est pas dans notre base de données. Mais rassurez-vous, nous vous enverrons un courriel dès que nous aurons cartographié votre quartier.",
         mainMessage:
           "Veiller à la santé environnementale est essentiel pour un monde plus sûr et plus sain. En identifiant les menaces environnementales dans votre localité, vous pouvez prévenir des maladies chroniques, réduire l'exposition aux polluants nocifs et garantir l'accès à de l'air pur, de l'eau propre et des conditions de vie sûres.",
         followUpMessage:
@@ -122,6 +151,9 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
           "Aidez-nous à sauver plus de vies en invitant vos amis et votre famille à s'inscrire sur",
         closingMessage: 'Amicalement,',
         footerSignature: "L'équipe de MapYourHealth",
+        confirmButton: "Confirmer l'inscription",
+        confirmMessage:
+          'Veuillez confirmer votre inscription en cliquant sur le bouton ci-dessous :',
       },
     };
 
@@ -133,11 +165,11 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
       HeaderImage: footerURL,
       WelcomeHeader: 'Thanks for signing up!',
       LoginButtonText: 'Confirm Subscription',
-      LoginButtonUrl: `${host}${callbackURL}/user/`,
+      LoginButtonUrl: `${baseUrl}/user/`,
       SignatureText: 'Thanks,',
       SignatureCompany: 'The MapYourHealth Team',
-      MainTextColor: '#9db835',
-      EmailBackgroundColor: '#7D2020',
+      MainTextColor: '#000000',
+      EmailBackgroundColor: '#9db835',
       HeaderBackgroundColor: '#ffffff',
       ContentBackgroundColor: '#ffffff',
       MainBackgroundColor: '#9db835',
@@ -156,6 +188,9 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
       closingMessage: content.closingMessage,
       footerSignature: content.footerSignature,
       footerURL: footerURL,
+      confirmationUrl: confirmationUrl,
+      confirmButton: content.confirmButton,
+      confirmMessage: content.confirmMessage,
     };
 
     const finalHtml = generateHtmlString(templateValues);
@@ -179,6 +214,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
     console.log('email sent');
     return { success: true };
   } catch (error) {
+    console.log('error in handler', emailFrom);
     console.log('error in handler', error);
     // Ensure the error is properly typed or checked
     if (error && typeof error === 'object' && 'errors' in error) {
@@ -199,6 +235,7 @@ export const handler: Schema['signUpNewsletter']['functionHandler'] = async (
     }
 
     console.log('error in handler', error);
+    console.log('from : ', emailFrom);
     return { success: false, message: 'Failed to process subscription' };
   }
 };
@@ -243,6 +280,9 @@ interface EmailTemplateValues {
   footerSignature: string;
 
   footerURL: String;
+  confirmationUrl: string;
+  confirmButton: string;
+  confirmMessage: string;
 }
 
 // eslint-disable-next-line max-lines-per-function
@@ -331,6 +371,17 @@ function generateHtmlString(values: EmailTemplateValues): string {
           font-weight: bold;
           color: ${values.MainTextColor};
         }
+        .website-link {
+          color: ${values.HighlightTextColor};
+          text-decoration: none;
+        }
+        .website-link:hover {
+          text-decoration: underline;
+        }
+        a {
+          color: #9db835; /* Website green */
+          text-decoration: none;
+        }
       </style>
     </head>
     <body>
@@ -349,9 +400,13 @@ function generateHtmlString(values: EmailTemplateValues): string {
           
           <p>${values.followUpMessage}</p>
           
-          <p>${values.inviteMessage} <a href="${values.websiteUrl}">${values.websiteUrl}</a></p>
+          <p>${values.inviteMessage} <a href="${values.websiteUrl}" class="website-link">${values.websiteUrl}</a></p>
           
           <p>${values.closingMessage}</p>
+          <p>${values.confirmMessage}</p>
+          <a href="${values.confirmationUrl}" class="action-button">
+            ${values.confirmButton}
+          </a>
         </div>
         <div class="footer">
           <p>${values.footerSignature}</p>

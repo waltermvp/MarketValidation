@@ -193,8 +193,9 @@ const Home = () => {
         country: country ? country : undefined,
         zip: zip ? zip : undefined,
         lang: language,
+        callbackURL: window.location.host,
       });
-      console.log('signup result', result);
+      console.log('signup result', JSON.stringify(result, null, 2));
       if (!result.data?.success) {
         console.log(result.data?.message);
         setSuccessMessage(translate('home.successAlreadyRegistered'));
