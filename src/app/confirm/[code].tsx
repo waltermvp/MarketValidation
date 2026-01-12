@@ -24,12 +24,14 @@ const standardDesktop1280 = require('../../../assets/hero-background/standard_de
 const standardDesktop1366 = require('../../../assets/hero-background/standard_desktop_1366x768.jpg');
 
 Amplify.configure(outputs);
+
+// Create client outside component to prevent recreation on each render
+const client = generateClient<Schema>();
 type ConfirmationState = 'loading' | 'success' | 'error';
 
 // eslint-disable-next-line max-lines-per-function
 export function ConfirmScreen() {
   const { code } = useLocalSearchParams();
-  const client = generateClient<Schema>();
   const [state, setState] = React.useState<ConfirmationState>('loading');
   const [message, setMessage] = React.useState<string>(
     translate('confirm.loading')
@@ -96,7 +98,8 @@ export function ConfirmScreen() {
     };
 
     confirmSubscription();
-  }, [code, client]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [code]);
 
   console.log('Rendering with state:', state, 'message:', message);
 
