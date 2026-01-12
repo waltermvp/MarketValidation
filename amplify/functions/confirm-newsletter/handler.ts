@@ -75,14 +75,13 @@ export const handler: Schema['confirmNewsletter']['functionHandler'] = async (
       };
     }
 
-    // Update user to confirmed status
+    // Update user to confirmed status (keep original confirmationCode for idempotency)
     await dataClient.graphql({
       query: updateUser,
       variables: {
         input: {
           email: user.email,
           confirmed: true,
-          confirmationCode: 'CONFIRMED',
         },
       },
     });
