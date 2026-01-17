@@ -2,7 +2,23 @@
   "project": "MarketValidation",
   "branchName": "staging",
   "description": "Safety Dashboard MVP - Stats-based environmental safety monitoring app",
-  "dataModel": "stats-based",
+  "vision": "Expose hidden risks everywhere - Let users see safety stats (water quality, air quality, health risks, disasters) for any zip code",
+  "dataModel": {
+    "type": "stats-based",
+    "innovation": "Generic stats model instead of hardcoded types",
+    "benefits": [
+      "Admins can add new stats without code changes",
+      "Bulk update stat values across thousands of zip codes",
+      "Choose which stats trigger push notifications",
+      "Flexible value types (number, string, percentage, status)"
+    ],
+    "coreTypes": {
+      "StatDefinition": "Template defining a stat (title, category, valueType, triggersNotification)",
+      "ZipCodeStat": "A stat's value for a specific zip code (value, status, updatedAt)",
+      "ZipCodeData": "Complete zip code with all its stats"
+    },
+    "categories": ["water", "air", "health", "disasters"]
+  },
   "userStories": [
     {
       "id": "US-001",

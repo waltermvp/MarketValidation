@@ -98,6 +98,58 @@ Working through `prd.json` user stories to build:
 7. Product recommendations
 8. Pages that assemble components
 
+## Data Model: Stats-Based Architecture
+
+**Key Innovation:** Generic stats model instead of hardcoded safety types.
+
+### Why Stats?
+
+- Admins can add new stats without code changes
+- Bulk update stat values across thousands of zip codes at once
+- Choose which stats trigger push notifications
+- Flexible value types (number, string, percentage, status)
+
+### Core Types
+
+```typescript
+// What kind of stat (admin-defined template)
+type StatDefinition = {
+  id: string;
+  title: string;
+  category: 'water' | 'air' | 'health' | 'disasters';
+  valueType: 'string' | 'number' | 'percentage' | 'status';
+  triggersNotification: boolean;
+  sortOrder: number;
+};
+
+// A stat's value for a specific zip code
+type ZipCodeStat = {
+  statId: string;
+  value: string | number;
+  status: 'danger' | 'warning' | 'safe';
+  updatedAt: string;
+};
+
+// Complete zip code with all its stats
+type ZipCodeData = {
+  zipCode: string;
+  city: string;
+  state: string;
+  country: string;
+  stats: ZipCodeStat[];
+  hasActiveAlerts: boolean;
+};
+```
+
+### How It Works
+
+1. **Admin creates StatDefinition** (e.g., "Lead Level" for water category)
+2. **Admin bulk-updates ZipCodeStats** (e.g., set Lead Level to "danger" for 50 zip codes)
+3. **App fetches ZipCodeData** for user's subscribed zip codes
+4. **Stats with `triggersNotification: true`** send push alerts when status changes
+
+See `specs/mock-data.md` for full type definitions and mock data structure.
+
 ## Completion Signal
 
 When ALL user stories in `prd.json` have `"passes": true`, output on its own line:
