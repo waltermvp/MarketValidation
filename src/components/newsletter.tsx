@@ -122,7 +122,7 @@ export const Newsletter = ({
         {success ? (
           <Animated.View
             entering={FadeIn.duration(1000)}
-            className={`flex ${width < breakpoint ? 'mt-5 flex-col' : 'flex-row'} mt-8 w-full items-center justify-center self-center`}
+            className="mt-8 w-full self-center"
           >
             <View className="flex-row items-center justify-center space-x-2">
               <Ionicons
@@ -133,19 +133,21 @@ export const Newsletter = ({
               <Text className="ml-4 font-netflix-regular text-3xl text-white">
                 {successMessage ? successMessage : translate('home.success')}
               </Text>
+              <View className="ml-6">
+                <Button
+                  onPress={() => {
+                    if (typeof window !== 'undefined') {
+                      window.open('https://app.mapyourhealth.info', '_blank');
+                    }
+                  }}
+                  className="bg-primary-550 px-6 py-3"
+                >
+                  <Text className="font-netflix-bold text-lg text-white">
+                    Launch App →
+                  </Text>
+                </Button>
+              </View>
             </View>
-            <Button
-              onPress={() => {
-                if (typeof window !== 'undefined') {
-                  window.open('https://app.mapyourhealth.info', '_blank');
-                }
-              }}
-              className="mt-6 bg-primary-550 px-6 py-3"
-            >
-              <Text className="font-netflix-bold text-lg text-white">
-                Launch App →
-              </Text>
-            </Button>
           </Animated.View>
         ) : (
           <View
