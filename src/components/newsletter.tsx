@@ -195,7 +195,7 @@ export const Newsletter = ({
                 value={zipCode}
                 onChangeText={setZipCode}
                 style={{ height }} // Set a fixed height
-                keyboardType="default"
+                keyboardType="name-phone-pad"
                 autoCapitalize="characters"
               />
             </View>
