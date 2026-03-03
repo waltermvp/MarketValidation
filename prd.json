@@ -1,0 +1,491 @@
+{
+  "project": "MarketValidation",
+  "branchName": "staging",
+  "description": "Safety Dashboard MVP - Stats-based environmental safety monitoring app",
+  "vision": "Expose hidden risks everywhere - Let users see safety stats (water quality, air quality, health risks, disasters) for any zip code",
+  "dataModel": {
+    "type": "stats-based",
+    "innovation": "Generic stats model instead of hardcoded types",
+    "benefits": [
+      "Admins can add new stats without code changes",
+      "Bulk update stat values across thousands of zip codes",
+      "Choose which stats trigger push notifications",
+      "Flexible value types (number, string, percentage, status)"
+    ],
+    "coreTypes": {
+      "StatDefinition": "Template defining a stat (title, category, valueType, triggersNotification)",
+      "ZipCodeStat": "A stat's value for a specific zip code (value, status, updatedAt)",
+      "ZipCodeData": "Complete zip code with all its stats"
+    },
+    "categories": ["water", "air", "health", "disasters"]
+  },
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Create stats TypeScript types",
+      "description": "As a developer, I want typed interfaces for the stats-based data model",
+      "acceptanceCriteria": [
+        "StatDefinition type with id, title, image, description, valueType, category, triggersNotification, sortOrder",
+        "ZipCodeStat type with statId, value, status, updatedAt",
+        "ZipCodeData type with zipCode, city, state, country, stats[], hasActiveAlerts",
+        "HazardCategory and HazardReport types",
+        "ProductRecommendation type",
+        "pnpm type-check passes"
+      ],
+      "priority": 1,
+      "scope": { "issueNumber": 27, "feature": "Mock Data" },
+      "dependsOn": [],
+      "passes": false,
+      "notes": "File: src/data/types/safety.ts - REPLACES old types"
+    },
+    {
+      "id": "US-002",
+      "title": "Create mock stat definitions",
+      "description": "As a developer, I want mock stat definitions for the 4 safety categories",
+      "acceptanceCriteria": [
+        "Water stats: Lead Level, Pesticides, Radioactivity, Water Quality Index",
+        "Air stats: Radon Level, Air Quality Index, Industrial Pollution",
+        "Health stats: Active Outbreaks, Disease Risk",
+        "Disaster stats: Wildfire Risk, Flood Risk, Earthquake Risk",
+        "Each has valueType, category, triggersNotification flag",
+        "getStatDefinition and getAllStatDefinitions helpers",
+        "pnpm type-check passes"
+      ],
+      "priority": 1,
+      "scope": { "issueNumber": 27, "feature": "Mock Data" },
+      "dependsOn": ["US-001"],
+      "passes": false,
+      "notes": "File: src/data/mock/mock-stat-definitions.ts"
+    },
+    {
+      "id": "US-003",
+      "title": "Create mock zip code data",
+      "description": "As a developer, I want mock zip codes with their stats values",
+      "acceptanceCriteria": [
+        "5+ zip codes: J3R 5B9 Sorel-Tracy, 10001 New York, 90210 Beverly Hills, M5V 3L9 Toronto, H3B 1X8 Montreal",
+        "Each zip code has stats array with values and statuses",
+        "Mix of danger/warning/safe statuses across zip codes",
+        "getZipCodeData(zipCode) helper returns ZipCodeData or null",
+        "getStatsByCategory(zipCode) helper groups stats by category",
+        "pnpm type-check passes"
+      ],
+      "priority": 1,
+      "scope": { "issueNumber": 27, "feature": "Mock Data" },
+      "dependsOn": ["US-002"],
+      "passes": false,
+      "notes": "File: src/data/mock/mock-zip-codes.ts"
+    },
+    {
+      "id": "US-004",
+      "title": "Create mock hazard categories",
+      "description": "As a developer, I want hazard categories for the report form",
+      "acceptanceCriteria": [
+        "8 HazardCategory objects",
+        "Includes: Water Contamination, Air Pollution, Disease Outbreak, Chemical Spill, Illegal Waste Dumping, Food Safety, Noise Pollution, Other",
+        "getHazardCategoryById helper",
+        "pnpm type-check passes"
+      ],
+      "priority": 1,
+      "scope": { "issueNumber": 27, "feature": "Mock Data" },
+      "dependsOn": ["US-001"],
+      "passes": false,
+      "notes": "File: src/data/mock/mock-hazard-categories.ts"
+    },
+    {
+      "id": "US-005",
+      "title": "Create mock recommendations",
+      "description": "As a developer, I want product recommendations linked to stat categories",
+      "acceptanceCriteria": [
+        "2+ ProductRecommendation objects",
+        "Epic Water Filters for water category",
+        "Air Purifier for air category",
+        "relevantCategories links to stat categories",
+        "getRecommendationsByCategory helper",
+        "pnpm type-check passes"
+      ],
+      "priority": 1,
+      "scope": { "issueNumber": 27, "feature": "Mock Data" },
+      "dependsOn": ["US-001"],
+      "passes": false,
+      "notes": "File: src/data/mock/mock-recommendations.ts"
+    },
+    {
+      "id": "US-006",
+      "title": "Create mock data barrel export",
+      "description": "As a developer, I want a single import point for all mock data",
+      "acceptanceCriteria": [
+        "src/data/mock/index.ts exists",
+        "Re-exports all mock data files",
+        "Can import { getZipCodeData, getAllStatDefinitions, ... } from '@/data/mock'",
+        "pnpm type-check passes"
+      ],
+      "priority": 1,
+      "scope": { "issueNumber": 27, "feature": "Mock Data" },
+      "dependsOn": ["US-002", "US-003", "US-004", "US-005"],
+      "passes": false,
+      "notes": "File: src/data/mock/index.ts"
+    },
+    {
+      "id": "US-007",
+      "title": "Create safety category icons",
+      "description": "As a user, I want category-specific icons to identify safety topics",
+      "acceptanceCriteria": [
+        "Droplet icon for water category",
+        "Cloud icon for air category",
+        "Virus icon for health category",
+        "Flame icon for disasters category",
+        "All accept color prop with default '#000'",
+        "All use 24x24 viewBox",
+        "All exported from src/components/ui/icons/index.tsx",
+        "pnpm type-check passes"
+      ],
+      "priority": 2,
+      "scope": { "issueNumber": 23, "feature": "Safety Categories" },
+      "dependsOn": [],
+      "passes": false,
+      "notes": "Files: src/components/ui/icons/droplet.tsx, cloud.tsx, virus.tsx, flame.tsx"
+    },
+    {
+      "id": "US-008",
+      "title": "Create utility icons",
+      "description": "As a user, I want utility icons for navigation and UI actions",
+      "acceptanceCriteria": [
+        "AlertTriangle icon for warnings",
+        "Heart icon for recommendations",
+        "Search icon for search bar",
+        "ExternalLink icon for source links",
+        "ChevronLeft icon for back navigation",
+        "All accept color prop with default '#000'",
+        "All exported from src/components/ui/icons/index.tsx",
+        "pnpm type-check passes"
+      ],
+      "priority": 2,
+      "scope": { "issueNumber": 23, "feature": "Safety Categories" },
+      "dependsOn": [],
+      "passes": false,
+      "notes": "Use existing CaretDown for expand/collapse"
+    },
+    {
+      "id": "US-009",
+      "title": "Create StatusIndicator component",
+      "description": "As a user, I want colored indicators showing danger/warning/safe status",
+      "acceptanceCriteria": [
+        "Supports 'danger', 'warning', 'safe' status props",
+        "Supports 'dot' and 'badge' variant props",
+        "Uses red-500, yellow-500, green-500 colors",
+        "Has testID prop for testing",
+        "Exported from src/components/ui/index.tsx",
+        "pnpm type-check passes"
+      ],
+      "priority": 2,
+      "scope": { "issueNumber": 23, "feature": "Safety Categories" },
+      "dependsOn": [],
+      "passes": false,
+      "notes": "File: src/components/ui/status-indicator.tsx"
+    },
+    {
+      "id": "US-010",
+      "title": "Create StatCategoryCard component",
+      "description": "As a user, I want to see stat categories with icons and status",
+      "acceptanceCriteria": [
+        "Shows category icon on left (droplet, cloud, virus, flame)",
+        "Shows category name in bold",
+        "Shows preview of top stats in category",
+        "Shows StatusIndicator dot with worst status in category",
+        "Handles onPress for navigation to detail view",
+        "Has testID prop for testing",
+        "pnpm type-check passes"
+      ],
+      "priority": 3,
+      "scope": { "issueNumber": 23, "feature": "Safety Categories" },
+      "dependsOn": ["US-007", "US-009"],
+      "passes": false,
+      "notes": "File: src/components/dashboard/stat-category-card.tsx"
+    },
+    {
+      "id": "US-011",
+      "title": "Create StatCategoriesList component",
+      "description": "As a user, I want to see all stat categories in a list",
+      "acceptanceCriteria": [
+        "Renders list of StatCategoryCard components",
+        "Groups ZipCodeStats by category",
+        "Handles onCategoryPress callback",
+        "Handles empty state gracefully",
+        "Has testID prop for testing",
+        "pnpm type-check passes"
+      ],
+      "priority": 3,
+      "scope": { "issueNumber": 23, "feature": "Safety Categories" },
+      "dependsOn": ["US-010"],
+      "passes": false,
+      "notes": "File: src/components/dashboard/stat-categories-list.tsx"
+    },
+    {
+      "id": "US-012",
+      "title": "Create WarningBanner component",
+      "description": "As a user, I want to see emergency warnings prominently",
+      "acceptanceCriteria": [
+        "Yellow/amber background (#FEF3C7)",
+        "AlertTriangle icon on left",
+        "'Special Warning' label above title",
+        "Stat title in red/danger color",
+        "'Full Report' link on right",
+        "Only renders for stats with status='danger' and triggersNotification=true",
+        "Has testID prop for testing",
+        "pnpm type-check passes"
+      ],
+      "priority": 3,
+      "scope": { "issueNumber": 22, "feature": "Warning Banner" },
+      "dependsOn": ["US-008"],
+      "passes": false,
+      "notes": "File: src/components/dashboard/warning-banner.tsx"
+    },
+    {
+      "id": "US-013",
+      "title": "Create LocationHeader component",
+      "description": "As a user, I want to see my current location prominently",
+      "acceptanceCriteria": [
+        "Shows 'My Location' title in green/primary color",
+        "Shows zip code prominently (large text)",
+        "Shows city, state below zip code",
+        "Accepts ZipCodeData as prop",
+        "Has testID prop for testing",
+        "pnpm type-check passes"
+      ],
+      "priority": 3,
+      "scope": { "issueNumber": 21, "feature": "Location Dashboard" },
+      "dependsOn": [],
+      "passes": false,
+      "notes": "File: src/components/dashboard/location-header.tsx"
+    },
+    {
+      "id": "US-014",
+      "title": "Create SearchBar component",
+      "description": "As a user, I want to search for any location",
+      "acceptanceCriteria": [
+        "Search icon on left",
+        "Text input with placeholder 'Search for a state, city or street'",
+        "Settings gear icon on right",
+        "onSearch callback when text changes",
+        "onSettingsPress callback",
+        "Has testID prop for testing",
+        "pnpm type-check passes"
+      ],
+      "priority": 3,
+      "scope": { "issueNumber": 21, "feature": "Location Dashboard" },
+      "dependsOn": ["US-008"],
+      "passes": false,
+      "notes": "File: src/components/dashboard/search-bar.tsx"
+    },
+    {
+      "id": "US-015",
+      "title": "Create Dashboard page",
+      "description": "As a user, I want a main dashboard showing my location's safety overview",
+      "acceptanceCriteria": [
+        "Renders SearchBar at top",
+        "Renders LocationHeader with current zip code",
+        "Renders WarningBanner if danger stats exist",
+        "Renders StatCategoriesList with stats grouped by category",
+        "Renders RecommendationsSection at bottom",
+        "Uses ScrollView for content",
+        "Loads mock data on mount",
+        "Has testID prop for testing",
+        "pnpm type-check passes"
+      ],
+      "priority": 4,
+      "scope": { "issueNumber": 21, "feature": "Location Dashboard" },
+      "dependsOn": ["US-006", "US-011", "US-012", "US-013", "US-014", "US-025"],
+      "passes": false,
+      "notes": "File: src/app/dashboard.tsx"
+    },
+    {
+      "id": "US-016",
+      "title": "Create ExpandableCard component",
+      "description": "As a user, I want to expand/collapse sections to see details",
+      "acceptanceCriteria": [
+        "Accepts header and children props",
+        "Has defaultExpanded and onToggle props",
+        "Uses CaretDown icon that rotates 180° on toggle",
+        "Content animates with react-native-reanimated",
+        "Has testID prop for testing",
+        "Exported from src/components/ui/index.tsx",
+        "pnpm type-check passes"
+      ],
+      "priority": 3,
+      "scope": { "issueNumber": 25, "feature": "Stats Detail View" },
+      "dependsOn": [],
+      "passes": false,
+      "notes": "File: src/components/ui/expandable-card.tsx"
+    },
+    {
+      "id": "US-017",
+      "title": "Create StatItem component",
+      "description": "As a user, I want to see individual stat details",
+      "acceptanceCriteria": [
+        "Shows stat title from StatDefinition",
+        "Shows value and status (Danger, Warning, Safe)",
+        "Shows external link icon if stat has sourceUrl",
+        "onSourcePress callback",
+        "Has testID prop for testing",
+        "pnpm type-check passes"
+      ],
+      "priority": 3,
+      "scope": { "issueNumber": 25, "feature": "Stats Detail View" },
+      "dependsOn": ["US-008"],
+      "passes": false,
+      "notes": "File: src/components/stats/stat-item.tsx"
+    },
+    {
+      "id": "US-018",
+      "title": "Create StatCategorySection component",
+      "description": "As a user, I want to expand category sections to see stat details",
+      "acceptanceCriteria": [
+        "Uses ExpandableCard as base",
+        "Header shows category icon and name",
+        "Shows count of danger/warning stats in header",
+        "Expanded content lists StatItem components",
+        "Has testID prop for testing",
+        "pnpm type-check passes"
+      ],
+      "priority": 3,
+      "scope": { "issueNumber": 25, "feature": "Stats Detail View" },
+      "dependsOn": ["US-016", "US-017"],
+      "passes": false,
+      "notes": "File: src/components/stats/stat-category-section.tsx"
+    },
+    {
+      "id": "US-019",
+      "title": "Create StatsDetailView component",
+      "description": "As a user, I want a full detail view of all stats in a category",
+      "acceptanceCriteria": [
+        "Header with back button and category name",
+        "Scrollable list of StatItem components",
+        "Shows all stats for the category",
+        "onBack callback",
+        "Has testID prop for testing",
+        "pnpm type-check passes"
+      ],
+      "priority": 3,
+      "scope": { "issueNumber": 25, "feature": "Stats Detail View" },
+      "dependsOn": ["US-008", "US-017"],
+      "passes": false,
+      "notes": "File: src/components/stats/stats-detail-view.tsx"
+    },
+    {
+      "id": "US-020",
+      "title": "Create Category Detail page",
+      "description": "As a user, I want to drill into a category to see all stats",
+      "acceptanceCriteria": [
+        "Dynamic route: src/app/safety/[category].tsx",
+        "Uses useLocalSearchParams to get category",
+        "Loads stats for category from mock data",
+        "Renders StatsDetailView",
+        "Back navigation returns to dashboard",
+        "Has testID prop for testing",
+        "pnpm type-check passes"
+      ],
+      "priority": 4,
+      "scope": { "issueNumber": 25, "feature": "Stats Detail View" },
+      "dependsOn": ["US-019"],
+      "passes": false,
+      "notes": "File: src/app/safety/[category].tsx"
+    },
+    {
+      "id": "US-021",
+      "title": "Create HazardReportForm component",
+      "description": "As a user, I want to submit hazard reports with validation",
+      "acceptanceCriteria": [
+        "Category dropdown with HazardCategory options",
+        "Description textarea (min 10 chars)",
+        "Location input (required)",
+        "Uses react-hook-form for state",
+        "Uses zod for validation",
+        "Shows inline error messages",
+        "Submit button with loading state",
+        "Has testID prop for testing",
+        "pnpm type-check passes"
+      ],
+      "priority": 3,
+      "scope": { "issueNumber": 24, "feature": "Submit Report" },
+      "dependsOn": [],
+      "passes": false,
+      "notes": "File: src/components/report/hazard-report-form.tsx"
+    },
+    {
+      "id": "US-022",
+      "title": "Create SubmitReportScreen component",
+      "description": "As a user, I want a complete report screen with branding",
+      "acceptanceCriteria": [
+        "Logo/icon at top",
+        "'Submit Report' title (large, bold)",
+        "Subtitle about reporting hazards",
+        "'Let us know!' CTA in green",
+        "Renders HazardReportForm",
+        "Has testID prop for testing",
+        "pnpm type-check passes"
+      ],
+      "priority": 3,
+      "scope": { "issueNumber": 24, "feature": "Submit Report" },
+      "dependsOn": ["US-021"],
+      "passes": false,
+      "notes": "File: src/components/report/submit-report-screen.tsx"
+    },
+    {
+      "id": "US-023",
+      "title": "Create Report page",
+      "description": "As a user, I want to access the hazard report form",
+      "acceptanceCriteria": [
+        "Route: src/app/report.tsx",
+        "Renders SubmitReportScreen",
+        "Handles form submission (logs for now)",
+        "Shows success feedback",
+        "Navigates back to dashboard on success",
+        "Has testID prop for testing",
+        "pnpm type-check passes"
+      ],
+      "priority": 4,
+      "scope": { "issueNumber": 24, "feature": "Submit Report" },
+      "dependsOn": ["US-022"],
+      "passes": false,
+      "notes": "File: src/app/report.tsx"
+    },
+    {
+      "id": "US-024",
+      "title": "Create ProductRecommendationCard component",
+      "description": "As a user, I want to see product recommendations",
+      "acceptanceCriteria": [
+        "Green background (#10B981)",
+        "Heart icon and 'We Recommend' header",
+        "Product tagline and image",
+        "Product name and description",
+        "'Learn More' button opens affiliate URL",
+        "Has testID prop for testing",
+        "pnpm type-check passes"
+      ],
+      "priority": 3,
+      "scope": { "issueNumber": 26, "feature": "Recommendations" },
+      "dependsOn": ["US-008"],
+      "passes": false,
+      "notes": "File: src/components/recommendations/product-recommendation-card.tsx"
+    },
+    {
+      "id": "US-025",
+      "title": "Create RecommendationsSection component",
+      "description": "As a user, I want to see relevant recommendations based on hazards",
+      "acceptanceCriteria": [
+        "Filters recommendations by relevantCategories",
+        "Matches categories with danger/warning stats",
+        "Only renders if matches exist",
+        "Optional section title",
+        "Renders ProductRecommendationCard for each match",
+        "Has testID prop for testing",
+        "pnpm type-check passes"
+      ],
+      "priority": 3,
+      "scope": { "issueNumber": 26, "feature": "Recommendations" },
+      "dependsOn": ["US-024"],
+      "passes": false,
+      "notes": "File: src/components/recommendations/recommendations-section.tsx"
+    }
+  ]
+}

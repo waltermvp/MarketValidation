@@ -122,17 +122,32 @@ export const Newsletter = ({
         {success ? (
           <Animated.View
             entering={FadeIn.duration(1000)}
-            // className=" flex-row items-center justify-center space-x-2"
-            className={`flex ${width < breakpoint ? 'mt-5 flex-col-reverse' : 'flex-row'} space-x-2, mt-8 w-full items-center justify-center self-center`}
+            className="mt-8 w-full self-center"
           >
-            <Ionicons
-              name="checkmark-circle"
-              size={48}
-              color={colors.primary[550]}
-            />
-            <Text className="ml-4 font-netflix-regular text-3xl text-white">
-              {successMessage ? successMessage : translate('home.success')}
-            </Text>
+            <View className="flex-row items-center justify-center space-x-2">
+              <Ionicons
+                name="checkmark-circle"
+                size={48}
+                color={colors.primary[550]}
+              />
+              <Text className="ml-4 font-netflix-regular text-3xl text-white">
+                {successMessage ? successMessage : translate('home.success')}
+              </Text>
+              <View className="ml-6">
+                <Button
+                  onPress={() => {
+                    if (typeof window !== 'undefined') {
+                      window.open('https://app.mapyourhealth.info', '_blank');
+                    }
+                  }}
+                  className="bg-primary-550 px-6 py-3"
+                >
+                  <Text className="font-netflix-bold text-lg text-white">
+                    Launch App →
+                  </Text>
+                </Button>
+              </View>
+            </View>
           </Animated.View>
         ) : (
           <View
@@ -198,6 +213,25 @@ export const Newsletter = ({
             </Button>
           </View>
         )}
+
+        {/* Launch App Button - Always visible below inputs */}
+        <View className="mt-8 items-center">
+          <Text className="mb-4 text-center font-netflix-regular text-lg text-white">
+            Already know about health risks in your area?
+          </Text>
+          <Button
+            onPress={() => {
+              if (typeof window !== 'undefined') {
+                window.open('https://app.mapyourhealth.info', '_blank');
+              }
+            }}
+            className="border-2 border-primary-550 bg-white px-8 py-3"
+          >
+            <Text className="font-netflix-bold text-lg text-primary-550">
+              Launch App →
+            </Text>
+          </Button>
+        </View>
       </View>
     </View>
   );
