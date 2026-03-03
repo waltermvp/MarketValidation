@@ -1,5 +1,4 @@
 import React from 'react';
-import { Linking, Pressable } from 'react-native';
 import Animated from 'react-native-reanimated';
 
 import { LanguageSelector } from '@/components/language-selector';
@@ -12,10 +11,6 @@ type MenuBarProps = {
 };
 
 export function MenuBar({ lang, onLanguageChange }: MenuBarProps) {
-  const handleLaunchApp = () => {
-    Linking.openURL('https://app.mapyourhealth.info');
-  };
-
   return (
     <View className="align-center z-50 w-full flex-row items-center justify-between px-4 md:px-6">
       <Animated.View className={'left-4 top-4'}>
@@ -23,18 +18,7 @@ export function MenuBar({ lang, onLanguageChange }: MenuBarProps) {
           MapYourHealth
         </Text>
       </Animated.View>
-
-      <View className="flex-row items-center space-x-4">
-        <Pressable
-          onPress={handleLaunchApp}
-          className="rounded-lg bg-primary-550 px-4 py-2"
-        >
-          <Text className="font-netflix-bold text-base text-white">
-            Launch App
-          </Text>
-        </Pressable>
-        <LanguageSelector currentLang={lang} onChangeLang={onLanguageChange} />
-      </View>
+      <LanguageSelector currentLang={lang} onChangeLang={onLanguageChange} />
     </View>
   );
 }

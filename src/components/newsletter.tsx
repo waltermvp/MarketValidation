@@ -211,6 +211,25 @@ export const Newsletter = ({
             </Button>
           </View>
         )}
+
+        {/* Launch App Button - Always visible below inputs */}
+        <View className="mt-8 items-center">
+          <Text className="mb-4 text-center font-netflix-regular text-lg text-white">
+            Already know about health risks in your area?
+          </Text>
+          <Button
+            onPress={() => {
+              if (typeof window !== 'undefined') {
+                window.open('https://app.mapyourhealth.info', '_blank');
+              }
+            }}
+            className="border-2 border-primary-550 bg-white px-8 py-3"
+          >
+            <Text className="font-netflix-bold text-lg text-primary-550">
+              Launch App →
+            </Text>
+          </Button>
+        </View>
       </View>
     </View>
   );
