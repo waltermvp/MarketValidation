@@ -43,7 +43,7 @@
     }
   },
   "onboarding": {
-    "message": "Welcome to obytes app site"
+    "message": "Bienvenue sur MapYourHealth"
   },
   "settings": {
     "about": "About",
@@ -72,7 +72,7 @@
     "version": "Version",
     "website": "Website"
   },
-  "welcome": "Welcome to obytes app site",
+  "welcome": "Bienvenue sur MapYourHealth",
   "appName": "MapYourHealth",
   "footer": {
     "copyright": "Copyright"

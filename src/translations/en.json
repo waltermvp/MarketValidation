@@ -46,7 +46,7 @@
     "zipCode": "Zip Code"
   },
   "onboarding": {
-    "message": "Welcome to obytes app site"
+    "message": "Welcome to MapYourHealth"
   },
   "settings": {
     "about": "About",
@@ -75,7 +75,7 @@
     "version": "Version",
     "website": "Website"
   },
-  "welcome": "Welcome to obytes app site",
+  "welcome": "Welcome to MapYourHealth",
   "confirm": {
     "loading": "Confirming your subscription...",
     "success": "Thank you for confirming your subscription!",
