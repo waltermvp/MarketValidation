@@ -1,6 +1,6 @@
 {
   "onboarding": {
-    "message": "مرحبا بكم في موقع تطبيق obytes"
+    "message": "مرحبا بكم في MapYourHealth"
   },
   "settings": {
     "about": "حول التطبيق ",
@@ -29,5 +29,5 @@
     "version": "إصدار",
     "website": "موقع الكتروني"
   },
-  "welcome": "test arabic"
+  "welcome": "مرحبا بكم في MapYourHealth"
 }
