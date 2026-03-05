@@ -143,7 +143,7 @@ export const Newsletter = ({
                   className="bg-primary-550 px-6 py-3"
                 >
                   <Text className="font-netflix-bold text-lg text-white">
-                    Launch App →
+                    Try Web Beta →
                   </Text>
                 </Button>
               </View>
@@ -229,9 +229,12 @@ export const Newsletter = ({
             className="border-2 border-primary-550 bg-white px-8 py-3"
           >
             <Text className="font-netflix-bold text-lg text-primary-550">
-              Launch App →
+              Try Web Beta →
             </Text>
           </Button>
+          <Text className="mt-2 text-center font-netflix-light text-sm text-neutral-400">
+            Mobile apps coming soon
+          </Text>
         </View>
       </View>
     </View>
