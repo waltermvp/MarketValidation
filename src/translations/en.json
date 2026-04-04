@@ -1,25 +1,31 @@
 {
   "appName": "MapYourHealth",
+  "confirm": {
+    "error": "There was an error confirming your subscription. Please try again or contact support.",
+    "invalidCode": "Invalid confirmation code. Please check your email for the correct link.",
+    "loading": "Confirming your subscription...",
+    "success": "Thank you for confirming your subscription!"
+  },
   "footer": {
     "copyright": "Copyright"
   },
   "home": {
-    "enterZipCode": "Please enter your zipCode",
     "CTA1": "It is responsible for one in six deaths worldwide, causing cancer, heart and respiratory diseases, multiple chemical sensitivity and more chronic illnesses.\n\n\n Protect your health now. Sign up to ",
     "CTA2": " and learn about all health hazards in your surroundings.",
     "benefits": {
-      "title1": "Expose Hidden Toxic Pollutants",
       "content1": "Track in real time the presence of Forever Chemicals (PFAS), radon, endocrine disruptors, pathogens, sulfur dioxide (SO2), volatile organic compounds (VOCs), heavy metals, ozone, particulate matter, and more.",
+      "content2": "Assess the quality of water treatment, healthcare, fire department, energy supply, law enforcement and environment protection in your city.",
+      "content3": "Access the latest scientific recommendations, affordable technologies and services combating dangerous pollutants.",
+      "content4": "Get informed about the health risks of living in other cities when planning travels or relocation.",
+      "title1": "Expose Hidden Toxic Pollutants",
       "title2": "Monitor Essential Public Services",
-      "content2": "Assess the quality of water treatment, healthcare, fire services, energy supply, law enforcement, and environmental protection in your city.",
       "title3": "Self-Defense Against Pollutants",
-      "content3": "Access the latest scientific recommendations in environmental health, affordable protective technologies, and services to combat dangerous pollutants.",
-      "title4": "Plan Travels and Relocation",
-      "content4": "Get informed about the health risks of living in other cities when planning travels or relocation."
+      "title4": "Plan Travels and Relocation"
     },
     "benefitsTitle": "More benefits to ",
     "description": "It is contaminating every breath you take, every glass of water you drink, and every meal you eat, causing multiple chemical sensitivity, cancer, heart disease, poisoning, and more. It is an invisible and deadly threat to you and your family.",
     "enterEmail": "Enter your email",
+    "enterZipCode": "Please enter your zipCode",
     "errorMessage": "Whoops, enter a correct email.",
     "faq": {
       "answer1": "MapYourHealth is an interactive map monitoring all health hazards in your immediate environment and beyond. This unique platform visually represents research studies, public health records, and investigative reporting pertaining to environmental health.",
@@ -33,7 +39,7 @@
       "question3": "How do I use MapYourHealth?",
       "question4": "Is MapYourHealth available everywhere?",
       "question5": "Is MapYourHealth free?",
-      "question6": "Submit a signal on environmental hazards"
+      "question6": "Submit a tip on environmental hazards"
     },
     "faqTitle": "Frequently Asked Questions",
     "invalidEmail": "Please enter a valid email address.",
@@ -75,11 +81,5 @@
     "version": "Version",
     "website": "Website"
   },
-  "welcome": "Welcome to obytes app site",
-  "confirm": {
-    "loading": "Confirming your subscription...",
-    "success": "Thank you for confirming your subscription!",
-    "error": "There was an error confirming your subscription. Please try again or contact support.",
-    "invalidCode": "Invalid confirmation code. Please check your email for the correct link."
-  }
+  "welcome": "Welcome to obytes app site"
 }
