@@ -22,7 +22,7 @@
       "title3": "Autodéfense contre les polluants",
       "title4": "Planifiez vos voyages et votre déménagement"
     },
-    "benefitsTitle": "Plus d'avantages à ",
+    "benefitsTitle": "Plus d'avantages à s'inscrire",
     "description": "Elle est responsable d'un décès sur six dans le monde, causant des cancers, des maladies cardiaques et respiratoires, l'hypersensibilité chimique et de nombreuses autres maladies chroniques.",
     "enterEmail": "Entrez votre email",
     "enterZipCode": "Veuillez saisir votre code postal",
@@ -52,7 +52,7 @@
     "zipCode": "Code postal"
   },
   "onboarding": {
-    "message": "Welcome to obytes app site"
+    "message": "Bienvenue sur MapYourHealth"
   },
   "settings": {
     "about": "About",
@@ -81,5 +81,5 @@
     "version": "Version",
     "website": "Website"
   },
-  "welcome": "Welcome to obytes app site"
+  "welcome": "Bienvenue sur MapYourHealth"
 }
