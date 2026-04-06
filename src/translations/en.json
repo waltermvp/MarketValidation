@@ -10,10 +10,10 @@
     "copyright": "Copyright"
   },
   "home": {
-    "CTA1": "It is responsible for one in six deaths worldwide, causing cancer, heart and respiratory diseases, multiple chemical sensitivity and more chronic illnesses.\n\n\n Protect your health now. Sign up to ",
-    "CTA2": " and learn about all health hazards in your surroundings.",
+    "CTA1": "And expose the toxic pollutants in your area with the world's only environmental\u2011health tracking platform.\n\n\n Protect yourself and the people you love. Sign up to ",
+    "CTA2": " today!",
     "benefits": {
-      "content1": "Track in real time the presence of Forever Chemicals (PFAS), Radon, endocrine disruptors, Pathogens, Sulfur Dioxide (SO2), Volatile Organic Compounds (VOCs), Heavy Metals, Ozone, Particulate Matter and more.",
+      "content1": "Track in real time the presence of Forever Chemicals (PFAS), Radon, endocrine disruptors, Sulfur Dioxide (SO2), Volatile Organic Compounds (VOCs), Heavy Metals, Ozone, Particulate Matter and more.",
       "content2": "Assess the quality of water treatment, healthcare, fire department, energy supply, law enforcement and environment protection in your city.",
       "content3": "Access the latest scientific recommendations, affordable technologies and services combating dangerous pollutants.",
       "content4": "Get informed on the health risks of living in other cities when planning travels or relocation.",
@@ -23,12 +23,12 @@
       "title4": "Plan Travels and Relocation"
     },
     "benefitsTitle": "More benefits to Sign Up",
-    "description": "It is responsible for one in six deaths worldwide, causing cancer, heart and respiratory diseases, multiple chemical sensitivity and more chronic illnesses.",
+    "description": "And expose the toxic pollutants in your area with the world's only environmental\u2011health tracking platform.",
     "enterEmail": "Enter your email",
     "enterZipCode": "Please enter your zipCode",
     "errorMessage": "Whoops, enter a correct email.",
     "faq": {
-      "answer1": "MapYourHealth is an interactive map monitoring all health hazards in your immediate environment and beyond.\nThis unique platform visually represents research studies, public health records and investigative reporting pertaining to environmental health.",
+      "answer1": "MapYourHealth is a risk communication application monitoring all health hazards in your immediate environment and beyond.\nThis unique platform visually represents research studies, public health records and investigative reporting pertaining to environmental health.\nCurrently, only the Beta Web version is available.",
       "answer2": "Environmental pollutants are endangering the health of everyone. Depending on where you are, they can lead to a range of serious short-term and long-term problems, including Chemical Sensitivity (CS), respiratory issues, cardiovascular diseases, cancers, developmental disorders and other chronic illnesses.",
       "answer3": "MapYourHealth offers you the platform to monitor environmental threats to your health in order to safely make lifestyle choices, prospect for new living spaces, plan travels and stay updated on the latest recommendations and technologies countering environmental pollutants.",
       "answer4": "MapYourHealth might not yet be available in your location. Sign up to receive an automatic email alert as soon as MapYourHealth becomes available in your city.",
@@ -45,10 +45,10 @@
     "invalidEmail": "Please enter a valid email address.",
     "selectCountry": "Select your country",
     "signUp": "Sign Up",
-    "subtitle": "It is responsible for one in six deaths worldwide, causing cancer, heart and respiratory diseases, multiple chemical sensitivity and more chronic illnesses.\n\n\n Protect your health now. Sign up to MapYourHealth and learn about all health hazards in your surroundings.",
+    "subtitle": "And expose the toxic pollutants in your area with the world's only environmental\u2011health tracking platform.\n\n\n Protect yourself and the people you love. Sign up to MapYourHealth today!",
     "success": "Thank you for signing up.",
     "successAlreadyRegistered": "This email has already been registered.",
-    "title": "Toxic pollution is your new neighbor",
+    "title": "Sign Up to MapYourHealth Today!",
     "zipCode": "Zip Code"
   },
   "onboarding": {
