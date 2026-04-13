@@ -1,19 +1,23 @@
-# CLAUDE.md - MarketValidation Safety Dashboard
+# CLAUDE.md - MapYourHealth Landing Page
 
-This file provides Claude Code with project context and rules for autonomous development.
+This file provides Claude Code with project context and rules for development.
 
 ## Project Overview
 
-React Native mobile app for environmental safety monitoring. Users can view safety data for their location, see warnings, explore contaminant details, and submit hazard reports.
+MapYourHealth marketing landing page and newsletter signup, built with Expo (React Native for Web). This is the **current production site** at `mapyourhealth.info`. It collects newsletter signups with email confirmation via AWS SES, supports EN/FR/AR localization, and links to the main web app at `app.mapyourhealth.info`.
+
+> **Note:** This repo is being migrated to the monorepo at `apps/web` (Next.js). This Expo version remains the live site until that migration is complete.
 
 ## Tech Stack
 
-- **Framework**: React Native + Expo SDK 52
+- **Framework**: React Native + Expo SDK 52 (web target)
 - **Language**: TypeScript (strict mode)
 - **Styling**: NativeWind v4 (Tailwind for RN)
 - **State**: Zustand
 - **Forms**: react-hook-form + zod
 - **Navigation**: Expo Router (file-based)
+- **Backend**: AWS Amplify Gen2 (Cognito auth, AppSync GraphQL, DynamoDB, SES)
+- **i18n**: i18next (EN, FR, AR)
 - **Package Manager**: pnpm
 
 ## Build & Validation Commands
@@ -21,13 +25,22 @@ React Native mobile app for environmental safety monitoring. Users can view safe
 ```bash
 pnpm type-check    # TypeScript validation (MUST pass)
 pnpm lint          # ESLint check (amplify/ errors are pre-existing, ignore)
-pnpm test:ci       # Jest tests (MUST pass)
+pnpm test:ci       # Jest tests with coverage (MUST pass)
+pnpm check-all     # Lint + type-check + translations + tests (full gate)
 ```
 
 **Quality gate before ANY commit:**
 
 ```bash
 pnpm type-check && pnpm test:ci
+```
+
+## Development
+
+```bash
+pnpm start         # Start Expo dev server
+pnpm web           # Start web-only dev server
+pnpm amp-sand      # Start Amplify sandbox (local backend)
 ```
 
 ## Conditions (MUST follow)
@@ -38,170 +51,105 @@ pnpm type-check && pnpm test:ci
 2. NEVER introduce new lint errors in `src/` directory
 3. Pre-existing lint errors in `amplify/` directory can be ignored
 
-### Task Execution
-
-4. ONE task per iteration - small, atomic changes only
-5. Read the relevant spec file in `specs/` before implementing
-6. Follow existing patterns - check similar files for reference
-7. Update `prd.json` after completing each task (set `passes: true`)
-8. Append learnings to `progress.txt` after each task
-
 ### Code Conventions
 
-9. Use `className` prop for ALL styling (NativeWind)
-10. Use `@/` import alias for all src imports
-11. Use `import type { X }` for type-only imports
-12. Export new components from barrel files (`index.tsx`)
-13. File names: kebab-case (e.g., `safety-category-card.tsx`)
-14. Component names: PascalCase (e.g., `SafetyCategoryCard`)
+4. Use `className` prop for ALL styling (NativeWind)
+5. Use `@/` import alias for all src imports
+6. Use `import type { X }` for type-only imports
+7. Export new components from barrel files (`index.tsx`)
+8. File names: kebab-case (e.g., `newsletter.tsx`)
+9. Component names: PascalCase (e.g., `Newsletter`)
 
-### Git Commits
+### Git
 
-15. Use conventional commits: `feat:`, `fix:`, `chore:`, etc.
-16. Keep commit message body lines under 100 characters
-17. NEVER commit to `main` or `master` branch - use `staging` only
+10. Use conventional commits: `feat:`, `fix:`, `chore:`, `test:`, etc.
+11. Keep commit message body lines under 100 characters
+12. Create PRs against `main`
 
 ### Testing
 
-18. Add `testID` props to components that need testing
-19. Follow test patterns in `src/components/ui/*.test.tsx`
+13. Add `testID` props to components that need testing
+14. Follow test patterns in `src/components/login-form.test.tsx`
 
 ## File Structure
 
 ```
 src/
-  app/                    # Expo Router pages
+  app/                      # Expo Router pages
+    index.tsx                # Home / Landing page
+    login.tsx                # Login page
+    confirm/                 # Newsletter confirmation route
+    admin.tsx                # Admin page
   components/
-    ui/                   # Base UI primitives
-      icons/              # SVG icon components
-    dashboard/            # Dashboard feature components
-    contaminants/         # Contaminant detail components
-    report/               # Hazard report components
-    recommendations/      # Product recommendation components
-  data/
-    types/safety.ts       # TypeScript interfaces
-    mock/                 # Mock data files
-  lib/                    # Utilities, hooks, auth
-specs/                    # Feature specifications (READ THESE)
+    newsletter.tsx           # Newsletter signup form
+    menu-bar.tsx             # Top nav with language selector
+    card-component.tsx       # Benefits cards section
+    faq.tsx                  # FAQ accordion
+    language-selector.tsx    # EN/FR toggle
+    login-form.tsx           # Auth login form
+    ui/                      # Base UI primitives (Text, Input, Button, etc.)
+      icons/                 # SVG icon components
+    settings/                # Settings screen components
+  translations/
+    en.json                  # English translations
+    fr.json                  # French translations
+    ar.json                  # Arabic translations
+  lib/
+    auth/                    # Authentication utilities
+    hooks/                   # Custom React hooks
+    i18n/                    # i18next configuration
+    index.tsx                # Barrel exports (translate, useSelectedLanguage, etc.)
+  types/                     # TypeScript type definitions
+  api/                       # API layer
+amplify/
+  auth/                      # Cognito auth config
+  data/                      # AppSync schema (NewsletterSubscriber model)
+  functions/
+    signUp-newsletter/       # Lambda: create subscriber + send SES confirmation email
+    confirm-newsletter/      # Lambda: confirm subscriber via code
+  storage/                   # S3 storage config
+assets/
+  hero-background/           # Responsive hero images for multiple viewports
+  countries.json             # Country list for signup form dropdown
+specs/                       # Feature specifications
 ```
 
-## Current Feature: Safety Dashboard (Issue #27)
+## Key Features
 
-Working through `prd.json` user stories to build:
+### Newsletter Signup Flow
 
-1. Mock data layer (types + data files)
-2. Icon components
-3. Base UI components (StatusIndicator, ExpandableCard)
-4. Dashboard components (LocationHeader, WarningBanner, SafetyCategoryCard)
-5. Detail views (ContaminantsDetailView)
-6. Report form (HazardReportForm)
-7. Product recommendations
-8. Pages that assemble components
+1. User fills form on landing page (email, country, zip code)
+2. `signUpNewsletter` mutation creates `NewsletterSubscriber` record in DynamoDB
+3. AWS SES sends localized confirmation email (EN/FR) with confirmation link
+4. User clicks link → `/confirm/[code]` page calls `confirmNewsletter` mutation
+5. Subscriber marked as `confirmed: true`
 
-## Data Model: Stats-Based Architecture
+### Localization
 
-**Key Innovation:** Generic stats model instead of hardcoded safety types.
+- Three languages: English, French, Arabic
+- Language toggle in navbar (EN/FR buttons)
+- All UI text uses i18next translation keys via `translate()` or `useTranslation()`
+- Newsletter confirmation emails are localized based on user's selected language
 
-### Why Stats?
+### Landing Page Sections
 
-- Admins can add new stats without code changes
-- Bulk update stat values across thousands of zip codes at once
-- Choose which stats trigger push notifications
-- Flexible value types (number, string, percentage, status)
+- **Hero**: Responsive background image with title + CTA
+- **Newsletter Form**: Email, country dropdown, zip code → Sign Up
+- **Web Beta Link**: "Already know about health risks?" → links to app.mapyourhealth.info
+- **Benefits Cards**: 4 feature highlight cards with icons
+- **FAQ**: Expandable accordion with 6 Q&A pairs
+- **Footer**: Copyright + background image
 
-### Core Types
+## Environment & Deployment
 
-```typescript
-// What kind of stat (admin-defined template)
-type StatDefinition = {
-  id: string;
-  title: string;
-  category: 'water' | 'air' | 'health' | 'disasters';
-  valueType: 'string' | 'number' | 'percentage' | 'status';
-  triggersNotification: boolean;
-  sortOrder: number;
-};
-
-// A stat's value for a specific zip code
-type ZipCodeStat = {
-  statId: string;
-  value: string | number;
-  status: 'danger' | 'warning' | 'safe';
-  updatedAt: string;
-};
-
-// Complete zip code with all its stats
-type ZipCodeData = {
-  zipCode: string;
-  city: string;
-  state: string;
-  country: string;
-  stats: ZipCodeStat[];
-  hasActiveAlerts: boolean;
-};
-```
-
-### How It Works
-
-1. **Admin creates StatDefinition** (e.g., "Lead Level" for water category)
-2. **Admin bulk-updates ZipCodeStats** (e.g., set Lead Level to "danger" for 50 zip codes)
-3. **App fetches ZipCodeData** for user's subscribed zip codes
-4. **Stats with `triggersNotification: true`** send push alerts when status changes
-
-See `specs/mock-data.md` for full type definitions and mock data structure.
-
-## Completion Signal
-
-When ALL user stories in `prd.json` have `"passes": true`, output on its own line:
-
-```
-RALPH_COMPLETE
-```
-
-## Key Patterns
-
-### Component Template
-
-```tsx
-import { View, Text } from '@/components/ui';
-
-type Props = {
-  title: string;
-  onPress?: () => void;
-};
-
-export const MyComponent = ({ title, onPress }: Props) => (
-  <View className="flex-1 p-4">
-    <Text className="text-lg font-netflix-medium">{title}</Text>
-  </View>
-);
-```
-
-### Mock Data Pattern
-
-```tsx
-import type { MyType } from '@/data/types/safety';
-
-export const mockItems: MyType[] = [
-  /* data */
-];
-
-export const getItemById = (id: string): MyType | null => {
-  return mockItems.find((item) => item.id === id) ?? null;
-};
-```
-
-### Icon Component Pattern
-
-Follow the pattern from settings.tsx:
-
-- Accept `color` prop with default '#000'
-- Accept standard SvgProps via spread
-- Use 24x24 viewBox default
-- Use existing CaretDown for expand/collapse functionality
+- **Live URL**: https://mapyourhealth.info
+- **Web App**: https://app.mapyourhealth.info
+- **Amplify Region**: ca-central-1
+- `amplify_outputs.json` is auto-generated as a stub on `postinstall` for type-checking; real config is generated by Amplify sandbox or deployment
 
 ## Notes
 
-- `amplify_outputs.json` is a stub file for type-checking (real file generated by Amplify)
-- React Native app - no DOM APIs available
+- This is a React Native app targeting **web only** for the landing page
+- No DOM APIs available — use React Native primitives
 - Use `expo-image` for images, `expo-router` for navigation
+- The `amplify/` directory contains real backend Lambda functions, not just stubs
