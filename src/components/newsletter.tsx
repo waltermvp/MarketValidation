@@ -143,7 +143,7 @@ export const Newsletter = ({
                   className="bg-primary-550 px-6 py-3"
                 >
                   <Text className="font-netflix-bold text-lg text-white">
-                    Try Web Beta →
+                    {translate('home.tryWebBeta')}
                   </Text>
                 </Button>
               </View>
@@ -218,7 +218,7 @@ export const Newsletter = ({
         {/* Launch App Button - Always visible below inputs */}
         <View className="mt-8 items-center">
           <Text className="mb-4 text-center font-netflix-regular text-lg text-white">
-            Already know about health risks in your area?
+            {translate('home.alreadyKnow')}
           </Text>
           <Button
             onPress={() => {
@@ -233,7 +233,7 @@ export const Newsletter = ({
             </Text>
           </Button>
           <Text className="mt-2 text-center font-netflix-light text-sm text-neutral-400">
-            Mobile apps coming soon
+            {translate('home.mobileAppsComing')}
           </Text>
         </View>
       </View>
